@@ -1,0 +1,530 @@
+{
+    "person": {
+        "AtLocation": [
+            {
+                "tail": "bus_stop",
+                "weight": 1
+            }
+        ]
+    },
+    "bicycle": {
+        "AtLocation": [
+            {
+                "tail": "garage",
+                "weight": 1
+            }
+        ]
+    },
+    "car": {
+        "AtLocation": [
+            {
+                "tail": "city",
+                "weight": 1
+            }
+        ]
+    },
+    "motorcycle": {
+        "AtLocation": [
+            {
+                "tail": "garage",
+                "weight": 1
+            }
+        ]
+    },
+    "airplane": {
+        "AtLocation": [
+            {
+                "tail": "sky",
+                "weight": 1
+            }
+        ]
+    },
+    "bus": {
+        "AtLocation": [
+            {
+                "tail": "bus_stop",
+                "weight": 1
+            }
+        ]
+    },
+    "train": {
+        "AtLocation": [
+            {
+                "tail": "zoo",
+                "weight": 1
+            }
+        ]
+    },
+    "truck": {
+        "AtLocation": [
+            {
+                "tail": "garage",
+                "weight": 1
+            }
+        ]
+    },
+    "boat": {
+        "AtLocation": [
+            {
+                "tail": "water",
+                "weight": 1
+            }
+        ]
+    },
+    "traffic_light": {
+        "AtLocation": [
+            {
+                "tail": "corner_of_two_streets",
+                "weight": 1
+            }
+        ]
+    },
+    "fire_hydrant": {
+        "AtLocation": [
+            {
+                "tail": "corner_of_two_streets",
+                "weight": 1
+            }
+        ]
+    },
+    "stop_sign": {
+        "AtLocation": [
+            {
+                "tail": "corner_of_two_streets",
+                "weight": 1
+            }
+        ]
+    },
+    "bench": {
+        "AtLocation": [
+            {
+                "tail": "bus_stop",
+                "weight": 1
+            }
+        ]
+    },
+    "bird": {
+        "AtLocation": [
+            {
+                "tail": "tree",
+                "weight": 1
+            }
+        ]
+    },
+    "cat": {
+        "AtLocation": [
+            {
+                "tail": "lap",
+                "weight": 1
+            }
+        ]
+    },
+    "dog": {
+        "AtLocation": [
+            {
+                "tail": "kennel",
+                "weight": 1
+            }
+        ]
+    },
+    "horse": {
+        "AtLocation": [
+            {
+                "tail": "race_track",
+                "weight": 1
+            }
+        ]
+    },
+    "sheep": {
+        "AtLocation": [
+            {
+                "tail": "farm",
+                "weight": 1
+            }
+        ]
+    },
+    "cow": {
+        "AtLocation": [
+            {
+                "tail": "countryside",
+                "weight": 1
+            }
+        ]
+    },
+    "elephant": {
+        "AtLocation": [
+            {
+                "tail": "circus",
+                "weight": 1
+            }
+        ]
+    },
+    "bear": {
+        "AtLocation": [
+            {
+                "tail": "park",
+                "weight": 1
+            }
+        ]
+    },
+    "zebra": {
+        "AtLocation": [
+            {
+                "tail": "zoo",
+                "weight": 1
+            }
+        ]
+    },
+    "giraffe": {
+        "AtLocation": [
+            {
+                "tail": "zoo",
+                "weight": 1
+            }
+        ]
+    },
+    "umbrella": {
+        "AtLocation": [
+            {
+                "tail": "closet",
+                "weight": 1
+            }
+        ]
+    },
+    "handbag": {
+        "AtLocation": [
+            {
+                "tail": "store",
+                "weight": 1
+            }
+        ]
+    },
+    "suitcase": {
+        "AtLocation": [
+            {
+                "tail": "movie",
+                "weight": 1
+            }
+        ]
+    },
+    "frisbee": {
+        "AtLocation": [
+            {
+                "tail": "park",
+                "weight": 1
+            }
+        ]
+    },
+    "skis": {
+        "AtLocation": [
+            {
+                "tail": "garage",
+                "weight": 1
+            }
+        ]
+    },
+    "sports_ball": {
+        "AtLocation": [
+            {
+                "tail": "school",
+                "weight": 1
+            }
+        ]
+    },
+    "kite": {
+        "AtLocation": [
+            {
+                "tail": "air",
+                "weight": 1
+            }
+        ]
+    },
+    "bottle": {
+        "AtLocation": [
+            {
+                "tail": "nursery",
+                "weight": 1
+            }
+        ]
+    },
+    "wine_glass": {
+        "AtLocation": [
+            {
+                "tail": "cupboard",
+                "weight": 1
+            }
+        ]
+    },
+    "cup": {
+        "AtLocation": [
+            {
+                "tail": "table",
+                "weight": 1
+            }
+        ]
+    },
+    "fork": {
+        "AtLocation": [
+            {
+                "tail": "kitchen",
+                "weight": 1
+            }
+        ]
+    },
+    "knife": {
+        "AtLocation": [
+            {
+                "tail": "kitchen",
+                "weight": 1
+            }
+        ]
+    },
+    "spoon": {
+        "AtLocation": [
+            {
+                "tail": "bowl",
+                "weight": 1
+            }
+        ]
+    },
+    "bowl": {
+        "AtLocation": [
+            {
+                "tail": "cupboard",
+                "weight": 1
+            }
+        ]
+    },
+    "banana": {
+        "AtLocation": [
+            {
+                "tail": "monkey's_hand",
+                "weight": 1
+            }
+        ]
+    },
+    "apple": {
+        "AtLocation": [
+            {
+                "tail": "apple_tree",
+                "weight": 1
+            }
+        ]
+    },
+    "sandwich": {
+        "AtLocation": [
+            {
+                "tail": "lunchbox",
+                "weight": 1
+            }
+        ]
+    },
+    "broccoli": {
+        "AtLocation": [
+            {
+                "tail": "farmer's_market",
+                "weight": 1
+            }
+        ]
+    },
+    "hot_dog": {
+        "AtLocation": [
+            {
+                "tail": "soccer_game",
+                "weight": 1
+            }
+        ]
+    },
+    "pizza": {
+        "AtLocation": [
+            {
+                "tail": "oven",
+                "weight": 1
+            }
+        ]
+    },
+    "donut": {
+        "AtLocation": [
+            {
+                "tail": "bakery",
+                "weight": 1
+            }
+        ]
+    },
+    "cake": {
+        "AtLocation": [
+            {
+                "tail": "bakery",
+                "weight": 1
+            }
+        ]
+    },
+    "chair": {
+        "AtLocation": [
+            {
+                "tail": "office",
+                "weight": 1
+            }
+        ]
+    },
+    "couch": {
+        "AtLocation": [
+            {
+                "tail": "house",
+                "weight": 1
+            }
+        ]
+    },
+    "potted_plant": {
+        "AtLocation": [
+            {
+                "tail": "windowsill",
+                "weight": 1
+            }
+        ]
+    },
+    "bed": {
+        "AtLocation": [
+            {
+                "tail": "house",
+                "weight": 1
+            }
+        ]
+    },
+    "dining_table": {
+        "AtLocation": [
+            {
+                "tail": "house",
+                "weight": 1
+            }
+        ]
+    },
+    "toilet": {
+        "AtLocation": [
+            {
+                "tail": "bathroom",
+                "weight": 1
+            }
+        ]
+    },
+    "tv": {
+        "AtLocation": [
+            {
+                "tail": "house",
+                "weight": 1
+            }
+        ]
+    },
+    "laptop": {
+        "AtLocation": [
+            {
+                "tail": "internet_cafe",
+                "weight": 1
+            }
+        ]
+    },
+    "mouse": {
+        "AtLocation": [
+            {
+                "tail": "hole_in_wall",
+                "weight": 1
+            }
+        ]
+    },
+    "keyboard": {
+        "AtLocation": [
+            {
+                "tail": "desk",
+                "weight": 1
+            }
+        ]
+    },
+    "cell_phone": {
+        "AtLocation": [
+            {
+                "tail": "backpack",
+                "weight": 1
+            }
+        ]
+    },
+    "microwave": {
+        "AtLocation": [
+            {
+                "tail": "apartment",
+                "weight": 1
+            }
+        ]
+    },
+    "oven": {
+        "AtLocation": [
+            {
+                "tail": "home",
+                "weight": 1
+            }
+        ]
+    },
+    "sink": {
+        "AtLocation": [
+            {
+                "tail": "kitchen",
+                "weight": 1
+            }
+        ]
+    },
+    "refrigerator": {
+        "AtLocation": [
+            {
+                "tail": "garage",
+                "weight": 1
+            }
+        ]
+    },
+    "book": {
+        "AtLocation": [
+            {
+                "tail": "classroom",
+                "weight": 1
+            }
+        ]
+    },
+    "clock": {
+        "AtLocation": [
+            {
+                "tail": "desk",
+                "weight": 1
+            }
+        ]
+    },
+    "vase": {
+        "AtLocation": [
+            {
+                "tail": "table",
+                "weight": 1
+            }
+        ]
+    },
+    "scissors": {
+        "AtLocation": [
+            {
+                "tail": "desk",
+                "weight": 1
+            }
+        ]
+    },
+    "teddy_bear": {
+        "AtLocation": [
+            {
+                "tail": "toy_store",
+                "weight": 1
+            }
+        ]
+    },
+    "toothbrush": {
+        "AtLocation": [
+            {
+                "tail": "suitcase",
+                "weight": 1
+            }
+        ]
+    }
+}

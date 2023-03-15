@@ -1,0 +1,82 @@
+{
+    "components": {
+        "Brittany": [
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ]
+        ],
+        "Patricia": [
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "desk"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ]
+        ],
+        "Roger": [
+            [
+                "bowl",
+                "circus"
+            ]
+        ],
+        "Beverly": [
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ],
+            [
+                "bowl",
+                "cupboard"
+            ]
+        ]
+    },
+    "resources": {
+        "cupboard": 3,
+        "circus": 1,
+        "desk": 1
+    },
+    "last_timestep": 128,
+    "semantic_knowledge": {
+        "bowl": "cupboard"
+    },
+    "complexity": 128
+}
