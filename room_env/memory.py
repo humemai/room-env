@@ -40,7 +40,6 @@ class Memory:
         logging.debug(f"{memory_type} memory object with size {capacity} instantiated!")
 
     def __repr__(self):
-
         return pformat(vars(self), indent=4, width=1)
 
     def forget(self, mem: dict) -> None:

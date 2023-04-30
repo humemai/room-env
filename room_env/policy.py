@@ -3,6 +3,7 @@
 The trained neural network policies are not implemented yet.
 """
 import random
+from typing import List
 
 from .memory import ShortMemory
 
@@ -100,6 +101,7 @@ def answer_question(memory_systems: dict, policy: str, question: dict) -> str:
     ----
     memory_systems: {"episodic": EpisodicMemory, "semantic": SemanticMemory,
                      "short": ShortMemory}
+                     This policy does not need short-term memory
     policy: "episodic_semantic", "semantic_episodic", "episodic", "semantic",
             "random", or "neural",
     question: question = {"human": <human>, "object": <obj>}
@@ -142,3 +144,35 @@ def answer_question(memory_systems: dict, policy: str, question: dict) -> str:
         raise ValueError
 
     return pred
+
+
+def explore(
+    memory_systems: dict, policy: str, sub_graphs: List[int], previous_num: int = None
+) -> str:
+    """None RL exploration policy.
+
+    Args
+    ----
+    memory_systems: {"episodic": EpisodicMemory, "semantic": SemanticMemory,
+                     "short": ShortMemory}
+                     This policy does not need short-term memory
+    policy: "uniform_random", "one_by_one", or "neural"
+
+    Returns
+    -------
+    num: sub-graph number
+
+    """
+    if policy.lower() == "uniform_random":
+        num = random.choice(sub_graphs)
+    elif policy.lower() == "one_by_one":
+        if previous_num is None:
+            num = sub_graphs[0]
+        else:
+            num = sub_graphs[(sub_graphs.index(previous_num) + 1) % len(sub_graphs)]
+    elif policy.lower() == "neural":
+        raise NotImplementedError
+    else:
+        raise ValueError
+
+    return num

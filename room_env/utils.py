@@ -309,7 +309,6 @@ def run_des_seeds(
     how_to_forget = ["episodic", "semantic", "random", "pre_sem"]
 
     for forget_short in how_to_forget:
-
         if forget_short == "random":
             pretrain_semantic = False
             capacity_ = {
@@ -564,7 +563,6 @@ def get_handcrafted(
     for capacity in capacities:
         handcrafted_results[capacity] = {}
         for forget_short in how_to_forget:
-
             if forget_short == "random":
                 pretrain_semantic = False
                 capacity_ = {

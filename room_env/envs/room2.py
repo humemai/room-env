@@ -1,17 +1,16 @@
 """Room environment compatible with gym.
 
 This env uses the RoomDes (room_env/envs/des.py), and Memory classes.
-This is a more generalized version than RoomEnv0.
+This is a more generalized version than RoomEnv2.
 """
 import logging
 import os
 import random
 from copy import deepcopy
-from typing import Tuple
+from typing import List, Tuple
 
 import gymnasium as gym
 
-from ..des import RoomDes
 from ..memory import EpisodicMemory, SemanticMemory, ShortMemory
 from ..policy import answer_question, encode_observation, manage_memory
 from ..utils import seed_everything
@@ -23,35 +22,123 @@ logging.basicConfig(
 )
 
 
-class RoomEnv1(gym.Env):
-    """The Room environment version 1.
+class Object:
+    def __init__(
+        self,
+        name: str,
+        type: str,
+    ) -> None:
+        """Entity, e.g., human, object, room.
 
-    This env includes three state-action spaces. You have to choose which one of the
-    three will be RL trained.
+        Args
+        ----
+        name: e.g., Tae, laptop, bed
+        type: e.g., static, independent, dependent
+        """
+        self.name = name
+        self.type = type
 
-    Memory management.
-        State: episodic, semantic, and short-term memory systems at time t
-        Action: (0) Move the oldest short-term memory to the episodic,
-                (1) to the semantic, or (2) forget it
+    def __repr__(self) -> str:
+        return f"Object({self.name}, {self.type})"
 
-    Question-answer
-        State: episodic and semantic memory systems at time t
-        Action: (0) Select the episodic memory system to answer the question, or
-                (1) the semantic
+    def move(self) -> None:
+        """Move object to another room."""
+        pass
 
-    Encoding an observation to a short-term memory. The state space is
-        (i) triple-based, (ii) text-based, or (iii) image-based.
-        Triple
-            State: [(head_i, relation_i, tail_i) | i is from 1 to N]
-            Action: Choose one of the N triples (actions) to be encoded as
-                    a short-term memory.
-        Text
-            State: [token_1, token_2, …, token_N]
-            Action: This is actually now N^3, where the first, second and third are to
-                    choose head, relation, and tail, respectively.
-        Image
-            State: An image with objects
-            Action: Not sure yet …
+
+class StaticObject(Object):
+    def __init__(self, name: str, location: str) -> None:
+        super().__init__(name, "static")
+        self.location = location
+
+    def __repr__(self) -> str:
+        return f"StaticObject({self.name}, {self.location})"
+
+    def move(self) -> None:
+        """Static object cannot move."""
+        raise ValueError("Static object cannot move.")
+
+
+class IndepdentObject(Object):
+    def __init__(self, name: str, probs: dict) -> None:
+        super().__init__(name, "independent")
+        self.probs = probs
+        self.move()
+
+    def __repr__(self) -> str:
+        return f"IndependentObject({self.name}, {self.location})"
+
+    def move(self) -> None:
+        """Indendent object objects to another room."""
+        self.location = random.choices(
+            list(self.probs.keys()),
+            weights=list(self.probs.values()),
+            k=1,
+        )[0]
+
+
+class DependentObject(Object):
+    def __init__(
+        self, name: str, dependence: List[Tuple[IndepdentObject, float]]
+    ) -> None:
+        super().__init__(name, "dependent")
+        self.dependence = dependence
+        independent_object, prob = random.choice(self.dependence)
+        self.attached = independent_object
+        self.location = self.attached.location
+
+    def attach(self, independent_objects: List[str]) -> None:
+        """Attach dependent object to independent object."""
+        possible = []
+        for io in independent_objects:
+            for dep in self.dependence:
+                if dep[0].name == io:
+                    possible.append(dep)
+
+        independent_object, prob = random.choice(possible)
+
+        if random.random() < prob:
+            self.attached = independent_object
+        else:
+            self.attached = None
+
+    def move(self) -> None:
+        """Move together with independent object."""
+        if self.attached is not None:
+            self.location = self.attached.location
+
+    def __repr__(self) -> str:
+        return f"DependentObject({self.name}, {self.location}, {self.attached})"
+
+
+class Agent(Object):
+    def __init__(self, init_probs: dict) -> None:
+        super().__init__("agent", "agent")
+        self.location = random.choices(
+            list(init_probs.keys()),
+            weights=list(init_probs.values()),
+            k=1,
+        )[0]
+
+    def __repr__(self) -> str:
+        return f"Agent({self.name}, {self.location})"
+
+    def move(self, location: str) -> None:
+        """Agent can choose where to go."""
+        self.location = location
+
+
+class RoomEnv2(gym.Env):
+    """the Room environment version 2.
+
+    This environment is more formalized than the previous environments. There are three
+    policies here.
+
+    1. Question answering policy: $\pi_{qa}(a_{qa}|M_{long})$
+    2. Memory management policy: $\pi_{memory}(a_{memory} | M_{short}, M_{long})$
+    3. Exploration policy: $\pi_{explore}(a_{explore} | M_{long})$
+
+    The idea is to fix two of them and let RL learn one.
 
     """
 
@@ -59,37 +146,24 @@ class RoomEnv1(gym.Env):
 
     def __init__(
         self,
-        des_size: str = "l",
         seed: int = 42,
         policies: dict = {
-            "memory_management": "RL",
             "question_answer": "episodic_semantic",
-            "encoding": "argmax",
+            "memory_management": "RL",
+            "explore": "one_by_one",
         },
         capacity: dict = {"episodic": 16, "semantic": 16, "short": 1},
         question_prob: int = 1.0,
-        observation_params: str = "perfect",
-        allow_random_human: bool = False,
-        allow_random_question: bool = False,
-        total_episode_rewards: int = 128,
+        total_episode_rewards: int = 100,
         pretrain_semantic: bool = False,
-        check_resources: bool = True,
-        varying_rewards: bool = False,
+        room_config: dict = None,
     ) -> None:
         """
 
         Args
         ----
-        des_size: "xxs", "xs", "s", "m", or "l".
         seed: random seed number
         policies:
-            memory_management:
-                "RL": Reinforcement learning to learn the policy.
-                "episodic": Always take action 1: move to the episodic.
-                "semantic": Always take action 2: move to the semantic.
-                "forget": Always take action 3: forget the oldest short-term memory.
-                "random": Take one of the three actions uniform-randomly.
-                "neural": Neural network policy
             question_answer:
                 "RL": Reinforcement learning to learn the policy.
                 "episodic_semantic": First look up the episodic and then the semantic.
@@ -98,61 +172,96 @@ class RoomEnv1(gym.Env):
                 "semantic": Only look up the semantic.
                 "random": Take one of the two actions uniform-randomly.
                 "neural": Neural network policy
-            encoding:
+            memory_management:
                 "RL": Reinforcement learning to learn the policy.
-                "argmax": Take the triple with the highest score.
+                "episodic": Always take action 1: move to the episodic.
+                "semantic": Always take action 2: move to the semantic.
+                "forget": Always take action 3: forget the oldest short-term memory.
+                "random": Take one of the three actions uniform-randomly.
+                "neural": Neural network policy
+            explore:
+                "RL": Reinforcement learning to learn the policy.
+                "uniform_random": Choose one of the sub-graphs uniformly randomly.
+                "one_by_one": Choose one of the sub-graphs one by one.
                 "neural": Neural network policy
         capacity: memory capactiy of the agent.
             e.g., {"episodic": 1, "semantic": 1}
         question_prob: The probability of a question being asked at every observation.
-        observation_params: At the moment this is only "perfect".
-        allow_random_human: whether or not to generate a random human sequence.
-        allow_random_question: whether or not to geneate a random question sequence.
         total_episode_rewards: total episode rewards
         pretrain_semantic: whether to prepopulate the semantic memory with ConceptNet
                            or not
-        check_resources: whether to check the resources in the DES.
-        varying_rewards: If true, then the rewards are scaled in every episode so that
-             total_episode_rewards is total_episode_rewards.
+        room_config: room configuration
 
         """
         self.seed = seed
         seed_everything(self.seed)
         self.policies = policies
-        assert len([pol for pol in self.policies.values() if pol.lower() == "rl"]) == 1
+        assert (
+            len([pol for pol in self.policies.values() if pol.lower() == "rl"]) == 1
+        ), "Only one policy can be RL."
         self.capacity = capacity
         self.question_prob = question_prob
-
-        self.observation_params = observation_params
-
-        self.allow_random_human = allow_random_human
-        self.allow_random_question = allow_random_question
+        assert 0 < self.question_prob <= 1, "Question probability must be in (0, 1]."
         self.total_episode_rewards = total_episode_rewards
         self.pretrain_semantic = pretrain_semantic
-        self.check_resources = check_resources
-        self.varying_rewards = varying_rewards
+        self.room_config = room_config
+
+        self._populate_rooms()
 
         # Our state space is quite complex. Here we just make a dummy observation space.
         # to bypass the sanity check.
         self.observation_space = gym.spaces.Discrete(1)
 
-        if self.policies["memory_management"].lower() == "rl":
-            # 0 for episodic, 1 for semantic, and 2 to forget
-            self.action_space = gym.spaces.Discrete(3)
         if self.policies["question_answer"].lower() == "rl":
             # 0 for episodic and 1 for semantic
             self.action_space = gym.spaces.Discrete(2)
-        if self.policies["encoding"].lower() == "rl":
+        if self.policies["memory_management"].lower() == "rl":
+            # 0 for episodic, 1 for semantic, and 2 to forget
+            self.action_space = gym.spaces.Discrete(3)
+        if self.policies["explore"].lower() == "rl":
             raise NotImplementedError
 
-        self.des_size = des_size
-        self.des = RoomDes(
-            des_size=self.des_size,
-            check_resources=self.check_resources,
-        )
-        assert 0 < self.question_prob <= 1
+    def _populate_rooms(self) -> None:
+        """Populate the rooms with objects."""
+        # static objects
+        bed = StaticObject("bed", "bedroom")
+        desk = StaticObject("desk", "officeroom")
+        table = StaticObject("table", "livingroom")
 
-        self.init_memory_systems()
+        # independent objects
+        tae = IndepdentObject("tae", {"officeroom": 0.5, "livingroom": 0.5})
+        michael = IndepdentObject("michael", {"bedroom": 0.5, "livingroom": 0.5})
+        vincent = IndepdentObject("vincent", {"bedroom": 0.5, "officeroom": 0.5})
+
+        # dependent objects
+        laptop = DependentObject("laptop", [(tae, 0.7), (michael, 0.1), (vincent, 0.3)])
+        phone = DependentObject("phone", [(tae, 0.3), (michael, 0.1), (vincent, 0.7)])
+        headset = DependentObject(
+            "headset", [(tae, 0.5), (michael, 0.5), (vincent, 0.5)]
+        )
+        keyboard = DependentObject(
+            "keyboard", [(tae, 0.9), (michael, 0.7), (vincent, 0.5)]
+        )
+
+        # agent
+        self.agent = Agent({"bedroom": 0.333, "officeroom": 0.333, "livingroom": 0.333})
+
+        self.rooms = ["bedroom", "officeroom", "livingroom"]
+        self.rooms = {room: [] for room in self.rooms}
+        self.static_objects = [bed, desk, table]
+        self.independent_objects = [tae, michael, vincent]
+        self.dependent_objects = [laptop, phone, headset, keyboard]
+
+        for obj in self.static_objects:
+            self.rooms[obj.location].append(obj)
+
+        for obj in self.independent_objects:
+            self.rooms[obj.location].append(obj)
+
+        for obj in self.dependent_objects:
+            self.rooms[obj.location].append(obj)
+
+        self.rooms[self.agent.location].append(self.agent)
 
     def init_memory_systems(self) -> None:
         """Initialize the agent's memory systems."""

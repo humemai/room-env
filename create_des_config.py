@@ -180,7 +180,6 @@ def main(
     random.shuffle(total_humans)
 
     for human in total_humans:
-
         config["components"][human] = get_objects_and_locations(
             total_objects,
             maximum_num_objects_per_human,
