@@ -33,7 +33,6 @@ class Object:
         Args
         ----
         name: e.g., Tae, laptop, bed
-        type: e.g., static, independent, dependent
         """
         self.name = name
         self.type = type
@@ -41,7 +40,7 @@ class Object:
     def __repr__(self) -> str:
         return f"Object({self.name}, {self.type})"
 
-    def move(self) -> None:
+    def step(self) -> None:
         """Move object to another room."""
         pass
 
@@ -54,21 +53,21 @@ class StaticObject(Object):
     def __repr__(self) -> str:
         return f"StaticObject({self.name}, {self.location})"
 
-    def move(self) -> None:
-        """Static object cannot move."""
-        raise ValueError("Static object cannot move.")
+    def step(self) -> None:
+        """Static object does not move."""
+        pass
 
 
 class IndepdentObject(Object):
     def __init__(self, name: str, probs: dict) -> None:
         super().__init__(name, "independent")
         self.probs = probs
-        self.move()
+        self.step()
 
     def __repr__(self) -> str:
         return f"IndependentObject({self.name}, {self.location})"
 
-    def move(self) -> None:
+    def step(self) -> None:
         """Indendent object objects to another room."""
         self.location = random.choices(
             list(self.probs.keys()),
@@ -83,29 +82,37 @@ class DependentObject(Object):
     ) -> None:
         super().__init__(name, "dependent")
         self.dependence = dependence
-        independent_object, prob = random.choice(self.dependence)
-        self.attached = independent_object
+        self.independent_objects = [io for io, prob in self.dependence]
+
+        while True:
+            possible_attachments = []
+            for io, prob in self.dependence:
+                if random.random() < prob:
+                    possible_attachments.append(io)
+            if len(possible_attachments) > 0:
+                break
+
+        io = random.choice(possible_attachments)
+        self.attached = io
         self.location = self.attached.location
 
-    def attach(self, independent_objects: List[str]) -> None:
-        """Attach dependent object to independent object."""
-        possible = []
-        for io in independent_objects:
-            for dep in self.dependence:
-                if dep[0].name == io:
-                    possible.append(dep)
+    def step(self) -> None:
+        """Move together with independent object."""
+        possible_attachments = []
+        for io in self.independent_objects:
+            if io.location == self.location:
+                for io_, prob in self.dependence:
+                    if io == io_:
+                        if random.random() < prob:
+                            possible_attachments.append(io)
 
-        independent_object, prob = random.choice(possible)
+        if len(possible_attachments) > 0:
+            io = random.choice(possible_attachments)
+            self.attached = io
+            self.location = self.attached.location
 
-        if random.random() < prob:
-            self.attached = independent_object
         else:
             self.attached = None
-
-    def move(self) -> None:
-        """Move together with independent object."""
-        if self.attached is not None:
-            self.location = self.attached.location
 
     def __repr__(self) -> str:
         return f"DependentObject({self.name}, {self.location}, {self.attached})"
@@ -123,7 +130,7 @@ class Agent(Object):
     def __repr__(self) -> str:
         return f"Agent({self.name}, {self.location})"
 
-    def move(self, location: str) -> None:
+    def step(self, location: str) -> None:
         """Agent can choose where to go."""
         self.location = location
 
