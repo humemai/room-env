@@ -40,7 +40,7 @@ class Object:
     def __repr__(self) -> str:
         return f"Object({self.name}, {self.type})"
 
-    def step(self) -> None:
+    def move(self) -> None:
         """Move object to another room."""
         pass
 
@@ -53,21 +53,17 @@ class StaticObject(Object):
     def __repr__(self) -> str:
         return f"StaticObject({self.name}, {self.location})"
 
-    def step(self) -> None:
-        """Static object does not move."""
-        pass
-
 
 class IndepdentObject(Object):
     def __init__(self, name: str, probs: dict) -> None:
         super().__init__(name, "independent")
         self.probs = probs
-        self.step()
+        self.move()
 
     def __repr__(self) -> str:
         return f"IndependentObject({self.name}, {self.location})"
 
-    def step(self) -> None:
+    def move(self) -> None:
         """Indendent object objects to another room."""
         self.location = random.choices(
             list(self.probs.keys()),
@@ -93,11 +89,11 @@ class DependentObject(Object):
                 break
 
         io = random.choice(possible_attachments)
-        self.attached = io
-        self.location = self.attached.location
+        self.attached = None
+        self.location = io.location
 
-    def step(self) -> None:
-        """Move together with independent object."""
+    def attach(self) -> None:
+        """Attach to an independent object."""
         possible_attachments = []
         for io in self.independent_objects:
             if io.location == self.location:
@@ -109,10 +105,11 @@ class DependentObject(Object):
         if len(possible_attachments) > 0:
             io = random.choice(possible_attachments)
             self.attached = io
-            self.location = self.attached.location
 
-        else:
-            self.attached = None
+    def move(self) -> None:
+        """Move together with independent object."""
+        if self.attached is not None:
+            self.location = self.attached.location
 
     def __repr__(self) -> str:
         return f"DependentObject({self.name}, {self.location}, {self.attached})"
@@ -130,7 +127,7 @@ class Agent(Object):
     def __repr__(self) -> str:
         return f"Agent({self.name}, {self.location})"
 
-    def step(self, location: str) -> None:
+    def move(self, location: str) -> None:
         """Agent can choose where to go."""
         self.location = location
 
@@ -155,7 +152,7 @@ class RoomEnv2(gym.Env):
         self,
         seed: int = 42,
         policies: dict = {
-            "question_answer": "episodic_semantic",
+            "question_answer": "graph_reasoning",
             "memory_management": "RL",
             "explore": "one_by_one",
         },
@@ -172,13 +169,8 @@ class RoomEnv2(gym.Env):
         seed: random seed number
         policies:
             question_answer:
-                "RL": Reinforcement learning to learn the policy.
-                "episodic_semantic": First look up the episodic and then the semantic.
-                "semantic_episodic": First look up the semantic and then the episodic.
-                "episodic": Only look up the episodic.
-                "semantic": Only look up the semantic.
-                "random": Take one of the two actions uniform-randomly.
-                "neural": Neural network policy
+                "graph_reasoning": symbolic reasoning over graphs
+                "RL": not sure if it's possible, tbh. Ask Michael / Vincent.
             memory_management:
                 "RL": Reinforcement learning to learn the policy.
                 "episodic": Always take action 1: move to the episodic.
@@ -220,8 +212,7 @@ class RoomEnv2(gym.Env):
         self.observation_space = gym.spaces.Discrete(1)
 
         if self.policies["question_answer"].lower() == "rl":
-            # 0 for episodic and 1 for semantic
-            self.action_space = gym.spaces.Discrete(2)
+            raise NotImplementedError
         if self.policies["memory_management"].lower() == "rl":
             # 0 for episodic, 1 for semantic, and 2 to forget
             self.action_space = gym.spaces.Discrete(3)
@@ -230,45 +221,29 @@ class RoomEnv2(gym.Env):
 
     def _populate_rooms(self) -> None:
         """Populate the rooms with objects."""
-        # static objects
-        bed = StaticObject("bed", "bedroom")
-        desk = StaticObject("desk", "officeroom")
-        table = StaticObject("table", "livingroom")
+        self.objs = []
+        for obj in self.room_config["static_objects"]:
+            self.objs.append(StaticObject(obj[0], obj[1]))
 
-        # independent objects
-        tae = IndepdentObject("tae", {"officeroom": 0.5, "livingroom": 0.5})
-        michael = IndepdentObject("michael", {"bedroom": 0.5, "livingroom": 0.5})
-        vincent = IndepdentObject("vincent", {"bedroom": 0.5, "officeroom": 0.5})
+        for obj in self.room_config["independent_objects"]:
+            self.objs.append(IndepdentObject(obj[0], obj[1]))
 
-        # dependent objects
-        laptop = DependentObject("laptop", [(tae, 0.7), (michael, 0.1), (vincent, 0.3)])
-        phone = DependentObject("phone", [(tae, 0.3), (michael, 0.1), (vincent, 0.7)])
-        headset = DependentObject(
-            "headset", [(tae, 0.5), (michael, 0.5), (vincent, 0.5)]
-        )
-        keyboard = DependentObject(
-            "keyboard", [(tae, 0.9), (michael, 0.7), (vincent, 0.5)]
-        )
+        for obj in self.room_config["dependent_objects"]:
+            ios = []
+            for io, prob in obj[1]:
+                for obj_ in self.objs:
+                    if io == obj_.name:
+                        ios.append((obj_, prob))
 
-        # agent
-        self.agent = Agent({"bedroom": 0.333, "officeroom": 0.333, "livingroom": 0.333})
+            self.objs.append(DependentObject(obj[0], ios))
 
-        self.rooms = ["bedroom", "officeroom", "livingroom"]
+        self.objs.append(Agent(self.room_config["agent"]))
+
+        self.rooms = list(set([obj.location for obj in self.objs]))
         self.rooms = {room: [] for room in self.rooms}
-        self.static_objects = [bed, desk, table]
-        self.independent_objects = [tae, michael, vincent]
-        self.dependent_objects = [laptop, phone, headset, keyboard]
 
-        for obj in self.static_objects:
+        for obj in self.objs:
             self.rooms[obj.location].append(obj)
-
-        for obj in self.independent_objects:
-            self.rooms[obj.location].append(obj)
-
-        for obj in self.dependent_objects:
-            self.rooms[obj.location].append(obj)
-
-        self.rooms[self.agent.location].append(self.agent)
 
     def init_memory_systems(self) -> None:
         """Initialize the agent's memory systems."""
