@@ -1,6 +1,6 @@
 # The Room environment - v0
 
-[There is a newer version, v1](../README.md)
+[![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. The best strategy for this environment is to have both episodic and semantic
@@ -84,9 +84,8 @@ Currently there is no RL trained for this. We only have some heuristics. Take a 
 
 ```python
 import gymnasium as gym
-import room_env
 
-env = gym.make("RoomEnv-v0")
+env = gym.make("room_env:RoomEnv-v0")
 (observation, question), info = env.reset()
 rewards = 0
 

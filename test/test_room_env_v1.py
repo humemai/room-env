@@ -67,7 +67,7 @@ class RoomEnv1Test(unittest.TestCase):
 
     def test_wrong_init2(self) -> None:
         with self.assertRaises(NotImplementedError):
-            env = gym.make("RoomEnv-v1", observation_params="foo")
+            env = gym.make("room_env:RoomEnv-v1", observation_params="foo")
             state, info = env.reset()
             del env
 
