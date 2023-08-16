@@ -1,6 +1,6 @@
 """Room environment compatible with gym.
 
-This env uses the RoomDes (room_env/envs/des.py), and Memory classes.
+This env uses the RoomDes (room_env/envs/des.py)
 This is a more generalized version than RoomEnv0.
 """
 import logging

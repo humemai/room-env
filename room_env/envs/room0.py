@@ -1,5 +1,4 @@
 """Room environment compatible with gym.
-I advise you to check out room1.py, as it's more general.
 """
 import json
 import logging

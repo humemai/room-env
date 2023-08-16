@@ -12,8 +12,6 @@ import numpy as np
 import torch
 import yaml
 
-import room_env
-
 from .des import RoomDes
 
 logging.basicConfig(
@@ -335,7 +333,7 @@ def run_des_seeds(
         results_ = []
         for seed in seeds:
             env = gym.make(
-                "RoomEnv-v1",
+                "room_env:RoomEnv-v1",
                 des_size=des_size,
                 seed=seed,
                 policies={
@@ -514,7 +512,7 @@ def fill_des_resources(des_size: str) -> None:
 
 
 def get_handcrafted(
-    env: str = "RoomEnv-v1",
+    env: str = "room_env:RoomEnv-v1",
     des_size: str = "l",
     seeds: list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     question_prob: float = 0.1,
