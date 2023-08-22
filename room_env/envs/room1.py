@@ -235,7 +235,6 @@ class RoomEnv1(gym.Env):
         """
         info = {}
         truncated = False
-
         if (self.question is None) and (self.answer is None):
             reward = 0
         else:
