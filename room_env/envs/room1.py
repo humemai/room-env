@@ -206,6 +206,8 @@ class RoomEnv1(gym.Env):
     def reset(self) -> Tuple[dict, dict]:
         """Reset the environment.
 
+        This method somehow can't take arguments. I think it's a bug.
+
 
         Returns
         -------
