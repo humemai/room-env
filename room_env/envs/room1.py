@@ -1,7 +1,7 @@
 """Room environment compatible with gym.
 
 This env uses the RoomDes (room_env/envs/des.py)
-This is a more generalized version than RoomEnv0.
+This is a more generalized version than RoomEnv-v0.
 """
 import logging
 import os
@@ -67,8 +67,8 @@ class RoomEnv1(gym.Env):
         self.total_episode_rewards = total_episode_rewards
         self.check_resources = check_resources
 
-        # Our state space is quite complex. Here we just make a dummy observation space.
-        # to bypass the sanity check.
+        # Our state / actionspace is quite complex. Here we just make a dummy spaces
+        # to bypass the gymnasium sanity check.
         self.observation_space = gym.spaces.Discrete(1)
         self.action_space = gym.spaces.Discrete(1)
 

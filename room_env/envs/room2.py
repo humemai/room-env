@@ -1,585 +1,409 @@
-# """Room environment compatible with gym.
-
-# This env uses the RoomDes (room_env/envs/des.py), and Memory classes.
-# This is a more generalized version than RoomEnv2.
-# """
-# import logging
-# import os
-# import random
-# from copy import deepcopy
-# from typing import List, Tuple
-
-# import gymnasium as gym
-
-# from ..memory import EpisodicMemory, SemanticMemory, ShortMemory
-# from ..policy import answer_question, encode_observation, manage_memory
-# from ..utils import seed_everything
-
-# logging.basicConfig(
-#     level=os.environ.get("LOGLEVEL", "INFO").upper(),
-#     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-#     datefmt="%Y-%m-%d %H:%M:%S",
-# )
-
-
-# class Object:
-#     def __init__(
-#         self,
-#         name: str,
-#         type: str,
-#     ) -> None:
-#         """Entity, e.g., human, object, room.
-
-#         Args
-#         ----
-#         name: e.g., Tae, laptop, bed
-#         """
-#         self.name = name
-#         self.type = type
-
-#     def __repr__(self) -> str:
-#         return f"Object({self.name}, {self.type})"
-
-#     def move(self) -> None:
-#         """Move object to another room."""
-#         pass
-
-
-# class StaticObject(Object):
-#     def __init__(self, name: str, location: str) -> None:
-#         super().__init__(name, "static")
-#         self.location = location
-
-#     def __repr__(self) -> str:
-#         return f"StaticObject({self.name}, {self.location})"
-
-
-# class IndepdentObject(Object):
-#     def __init__(self, name: str, probs: dict) -> None:
-#         super().__init__(name, "independent")
-#         self.probs = probs
-#         self.move()
-
-#     def __repr__(self) -> str:
-#         return f"IndependentObject({self.name}, {self.location})"
-
-#     def move(self) -> None:
-#         """Indendent object objects to another room."""
-#         self.location = random.choices(
-#             list(self.probs.keys()),
-#             weights=list(self.probs.values()),
-#             k=1,
-#         )[0]
-
-
-# class DependentObject(Object):
-#     def __init__(
-#         self, name: str, dependence: List[Tuple[IndepdentObject, float]]
-#     ) -> None:
-#         super().__init__(name, "dependent")
-#         self.dependence = dependence
-#         self.independent_objects = [io for io, prob in self.dependence]
-
-#         while True:
-#             possible_attachments = []
-#             for io, prob in self.dependence:
-#                 if random.random() < prob:
-#                     possible_attachments.append(io)
-#             if len(possible_attachments) > 0:
-#                 break
-
-#         io = random.choice(possible_attachments)
-#         self.attached = None
-#         self.location = io.location
-
-#     def attach(self) -> None:
-#         """Attach to an independent object."""
-#         possible_attachments = []
-#         for io in self.independent_objects:
-#             if io.location == self.location:
-#                 for io_, prob in self.dependence:
-#                     if io == io_:
-#                         if random.random() < prob:
-#                             possible_attachments.append(io)
-
-#         if len(possible_attachments) > 0:
-#             io = random.choice(possible_attachments)
-#             self.attached = io
-
-#     def move(self) -> None:
-#         """Move together with independent object."""
-#         if self.attached is not None:
-#             self.location = self.attached.location
-
-#     def __repr__(self) -> str:
-#         return f"DependentObject({self.name}, {self.location}, {self.attached})"
-
-
-# class Agent(Object):
-#     def __init__(self, init_probs: dict) -> None:
-#         super().__init__("agent", "agent")
-#         self.location = random.choices(
-#             list(init_probs.keys()),
-#             weights=list(init_probs.values()),
-#             k=1,
-#         )[0]
-
-#     def __repr__(self) -> str:
-#         return f"Agent({self.name}, {self.location})"
-
-#     def move(self, location: str) -> None:
-#         """Agent can choose where to go."""
-#         self.location = location
-
-
-# class RoomEnv2(gym.Env):
-#     """the Room environment version 2.
-
-#     This environment is more formalized than the previous environments. There are three
-#     policies here.
-
-#     1. Question answering policy: $\pi_{qa}(a_{qa}|M_{long})$
-#     2. Memory management policy: $\pi_{memory}(a_{memory} | M_{short}, M_{long})$
-#     3. Exploration policy: $\pi_{explore}(a_{explore} | M_{long})$
-
-#     The idea is to fix two of them and let RL learn one.
-
-#     """
-
-#     metadata = {"render.modes": ["console"]}
-
-#     def __init__(
-#         self,
-#         seed: int = 42,
-#         policies: dict = {
-#             "question_answer": "graph_reasoning",
-#             "memory_management": "RL",
-#             "explore": "one_by_one",
-#         },
-#         capacity: dict = {"episodic": 16, "semantic": 16, "short": 1},
-#         question_prob: int = 1.0,
-#         total_episode_rewards: int = 100,
-#         pretrain_semantic: bool = False,
-#         room_config: dict = None,
-#     ) -> None:
-#         """
-
-#         Args
-#         ----
-#         seed: random seed number
-#         policies:
-#             question_answer:
-#                 "graph_reasoning": symbolic reasoning over graphs
-#                 "RL": not sure if it's possible, tbh. Ask Michael / Vincent.
-#             memory_management:
-#                 "RL": Reinforcement learning to learn the policy.
-#                 "episodic": Always take action 1: move to the episodic.
-#                 "semantic": Always take action 2: move to the semantic.
-#                 "forget": Always take action 3: forget the oldest short-term memory.
-#                 "random": Take one of the three actions uniform-randomly.
-#                 "neural": Neural network policy
-#             explore:
-#                 "RL": Reinforcement learning to learn the policy.
-#                 "uniform_random": Choose one of the sub-graphs uniformly randomly.
-#                 "one_by_one": Choose one of the sub-graphs one by one.
-#                 "neural": Neural network policy
-#         capacity: memory capactiy of the agent.
-#             e.g., {"episodic": 1, "semantic": 1}
-#         question_prob: The probability of a question being asked at every observation.
-#         total_episode_rewards: total episode rewards
-#         pretrain_semantic: whether to prepopulate the semantic memory with ConceptNet
-#                            or not
-#         room_config: room configuration
-
-#         """
-#         self.seed = seed
-#         seed_everything(self.seed)
-#         self.policies = policies
-#         assert (
-#             len([pol for pol in self.policies.values() if pol.lower() == "rl"]) == 1
-#         ), "Only one policy can be RL."
-#         self.capacity = capacity
-#         self.question_prob = question_prob
-#         assert 0 < self.question_prob <= 1, "Question probability must be in (0, 1]."
-#         self.total_episode_rewards = total_episode_rewards
-#         self.pretrain_semantic = pretrain_semantic
-#         self.room_config = room_config
-
-#         self._populate_rooms()
-
-#         # Our state space is quite complex. Here we just make a dummy observation space.
-#         # to bypass the sanity check.
-#         self.observation_space = gym.spaces.Discrete(1)
-
-#         if self.policies["question_answer"].lower() == "rl":
-#             raise NotImplementedError
-#         if self.policies["memory_management"].lower() == "rl":
-#             # 0 for episodic, 1 for semantic, and 2 to forget
-#             self.action_space = gym.spaces.Discrete(3)
-#         if self.policies["explore"].lower() == "rl":
-#             raise NotImplementedError
-
-#     def _populate_rooms(self) -> None:
-#         """Populate the rooms with objects."""
-#         self.objs = []
-#         for obj in self.room_config["static_objects"]:
-#             self.objs.append(StaticObject(obj[0], obj[1]))
-
-#         for obj in self.room_config["independent_objects"]:
-#             self.objs.append(IndepdentObject(obj[0], obj[1]))
-
-#         for obj in self.room_config["dependent_objects"]:
-#             ios = []
-#             for io, prob in obj[1]:
-#                 for obj_ in self.objs:
-#                     if io == obj_.name:
-#                         ios.append((obj_, prob))
-
-#             self.objs.append(DependentObject(obj[0], ios))
-
-#         self.objs.append(Agent(self.room_config["agent"]))
-
-#         self.rooms = list(set([obj.location for obj in self.objs]))
-#         self.rooms = {room: [] for room in self.rooms}
-
-#         for obj in self.objs:
-#             self.rooms[obj.location].append(obj)
-
-#     def init_memory_systems(self) -> None:
-#         """Initialize the agent's memory systems."""
-#         self.memory_systems = {
-#             "episodic": EpisodicMemory(capacity=self.capacity["episodic"]),
-#             "semantic": SemanticMemory(capacity=self.capacity["semantic"]),
-#             "short": ShortMemory(capacity=self.capacity["short"]),
-#         }
-
-#         if self.pretrain_semantic:
-#             assert self.capacity["semantic"] > 0
-#             _ = self.memory_systems["semantic"].pretrain_semantic(
-#                 self.des.semantic_knowledge,
-#                 return_remaining_space=False,
-#                 freeze=False,
-#             )
-
-#     def generate_sequences(self) -> None:
-#         """Generate human and question sequences in advance."""
-#         if self.observation_params.lower() == "perfect":
-#             if self.allow_random_human:
-#                 self.human_sequence = random.choices(
-#                     list(self.des.humans), k=self.des.until + 1
-#                 )
-#             else:
-#                 self.human_sequence = (
-#                     self.des.humans * (self.des.until // len(self.des.humans) + 1)
-#                 )[: self.des.until + 1]
-#         else:
-#             raise NotImplementedError
-
-#         if self.allow_random_question:
-#             self.question_sequence = [
-#                 random.choice(self.human_sequence[: i + 1])
-#                 for i in range(len(self.human_sequence))
-#             ]
-#         else:
-#             self.question_sequence = [self.human_sequence[0]]
-#             self.des.run()
-#             assert (
-#                 len(self.des.states)
-#                 == len(self.des.events) + 1
-#                 == len(self.human_sequence)
-#             )
-#             for i in range(len(self.human_sequence) - 1):
-#                 start = max(i + 2 - len(self.des.humans), 0)
-#                 end = i + 2
-#                 humans_observed = self.human_sequence[start:end]
-
-#                 current_state = self.des.states[end - 1]
-#                 humans_not_changed = []
-#                 for j, human in enumerate(humans_observed):
-#                     observed_state = self.des.states[start + j]
-
-#                     is_changed = False
-#                     for to_check in ["object", "object_location"]:
-#                         if (
-#                             current_state[human][to_check]
-#                             != observed_state[human][to_check]
-#                         ):
-#                             is_changed = True
-#                     if not is_changed:
-#                         humans_not_changed.append(human)
-
-#                 self.question_sequence.append(random.choice(humans_not_changed))
-
-#             self.des._initialize()
-
-#         effective_question_sequence = []
-#         for i, question in enumerate(self.question_sequence[:-1]):
-#             if random.random() < self.question_prob:
-#                 effective_question_sequence.append(question)
-#             else:
-#                 effective_question_sequence.append(None)
-#         # The last observation shouldn't have a question
-#         effective_question_sequence.append(None)
-#         self.question_sequence = effective_question_sequence
-
-#         assert len(self.human_sequence) == len(self.question_sequence)
-
-#         self.num_questions = sum(
-#             [True for question in self.question_sequence if question is not None]
-#         )
-#         if self.varying_rewards:
-#             self.CORRECT = self.total_episode_rewards / self.num_questions
-#             self.WRONG = -self.CORRECT
-#         else:
-#             self.CORRECT = 1
-#             self.WRONG = -1
-
-#     @staticmethod
-#     def extract_memory_entries(memory_systems: dict) -> dict:
-#         """Extract the entries from the Memory objects.
-#         Ars
-#         ---
-#         memory_systems: {"episodic": EpisodicMemory, "semantic": SemanticMemory,
-#                         "short": ShortMemory}
-
-#         Returns
-#         -------
-#         memory_systems_: memory_systems only with entries.
-#         """
-#         memory_systems_ = {}
-#         for key, value in memory_systems.items():
-#             memory_systems_[key] = deepcopy(value.entries)
-
-#         return memory_systems_
-
-#     def generate_oqa(
-#         self, increment_des: bool = False
-#     ) -> Tuple[dict, dict, dict, bool]:
-#         """Generate an observation, question, and answer.
-
-#         Args
-#         ----
-#         increment_des: whether or not to take a step in the DES.
-
-#         Returns
-#         -------
-#         observation = {
-#             "human": <human>,
-#             "object": <obj>,
-#             "object_location": <obj_loc>,
-#         }
-#         question = {"human": <human>, "object": <obj>}
-#         answer = <obj_loc>
-#         is_last: True, if its the last observation in the queue, othewise False
-
-#         """
-#         human_o = self.human_sequence.pop(0)
-#         human_q = self.question_sequence.pop(0)
-
-#         is_last_o = len(self.human_sequence) == 0
-#         is_last_q = len(self.question_sequence) == 0
-
-#         assert is_last_o == is_last_q
-#         is_last = is_last_o
-
-#         if increment_des:
-#             self.des.step()
-
-#         obj_o = self.des.state[human_o]["object"]
-#         obj_loc_o = self.des.state[human_o]["object_location"]
-#         observation = deepcopy(
-#             {
-#                 "human": human_o,
-#                 "object": obj_o,
-#                 "object_location": obj_loc_o,
-#                 "current_time": self.des.current_time,
-#             }
-#         )
-
-#         if human_q is not None:
-#             obj_q = self.des.state[human_q]["object"]
-#             obj_loc_q = self.des.state[human_q]["object_location"]
-
-#             question = deepcopy({"human": human_q, "object": obj_q})
-#             answer = deepcopy(obj_loc_q)
-
-#         else:
-#             question = None
-#             answer = None
-
-#         return observation, question, answer, is_last
-
-#     def reset(self) -> dict:
-#         """Reset the environment.
-
-
-#         Returns
-#         -------
-#         state
-
-#         """
-#         self.des._initialize()
-#         self.generate_sequences()
-#         self.init_memory_systems()
-#         info = {}
-#         self.obs, self.question, self.answer, self.is_last = self.generate_oqa(
-#             increment_des=False
-#         )
-
-#         if self.policies["encoding"].lower() == "rl":
-#             return deepcopy(self.obs), info
-
-#         if self.policies["memory_management"].lower() == "rl":
-#             encode_observation(self.memory_systems, self.policies["encoding"], self.obs)
-#             return deepcopy(self.extract_memory_entries(self.memory_systems)), info
-
-#         if self.policies["question_answer"].lower() == "rl":
-#             encode_observation(self.memory_systems, self.policies["encoding"], self.obs)
-#             manage_memory(self.memory_systems, self.policies["memory_management"])
-#             while True:
-#                 if (self.question is None) and (self.answer is None):
-#                     (
-#                         self.obs,
-#                         self.question,
-#                         self.answer,
-#                         self.is_last,
-#                     ) = self.generate_oqa(increment_des=True)
-#                     encode_observation(
-#                         self.memory_systems, self.policies["encoding"], self.obs
-#                     )
-#                     manage_memory(
-#                         self.memory_systems, self.policies["memory_management"]
-#                     )
-#                 else:
-#                     return {
-#                         "memory_systems": deepcopy(
-#                             self.extract_memory_entries(self.memory_systems)
-#                         ),
-#                         "question": deepcopy(self.question),
-#                     }, info
-
-#         raise ValueError
-
-#     def step(self, action: int) -> Tuple[Tuple, int, bool, bool, dict]:
-#         """An agent takes an action.
-
-#         Args
-#         ----
-#         action: This depends on the state
-
-#         Returns
-#         -------
-#         state, reward, done, truncated, info
-
-#         """
-#         info = {}
-#         truncated = False
-#         if self.policies["encoding"].lower() == "rl":
-#             # This is a dummy code
-#             self.obs = self.obs[action]
-#             encode_observation(self.memory_systems, self.policies["encoding"], self.obs)
-#             manage_memory(self.memory_systems, self.policies["memory_management"])
-
-#             if (self.question is None) and (self.answer is None):
-#                 reward = 0
-#             else:
-#                 pred = answer_question(
-#                     self.memory_systems, self.policies["question_answer"], self.question
-#                 )
-#                 if str(pred).lower() == self.answer:
-#                     reward = self.CORRECT
-#                 else:
-#                     reward = self.WRONG
-#             self.obs, self.question, self.answer, self.is_last = self.generate_oqa(
-#                 increment_des=True
-#             )
-#             state = deepcopy(self.obs)
-
-#             if self.is_last:
-#                 done = True
-#             else:
-#                 done = False
-
-#             return state, reward, done, truncated, info
-
-#         if self.policies["memory_management"].lower() == "rl":
-#             if action == 0:
-#                 manage_memory(self.memory_systems, "episodic")
-#             elif action == 1:
-#                 manage_memory(self.memory_systems, "semantic")
-#             elif action == 2:
-#                 manage_memory(self.memory_systems, "forget")
-#             else:
-#                 raise ValueError
-
-#             if (self.question is None) and (self.answer is None):
-#                 reward = 0
-#             else:
-#                 pred = answer_question(
-#                     self.memory_systems, self.policies["question_answer"], self.question
-#                 )
-#                 if str(pred).lower() == self.answer:
-#                     reward = self.CORRECT
-#                 else:
-#                     reward = self.WRONG
-
-#             self.obs, self.question, self.answer, self.is_last = self.generate_oqa(
-#                 increment_des=True
-#             )
-#             encode_observation(self.memory_systems, self.policies["encoding"], self.obs)
-#             state = deepcopy(self.extract_memory_entries(self.memory_systems))
-
-#             if self.is_last:
-#                 done = True
-#             else:
-#                 done = False
-
-#             return state, reward, done, truncated, info
-
-#         if self.policies["question_answer"].lower() == "rl":
-#             if action == 0:
-#                 pred = answer_question(self.memory_systems, "episodic", self.question)
-#             elif action == 1:
-#                 pred = answer_question(self.memory_systems, "semantic", self.question)
-#             else:
-#                 raise ValueError
-
-#             if str(pred).lower() == self.answer:
-#                 reward = self.CORRECT
-#             else:
-#                 reward = self.WRONG
-
-#             while True:
-#                 (
-#                     self.obs,
-#                     self.question,
-#                     self.answer,
-#                     self.is_last,
-#                 ) = self.generate_oqa(increment_des=True)
-#                 encode_observation(
-#                     self.memory_systems, self.policies["encoding"], self.obs
-#                 )
-#                 manage_memory(self.memory_systems, self.policies["memory_management"])
-
-#                 if self.is_last:
-#                     state = None
-#                     done = True
-#                     return state, reward, done, truncated, info
-#                 else:
-#                     done = False
-
-#                 if (self.question is not None) and (self.answer is not None):
-#                     state = {
-#                         "memory_systems": deepcopy(
-#                             self.extract_memory_entries(self.memory_systems)
-#                         ),
-#                         "question": deepcopy(self.question),
-#                     }
-
-#                     return state, reward, done, truncated, info
-
-#     def render(self, mode="console") -> None:
-#         if mode != "console":
-#             raise NotImplementedError()
-#         else:
-#             pass
+"""Room environment compatible with gym."""
+import logging
+import os
+import random
+from copy import deepcopy
+from typing import List, Tuple, Dict
+
+import gymnasium as gym
+
+from ..utils import seed_everything
+
+logging.basicConfig(
+    level=os.environ.get("LOGLEVEL", "INFO").upper(),
+    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+
+class Object:
+    def __init__(
+        self, name: str, type: str, init_probs: dict, transition_probs: dict
+    ) -> None:
+        """Entity, e.g., human, object, room.
+
+        Args
+        ----
+        name: e.g., Tae, laptop, bed
+        type: static, independent, or dependent
+        init_probs: initial probabilities of being in a room
+        transition_probs: transition probabilities of moving to another room
+
+        """
+        self.name = name
+        self.type = type
+        self.init_probs = init_probs
+        self.transition_probs = transition_probs
+
+        self.location = random.choices(
+            list(self.init_probs.keys()),
+            weights=list(self.init_probs.values()),
+            k=1,
+        )[0]
+
+    def __repr__(self) -> str:
+        return f"{self.type.title()}Object(name: {self.name}, location: {self.location}"
+
+    def move_with_action(self, action: str, rooms: dict, current_location: str) -> str:
+        """Move with action."""
+        assert action in ["north", "east", "south", "west", "stay"]
+        if action == "north":
+            next_location = rooms[current_location].north
+        elif action == "east":
+            next_location = rooms[current_location].east
+        elif action == "south":
+            next_location = rooms[current_location].south
+        elif action == "west":
+            next_location = rooms[current_location].west
+        elif action == "stay":
+            next_location = current_location
+
+        if next_location != "wall":
+            return next_location
+        else:
+            return current_location
+
+
+class StaticObject(Object):
+    def __init__(self, name: str, init_probs: dict, transition_probs: dict) -> None:
+        super().__init__(name, "static", init_probs, transition_probs)
+
+    def __repr__(self) -> str:
+        return super().__repr__() + ")"
+
+
+class IndepdentObject(Object):
+    def __init__(
+        self, name: str, init_probs: dict, transition_probs: dict, rooms: dict
+    ) -> None:
+        super().__init__(name, "independent", init_probs, transition_probs)
+        self.attached = []
+        self.rooms = rooms
+
+    def move(self) -> None:
+        """Indendent object moves to another room with the attached dependent objects."""
+        action = random.choices(
+            list(self.transition_probs[self.location].keys()),
+            weights=list(self.transition_probs[self.location].values()),
+            k=1,
+        )[0]
+
+        self.location = self.move_with_action(action, self.rooms, self.location)
+
+        for do in self.attached:
+            do.location = self.location
+        self.detach()
+
+    def detach(self) -> None:
+        """Detach from a dependent object."""
+        for do in self.attached:
+            do.attached = None
+        self.attached = []
+
+    def __repr__(self) -> str:
+        return super().__repr__() + f", attached: {[do.name for do in self.attached]})"
+
+
+class DependentObject(Object):
+    def __init__(
+        self,
+        name: str,
+        init_probs: dict,
+        transition_probs: dict,
+        independent_objects: list,
+    ) -> None:
+        super().__init__(name, "dependent", init_probs, transition_probs)
+        self.independent_objects = independent_objects
+        self.attach()
+
+    def attach(self) -> None:
+        """Attach to an independent object."""
+        self.attached = None
+        possible_attachments = []
+        for io in self.independent_objects:
+            if io.location == self.location:
+                for io_name, prob in self.transition_probs.items():
+                    if io.name == io_name:
+                        if random.random() < prob:
+                            possible_attachments.append(io)
+
+        if len(possible_attachments) > 0:
+            io = random.choice(possible_attachments)
+            self.attached = io
+            if self.name not in [do.name for do in io.attached]:
+                io.attached.append(self)
+
+    def __repr__(self) -> str:
+        if self.attached is None:
+            return super().__repr__() + ", attached: None)"
+        else:
+            return super().__repr__() + f", attached: {self.attached.name})"
+
+
+class Agent(Object):
+    def __init__(
+        self, name: str, init_probs: dict, transition_probs: dict, rooms: dict
+    ) -> None:
+        super().__init__(name, "agent", init_probs, transition_probs)
+        self.rooms = rooms
+
+    def move(self, action: str) -> None:
+        """Agent can move north, east, south or west."""
+        self.location = self.move_with_action(action, self.rooms, self.location)
+
+    def __repr__(self) -> str:
+        return "Agent(name: agent, location: " + self.location + ")"
+
+
+class Room:
+    def __init__(self, name: str, north: str, east: str, south: str, west: str) -> None:
+        """Room.
+
+        Args
+        ----
+        name: e.g., officeroom, livingroom, bedroom
+        north, east, south, west: either wall or another room
+
+        """
+        self.name = name
+        self.north = north
+        self.east = east
+        self.south = south
+        self.west = west
+
+    def __repr__(self) -> str:
+        return (
+            f"Room(name: {self.name}, north: {self.north}, east: {self.east}, "
+            f"south: {self.south}, west: {self.west})"
+        )
+
+
+class RoomEnv2(gym.Env):
+    """the Room environment version 2.
+
+    This environment is more formalized than the previous environments.
+    Every string value is lower-cased to avoid confusion!!!
+
+    """
+
+    metadata = {"render.modes": ["console"]}
+
+    def __init__(
+        self,
+        room_config: dict,
+        object_transition_config: dict,
+        object_init_config: dict,
+        question_prob: int = 1.0,
+        seed: int = 42,
+    ) -> None:
+        """
+
+        Args
+        ----
+        room_config: room configuration
+        object_transition_config: object transition configuration
+        object_init_config: object initial configuration
+        question_prob: The probability of a question being asked at every observation.
+        seed: random seed number
+
+        """
+        self.seed = seed
+        seed_everything(self.seed)
+        self.room_config = room_config
+        self.object_transition_config = object_transition_config
+        self.object_init_config = object_init_config
+        self.question_prob = question_prob
+
+        self._create_rooms()
+        self._create_objects()
+
+        # Our state / actionspace is quite complex. Here we just make a dummy spaces
+        # to bypass the gymnasium sanity check.
+        self.observation_space = gym.spaces.Discrete(1)
+        self.action_space = gym.spaces.Discrete(1)
+
+        self.CORRECT = 1
+        self.WRONG = -1
+
+    def _create_rooms(self) -> None:
+        """Create rooms."""
+        self.rooms = {}
+        for name, config_ in self.room_config.items():
+            self.rooms[name] = Room(name, **config_)
+
+    def _create_objects(self) -> None:
+        """Create objects."""
+        self.objects = {"static": [], "independent": [], "dependent": [], "agent": []}
+
+        for name, init_probs in self.object_init_config["static"].items():
+            self.objects["static"].append(
+                StaticObject(
+                    name,
+                    init_probs,
+                    self.object_transition_config["static"][name],
+                )
+            )
+
+        for name, init_probs in self.object_init_config["independent"].items():
+            self.objects["independent"].append(
+                IndepdentObject(
+                    name,
+                    init_probs,
+                    self.object_transition_config["independent"][name],
+                    self.rooms,
+                )
+            )
+
+        for name, init_probs in self.object_init_config["dependent"].items():
+            self.objects["dependent"].append(
+                DependentObject(
+                    name,
+                    init_probs,
+                    self.object_transition_config["dependent"][name],
+                    self.objects["independent"],
+                )
+            )
+
+        for name, init_probs in self.object_init_config["agent"].items():
+            self.objects["agent"].append(
+                Agent(
+                    "agent",
+                    init_probs,
+                    self.object_transition_config["agent"][name],
+                    self.rooms,
+                )
+            )
+
+    def _get_hidden_global_state(self) -> List[List[str]]:
+        """Get global hidden state, i.e., list of triples, of the environment."""
+        hidden_global_state = []
+        for name, room in self.rooms.items():
+            hidden_global_state.append([name, "tothenorth", room.north])
+            hidden_global_state.append([name, "totheeast", room.east])
+            hidden_global_state.append([name, "tothesouth", room.south])
+            hidden_global_state.append([name, "tothewest", room.west])
+
+        for obj_type in ["static", "independent", "dependent", "agent"]:
+            for obj in self.objects[obj_type]:
+                hidden_global_state.append([obj.name, "atlocation", obj.location])
+
+        return hidden_global_state
+
+    def get_observations(self) -> List[List[str]]:
+        """Return what the agent sees in quadruples,
+
+        i.e., (head, relation, tail, time).
+
+        """
+        agent_location = self.objects["agent"][0].location
+        hidden_global_state = self._get_hidden_global_state()
+        observations = []
+
+        for triple in hidden_global_state:
+            if triple[1] == "atlocation":
+                if triple[2] == agent_location:
+                    observations.append(triple)
+
+            elif triple[1] in ["tothenorth", "totheeast", "tothesouth", "tothewest"]:
+                if triple[0] == agent_location:
+                    observations.append(triple)
+
+            else:
+                raise ValueError("Unknown relation.")
+
+        for ob in observations:
+            ob.append(self.current_time)
+
+        return deepcopy(observations)
+
+    def get_question(self) -> List[str]:
+        """Uniformly sample a triple and ask a question.
+
+        Returns
+        -------
+        question: [object, relation, tail], where one of object, relation, tail is
+        replaced with ?
+
+        """
+
+        hidden_global_state = self._get_hidden_global_state()
+        question = random.choice(hidden_global_state)
+
+        idx = random.randint(0, len(question) - 1)
+        self.question = question[:idx] + ["?"] + question[idx + 1 :]
+
+        self.answers = []
+        for triple in self._get_hidden_global_state():
+            if self.question[0] == "?":
+                if triple[1] == question[1] and triple[2] == question[2]:
+                    self.answers.append(triple[0])
+            elif self.question[1] == "?":
+                if triple[0] == question[0] and triple[2] == question[2]:
+                    self.answers.append(triple[1])
+            elif self.question[2] == "?":
+                if triple[0] == question[0] and triple[1] == question[1]:
+                    self.answers.append(triple[2])
+            else:
+                raise ValueError("Unknown question.")
+
+        if random.random() < self.question_prob:
+            return deepcopy(self.question)
+        else:
+            return None
+
+    def reset(self) -> Tuple[Tuple[list, list], dict]:
+        """Reset the environment.
+
+
+        Returns
+        -------
+        state, info
+
+        """
+        info = {}
+        self._create_rooms()
+        self._create_objects()
+        self.current_time = 0
+
+        return (self.get_observations(), self.get_question()), info
+
+    def step(
+        self, action_qa: str, action_explore: str
+    ) -> Tuple[Tuple, int, bool, dict]:
+        """An agent takes a set of actions.
+
+        Args
+        ----
+        action_qa: An answer to the question.
+        action_explore: An action to explore the environment, i.e., where to go.
+
+        Returns
+        -------
+        (observation, question), reward, done, info
+
+        """
+        if action_qa in self.answers:
+            reward = self.CORRECT
+        else:
+            reward = self.WRONG
+
+        for obj in self.objects["independent"]:
+            obj.move()
+
+        for obj in self.objects["dependent"]:
+            obj.attach()
+
+        self.objects["agent"][0].move(action_explore)
+
+        done = False
+        info = {}
+
+        self.current_time += 1
+
+        return (self.get_observations(), self.get_question()), reward, done, info
+
+    def render(self, mode="console") -> None:
+        if mode != "console":
+            raise NotImplementedError()
+        else:
+            pass
