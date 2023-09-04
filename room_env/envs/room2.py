@@ -1,4 +1,7 @@
-"""Room environment compatible with gym."""
+"""RoomEnv2 environment compatible with gym.
+
+This is the most complicated room environment so far. It has multiple rooms.
+"""
 import logging
 import os
 import random
@@ -20,12 +23,13 @@ class Object:
     def __init__(
         self, name: str, type: str, init_probs: dict, transition_probs: dict
     ) -> None:
-        """Entity, e.g., human, object, room.
+        """The simplest object class. One should inherit this class to make a more
+        complex object.
 
         Args
         ----
-        name: e.g., Tae, laptop, bed
-        type: static, independent, or dependent
+        name: e.g., Alice, laptop, bed
+        type: static, independent, dependent, or agent
         init_probs: initial probabilities of being in a room
         transition_probs: transition probabilities of moving to another room
 
@@ -35,6 +39,7 @@ class Object:
         self.init_probs = init_probs
         self.transition_probs = transition_probs
 
+        # place an object in one of the rooms when it is created.
         self.location = random.choices(
             list(self.init_probs.keys()),
             weights=list(self.init_probs.values()),
@@ -45,7 +50,22 @@ class Object:
         return f"{self.type.title()}Object(name: {self.name}, location: {self.location}"
 
     def move_with_action(self, action: str, rooms: dict, current_location: str) -> str:
-        """Move with action."""
+        """Move with action.
+
+        This method is only relevant for independent and agent objects, since they
+        are the only ones that move with their will.
+
+        Args
+        ----
+        action: north, east, south, west, or stay
+        rooms: rooms
+        current_location: current location
+
+        Returns
+        -------
+        next_location: next location
+
+        """
         assert action in ["north", "east", "south", "west", "stay"]
         if action == "north":
             next_location = rooms[current_location].north
@@ -60,12 +80,21 @@ class Object:
 
         if next_location != "wall":
             return next_location
-        else:
+        else:  # if the next location is a wall, stay.
             return current_location
 
 
 class StaticObject(Object):
     def __init__(self, name: str, init_probs: dict, transition_probs: dict) -> None:
+        """Static object does not move. One they are initialized, they stay forever.
+
+
+        Args
+        ----
+        name: e.g., bed
+        init_probs: initial probabilities of being in a room
+        transition_probs: just a place holder. It's not gonna be used anyway.
+        """
         super().__init__(name, "static", init_probs, transition_probs)
 
     def __repr__(self) -> str:
@@ -76,6 +105,16 @@ class IndepdentObject(Object):
     def __init__(
         self, name: str, init_probs: dict, transition_probs: dict, rooms: dict
     ) -> None:
+        """Independent object moves to another room with the attached dependent objects.
+
+        Args
+        ----
+        name: e.g., Alice
+        init_probs: initial probabilities of being in a room
+        transition_probs: transition probabilities of moving to another room
+        rooms: rooms
+
+        """
         super().__init__(name, "independent", init_probs, transition_probs)
         self.attached = []
         self.rooms = rooms
@@ -92,10 +131,10 @@ class IndepdentObject(Object):
 
         for do in self.attached:
             do.location = self.location
-        self.detach()
+        self.detach()  # detach the attached dependent objects after moving.
 
     def detach(self) -> None:
-        """Detach from a dependent object."""
+        """Detach from the dependent objects."""
         for do in self.attached:
             do.attached = None
         self.attached = []
@@ -112,12 +151,23 @@ class DependentObject(Object):
         transition_probs: dict,
         independent_objects: list,
     ) -> None:
+        """Dependent object attaches to an independent object.
+
+        It doesn't have the move method, since it moves with the independent object.
+
+        Args
+        ----
+        name: e.g., laptop.
+        init_probs: initial probabilities of being in a room.
+        transition_probs: transition probabilities of moving to another room.
+        independent_objects: independent objects in the environment.
+        """
         super().__init__(name, "dependent", init_probs, transition_probs)
         self.independent_objects = independent_objects
-        self.attach()
+        self.attach()  # attach to an independent object when it is created.
 
     def attach(self) -> None:
-        """Attach to an independent object."""
+        """Attach to an independent object, with the provided randomness."""
         self.attached = None
         possible_attachments = []
         for io in self.independent_objects:
@@ -144,11 +194,13 @@ class Agent(Object):
     def __init__(
         self, name: str, init_probs: dict, transition_probs: dict, rooms: dict
     ) -> None:
+        """Agent class is the same as the independent object class, except that it
+        moves with the provided action."""
         super().__init__(name, "agent", init_probs, transition_probs)
         self.rooms = rooms
 
     def move(self, action: str) -> None:
-        """Agent can move north, east, south or west."""
+        """Agent can move north, east, south. west, or stay."""
         self.location = self.move_with_action(action, self.rooms, self.location)
 
     def __repr__(self) -> str:
@@ -157,7 +209,7 @@ class Agent(Object):
 
 class Room:
     def __init__(self, name: str, north: str, east: str, south: str, west: str) -> None:
-        """Room.
+        """Room. It has four sides and they can be either a wall or another room.
 
         Args
         ----
@@ -181,7 +233,12 @@ class Room:
 class RoomEnv2(gym.Env):
     """the Room environment version 2.
 
-    This environment is more formalized than the previous environments.
+    This environment is more formalized than the previous environments. Multiple rooms
+    are supported. The agent can move north, east, south, west, or stay. Static,
+    independent, dependent, agent objects are supported. Static objects do not move.
+    Independent objects move with their will. Dependent objects move with independent
+    objects. Agent moves with the provided action.
+
     Every string value is lower-cased to avoid confusion!!!
 
     """
@@ -195,8 +252,17 @@ class RoomEnv2(gym.Env):
         object_init_config: dict,
         question_prob: int = 1.0,
         seed: int = 42,
+        terminates_at: int = 100,
     ) -> None:
         """
+
+        Attributes
+        ----------
+        rooms: rooms: dict
+        objects: objects: dict of lists
+        question: question: list of strings
+        answers: answers: list of strings
+        current_time: current time: int
 
         Args
         ----
@@ -205,6 +271,7 @@ class RoomEnv2(gym.Env):
         object_init_config: object initial configuration
         question_prob: The probability of a question being asked at every observation.
         seed: random seed number
+        terminates_at: the environment terminates at this time step.
 
         """
         self.seed = seed
@@ -213,11 +280,12 @@ class RoomEnv2(gym.Env):
         self.object_transition_config = object_transition_config
         self.object_init_config = object_init_config
         self.question_prob = question_prob
+        self.terminates_at = terminates_at
 
         self._create_rooms()
         self._create_objects()
 
-        # Our state / actionspace is quite complex. Here we just make a dummy spaces
+        # Our state / actionspace are not tensors. Here we just make a dummy spaces
         # to bypass the gymnasium sanity check.
         self.observation_space = gym.spaces.Discrete(1)
         self.action_space = gym.spaces.Discrete(1)
@@ -275,7 +343,12 @@ class RoomEnv2(gym.Env):
             )
 
     def _get_hidden_global_state(self) -> List[List[str]]:
-        """Get global hidden state, i.e., list of triples, of the environment."""
+        """Get global hidden state, i.e., list of quadruples, of the environment.
+
+        quadruples: [head, relation, tail, time]
+        This is basically what the agent does not see and wants to estimate.
+
+        """
         hidden_global_state = []
         for name, room in self.rooms.items():
             hidden_global_state.append([name, "tothenorth", room.north])
@@ -287,69 +360,62 @@ class RoomEnv2(gym.Env):
             for obj in self.objects[obj_type]:
                 hidden_global_state.append([obj.name, "atlocation", obj.location])
 
+        for triple in hidden_global_state:
+            triple.append(self.current_time)
+
         return hidden_global_state
 
-    def get_observations(self) -> List[List[str]]:
-        """Return what the agent sees in quadruples,
+    def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
+        """Return what the agent sees in quadruples, and the question.
 
-        i.e., (head, relation, tail, time).
+        Returns
+        -------
+        observations: [head, relation, tail, time]
+        question: [object, relation, tail, time], where one of object, relation, tail is
+        replaced with ?
 
         """
         agent_location = self.objects["agent"][0].location
-        hidden_global_state = self._get_hidden_global_state()
-        observations = []
+        self.hidden_global_state = self._get_hidden_global_state()
+        self.observations = []
 
-        for triple in hidden_global_state:
+        for (
+            triple
+        ) in self.hidden_global_state:  # At the moment, there are only 5 relations.
             if triple[1] == "atlocation":
                 if triple[2] == agent_location:
-                    observations.append(triple)
+                    self.observations.append(triple)
 
             elif triple[1] in ["tothenorth", "totheeast", "tothesouth", "tothewest"]:
                 if triple[0] == agent_location:
-                    observations.append(triple)
+                    self.observations.append(triple)
 
             else:
                 raise ValueError("Unknown relation.")
 
-        for ob in observations:
-            ob.append(self.current_time)
+        self.question = random.choice(self.hidden_global_state)
 
-        return deepcopy(observations)
-
-    def get_question(self) -> List[str]:
-        """Uniformly sample a triple and ask a question.
-
-        Returns
-        -------
-        question: [object, relation, tail], where one of object, relation, tail is
-        replaced with ?
-
-        """
-
-        hidden_global_state = self._get_hidden_global_state()
-        question = random.choice(hidden_global_state)
-
-        idx = random.randint(0, len(question) - 1)
-        self.question = question[:idx] + ["?"] + question[idx + 1 :]
+        idx = random.randint(0, len(self.question) - 2)
+        self.question = self.question[:idx] + ["?"] + self.question[idx + 1 :]
 
         self.answers = []
         for triple in self._get_hidden_global_state():
             if self.question[0] == "?":
-                if triple[1] == question[1] and triple[2] == question[2]:
+                if triple[1] == self.question[1] and triple[2] == self.question[2]:
                     self.answers.append(triple[0])
             elif self.question[1] == "?":
-                if triple[0] == question[0] and triple[2] == question[2]:
+                if triple[0] == self.question[0] and triple[2] == self.question[2]:
                     self.answers.append(triple[1])
             elif self.question[2] == "?":
-                if triple[0] == question[0] and triple[1] == question[1]:
+                if triple[0] == self.question[0] and triple[1] == self.question[1]:
                     self.answers.append(triple[2])
             else:
-                raise ValueError("Unknown question.")
+                raise ValueError(f"Unknown question: {self.question}")
 
-        if random.random() < self.question_prob:
-            return deepcopy(self.question)
-        else:
-            return None
+        if random.random() >= self.question_prob:
+            self.question = None
+
+        return deepcopy(self.observations), deepcopy(self.question)
 
     def reset(self) -> Tuple[Tuple[list, list], dict]:
         """Reset the environment.
@@ -365,23 +431,24 @@ class RoomEnv2(gym.Env):
         self._create_objects()
         self.current_time = 0
 
-        return (self.get_observations(), self.get_question()), info
+        return self.get_observations_and_question(), info
 
-    def step(
-        self, action_qa: str, action_explore: str
-    ) -> Tuple[Tuple, int, bool, dict]:
+    def step(self, actions: Tuple[str, str]) -> Tuple[Tuple, int, bool, dict]:
         """An agent takes a set of actions.
 
         Args
         ----
-        action_qa: An answer to the question.
-        action_explore: An action to explore the environment, i.e., where to go.
+        actions:
+            action_qa: An answer to the question.
+            action_explore: An action to explore the environment, i.e., where to go.
+                north, east, south, west, or stay.
 
         Returns
         -------
         (observation, question), reward, done, info
 
         """
+        action_qa, action_explore = actions
         if action_qa in self.answers:
             reward = self.CORRECT
         else:
@@ -395,12 +462,16 @@ class RoomEnv2(gym.Env):
 
         self.objects["agent"][0].move(action_explore)
 
-        done = False
+        if self.current_time < self.terminates_at:
+            done = False
+        else:
+            done = True
+        truncated = False
         info = {}
 
         self.current_time += 1
 
-        return (self.get_observations(), self.get_question()), reward, done, info
+        return self.get_observations_and_question(), reward, done, truncated, info
 
     def render(self, mode="console") -> None:
         if mode != "console":

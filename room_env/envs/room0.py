@@ -1,5 +1,4 @@
-"""Room environment compatible with gym.
-"""
+"""RoomEnv0 environment compatible with gym."""
 import json
 import logging
 import os
