@@ -342,28 +342,26 @@ class RoomEnv2(gym.Env):
                 )
             )
 
-    def _get_hidden_global_state(self) -> List[List[str]]:
+    def _get_hidden_global_state(self) -> None:
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
         quadruples: [head, relation, tail, time]
         This is basically what the agent does not see and wants to estimate.
 
         """
-        hidden_global_state = []
+        self.hidden_global_state = []
         for name, room in self.rooms.items():
-            hidden_global_state.append([name, "tothenorth", room.north])
-            hidden_global_state.append([name, "totheeast", room.east])
-            hidden_global_state.append([name, "tothesouth", room.south])
-            hidden_global_state.append([name, "tothewest", room.west])
+            self.hidden_global_state.append([name, "tothenorth", room.north])
+            self.hidden_global_state.append([name, "totheeast", room.east])
+            self.hidden_global_state.append([name, "tothesouth", room.south])
+            self.hidden_global_state.append([name, "tothewest", room.west])
 
         for obj_type in ["static", "independent", "dependent", "agent"]:
             for obj in self.objects[obj_type]:
-                hidden_global_state.append([obj.name, "atlocation", obj.location])
+                self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
-        for triple in hidden_global_state:
+        for triple in self.hidden_global_state:
             triple.append(self.current_time)
-
-        return hidden_global_state
 
     def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
         """Return what the agent sees in quadruples, and the question.
@@ -376,12 +374,10 @@ class RoomEnv2(gym.Env):
 
         """
         agent_location = self.objects["agent"][0].location
-        self.hidden_global_state = self._get_hidden_global_state()
+        self._get_hidden_global_state()
         self.observations = []
 
-        for (
-            triple
-        ) in self.hidden_global_state:  # At the moment, there are only 5 relations.
+        for triple in self.hidden_global_state:  # atm, there are only 5 relations.
             if triple[1] == "atlocation":
                 if triple[2] == agent_location:
                     self.observations.append(triple)
@@ -399,7 +395,7 @@ class RoomEnv2(gym.Env):
         self.question = self.question[:idx] + ["?"] + self.question[idx + 1 :]
 
         self.answers = []
-        for triple in self._get_hidden_global_state():
+        for triple in self.hidden_global_state:
             if self.question[0] == "?":
                 if triple[1] == self.question[1] and triple[2] == self.question[2]:
                     self.answers.append(triple[0])
