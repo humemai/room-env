@@ -57,8 +57,9 @@ class RoomEnv0(gym.Env):
     This means that an agent with both episodic and semantic memory systems will perform
     better than an agent with only one memory system.
 
-    """
+    Every string value is lower-cased to avoid confusion!!!
 
+    """
     metadata = {"render.modes": ["console"]}
 
     def __init__(
@@ -188,7 +189,7 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        observations: e.g., ["Tae's laptop, "AtLocation", "Tae's desk", 10]
+        observations: e.g., ["tae's laptop, "atlocation", "tae's desk", 10]
 
         The last element in the list accounts for the timestamp.
 
@@ -205,8 +206,8 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        question: e.g., ["Tae's laptop", "AtLocation"]
-        answer: e.g., "Tae's desk"
+        question: e.g., ["tae's laptop", "atlocation"]
+        answer: e.g., "tae's desk"
 
         """
         random_choice = random.choice(self.room)
@@ -378,7 +379,7 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        names: human names (e.g., James)
+        names: human names (e.g., james)
 
         """
         names = read_lines(path)

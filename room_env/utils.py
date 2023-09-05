@@ -119,7 +119,7 @@ def remove_name(entity: str) -> str:
 
     Args
     ----
-    entity: e.g., Bob's laptop
+    entity: e.g., bob's laptop
 
     Returns
     -------
@@ -134,11 +134,11 @@ def split_name_entity(name_entity: str) -> Tuple[str, str]:
 
     Args
     ----
-    name_entity: e.g., "Bob's laptop"
+    name_entity: e.g., "bob's laptop"
 
     Returns
     -------
-    name: e.g., Bob
+    name: e.g., bob
     entity: e.g., laptop
 
     """

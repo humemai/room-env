@@ -28,7 +28,7 @@ class Object:
 
         Args
         ----
-        name: e.g., Alice, laptop, bed
+        name: e.g., alice, laptop, bed
         type: static, independent, dependent, or agent
         init_probs: initial probabilities of being in a room
         transition_probs: transition probabilities of moving to another room
@@ -109,7 +109,7 @@ class IndepdentObject(Object):
 
         Args
         ----
-        name: e.g., Alice
+        name: e.g., alice
         init_probs: initial probabilities of being in a room
         transition_probs: transition probabilities of moving to another room
         rooms: rooms

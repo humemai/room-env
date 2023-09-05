@@ -32,6 +32,7 @@ class RoomEnv1(gym.Env):
         Action: (0) Move the oldest short-term memory to the episodic,
                 (1) to the semantic, or (2) forget it
 
+    Every string value is lower-cased to avoid confusion!!!
     """
 
     metadata = {"render.modes": ["console"]}
