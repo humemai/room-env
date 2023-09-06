@@ -24,14 +24,6 @@ logging.basicConfig(
 class RoomEnv1(gym.Env):
     """The Room environment version 1.
 
-    This env includes three state-action spaces. You have to choose which one of the
-    three will be RL trained.
-
-    Memory management.
-        State: episodic, semantic, and short-term memory systems at time t
-        Action: (0) Move the oldest short-term memory to the episodic,
-                (1) to the semantic, or (2) forget it
-
     Every string value is lower-cased to avoid confusion!!!
     """
 
@@ -158,13 +150,9 @@ class RoomEnv1(gym.Env):
 
         Returns
         -------
-        observation = {
-            "human": <human>,
-            "object": <obj>,
-            "object_location": <obj_loc>,
-        }
-        question = {"human": <human>, "object": <obj>}
-        answer = <obj_loc>
+        observation: [head, relation, tail, timestamp]
+        question: [head, relation, ?, timestamp]
+        answer = tail
         is_last: True, if its the last observation in the queue, othewise False
 
         """
@@ -182,21 +170,23 @@ class RoomEnv1(gym.Env):
 
         obj_o = self.des.state[human_o]["object"]
         obj_loc_o = self.des.state[human_o]["object_location"]
-        observation = deepcopy(
-            {
-                "human": human_o,
-                "object": obj_o,
-                "object_location": obj_loc_o,
-                "current_time": self.des.current_time,
-            }
-        )
-
+        observation = [
+            f"{human_o}'s {obj_o}",
+            "atlocation",
+            obj_loc_o,
+            self.des.current_time,
+        ]
         if human_q is not None:
             obj_q = self.des.state[human_q]["object"]
             obj_loc_q = self.des.state[human_q]["object_location"]
 
-            question = deepcopy({"human": human_q, "object": obj_q})
-            answer = deepcopy(obj_loc_q)
+            question = [
+                f"{human_q}'s {obj_q}",
+                "atlocation",
+                "?",
+                self.des.current_time,
+            ]
+            answer = obj_loc_q
 
         else:
             question = None
