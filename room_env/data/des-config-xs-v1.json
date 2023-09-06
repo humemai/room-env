@@ -1,6 +1,6 @@
 {
     "components": {
-        "Beverly": [
+        "beverly": [
             [
                 "bowl",
                 "cupboard"
@@ -50,7 +50,7 @@
                 "lap"
             ]
         ],
-        "John": [
+        "john": [
             [
                 "dog",
                 "kennel"
@@ -84,7 +84,7 @@
                 "desk"
             ]
         ],
-        "Lisa": [
+        "lisa": [
             [
                 "bowl",
                 "cupboard"
@@ -94,7 +94,7 @@
                 "cupboard"
             ]
         ],
-        "Carol": [
+        "carol": [
             [
                 "dog",
                 "kennel"
@@ -128,7 +128,7 @@
                 "cupboard"
             ]
         ],
-        "Patricia": [
+        "patricia": [
             [
                 "bowl",
                 "cupboard"
@@ -178,7 +178,7 @@
                 "kennel"
             ]
         ],
-        "Anthony": [
+        "anthony": [
             [
                 "dog",
                 "bakery"
@@ -188,7 +188,7 @@
                 "bakery"
             ]
         ],
-        "Roger": [
+        "roger": [
             [
                 "dog",
                 "kennel"
@@ -214,7 +214,7 @@
                 "kennel"
             ]
         ],
-        "Brittany": [
+        "brittany": [
             [
                 "bowl",
                 "cupboard"

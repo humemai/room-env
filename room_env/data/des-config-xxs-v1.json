@@ -1,6 +1,6 @@
 {
     "components": {
-        "Brittany": [
+        "brittany": [
             [
                 "bowl",
                 "cupboard"
@@ -10,7 +10,7 @@
                 "cupboard"
             ]
         ],
-        "Patricia": [
+        "patricia": [
             [
                 "bowl",
                 "cupboard"
@@ -44,13 +44,13 @@
                 "cupboard"
             ]
         ],
-        "Roger": [
+        "roger": [
             [
                 "bowl",
                 "circus"
             ]
         ],
-        "Beverly": [
+        "beverly": [
             [
                 "bowl",
                 "cupboard"

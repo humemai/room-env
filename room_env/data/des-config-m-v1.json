@@ -1,6 +1,6 @@
 {
     "components": {
-        "Gregory": [
+        "gregory": [
             [
                 "handbag",
                 "store"
@@ -34,7 +34,7 @@
                 "store"
             ]
         ],
-        "Roger": [
+        "roger": [
             [
                 "bowl",
                 "cupboard"
@@ -64,7 +64,7 @@
                 "cupboard"
             ]
         ],
-        "Dylan": [
+        "dylan": [
             [
                 "boat",
                 "water"
@@ -82,7 +82,7 @@
                 "desk"
             ]
         ],
-        "Jacob": [
+        "jacob": [
             [
                 "sandwich",
                 "bakery"
@@ -92,7 +92,7 @@
                 "bakery"
             ]
         ],
-        "Carol": [
+        "carol": [
             [
                 "sandwich",
                 "circus"
@@ -114,7 +114,7 @@
                 "circus"
             ]
         ],
-        "Jack": [
+        "jack": [
             [
                 "dog",
                 "kennel"
@@ -132,7 +132,7 @@
                 "countryside"
             ]
         ],
-        "Judith": [
+        "judith": [
             [
                 "sandwich",
                 "lunchbox"
@@ -142,7 +142,7 @@
                 "table"
             ]
         ],
-        "Gloria": [
+        "gloria": [
             [
                 "airplane",
                 "sky"
@@ -172,7 +172,7 @@
                 "sky"
             ]
         ],
-        "Alexander": [
+        "alexander": [
             [
                 "bowl",
                 "cupboard"
@@ -190,7 +190,7 @@
                 "lap"
             ]
         ],
-        "Natalie": [
+        "natalie": [
             [
                 "handbag",
                 "store"
@@ -220,7 +220,7 @@
                 "store"
             ]
         ],
-        "Brittany": [
+        "brittany": [
             [
                 "keyboard",
                 "desk"
@@ -238,7 +238,7 @@
                 "desk"
             ]
         ],
-        "Michael": [
+        "michael": [
             [
                 "boat",
                 "water"
@@ -292,7 +292,7 @@
                 "store"
             ]
         ],
-        "Amanda": [
+        "amanda": [
             [
                 "airplane",
                 "bakery"
@@ -318,7 +318,7 @@
                 "sky"
             ]
         ],
-        "Marilyn": [
+        "marilyn": [
             [
                 "airplane",
                 "table"
@@ -340,7 +340,7 @@
                 "table"
             ]
         ],
-        "Laura": [
+        "laura": [
             [
                 "airplane",
                 "nursery"
@@ -350,13 +350,13 @@
                 "nursery"
             ]
         ],
-        "Rebecca": [
+        "rebecca": [
             [
                 "boat",
                 "water"
             ]
         ],
-        "Lauren": [
+        "lauren": [
             [
                 "boat",
                 "water"
@@ -418,7 +418,7 @@
                 "circus"
             ]
         ],
-        "Lisa": [
+        "lisa": [
             [
                 "boat",
                 "farm"
@@ -452,7 +452,7 @@
                 "farm"
             ]
         ],
-        "Kathleen": [
+        "kathleen": [
             [
                 "elephant",
                 "circus"
@@ -482,7 +482,7 @@
                 "circus"
             ]
         ],
-        "Anthony": [
+        "anthony": [
             [
                 "dog",
                 "table"
@@ -536,7 +536,7 @@
                 "cupboard"
             ]
         ],
-        "Martha": [
+        "martha": [
             [
                 "keyboard",
                 "desk"
@@ -570,7 +570,7 @@
                 "desk"
             ]
         ],
-        "Donald": [
+        "donald": [
             [
                 "bowl",
                 "bathroom"
@@ -592,7 +592,7 @@
                 "sky"
             ]
         ],
-        "Keith": [
+        "keith": [
             [
                 "boat",
                 "zoo"
@@ -606,7 +606,7 @@
                 "zoo"
             ]
         ],
-        "John": [
+        "john": [
             [
                 "elephant",
                 "circus"
@@ -628,7 +628,7 @@
                 "circus"
             ]
         ],
-        "Raymond": [
+        "raymond": [
             [
                 "boat",
                 "lunchbox"
@@ -658,7 +658,7 @@
                 "lunchbox"
             ]
         ],
-        "Justin": [
+        "justin": [
             [
                 "bowl",
                 "kennel"
@@ -680,7 +680,7 @@
                 "cupboard"
             ]
         ],
-        "Brenda": [
+        "brenda": [
             [
                 "bowl",
                 "nursery"
@@ -734,7 +734,7 @@
                 "office"
             ]
         ],
-        "Nancy": [
+        "nancy": [
             [
                 "bowl",
                 "cupboard"
@@ -768,7 +768,7 @@
                 "water"
             ]
         ],
-        "Beverly": [
+        "beverly": [
             [
                 "airplane",
                 "sky"
@@ -778,7 +778,7 @@
                 "office"
             ]
         ],
-        "David": [
+        "david": [
             [
                 "boat",
                 "water"
@@ -808,7 +808,7 @@
                 "circus"
             ]
         ],
-        "Patricia": [
+        "patricia": [
             [
                 "bowl",
                 "countryside"
@@ -858,7 +858,7 @@
                 "lunchbox"
             ]
         ],
-        "Christina": [
+        "christina": [
             [
                 "handbag",
                 "office"

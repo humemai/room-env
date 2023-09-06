@@ -1,6 +1,6 @@
 {
     "components": {
-        "Patricia": [
+        "patricia": [
             [
                 "dog",
                 "store"
@@ -30,7 +30,7 @@
                 "store"
             ]
         ],
-        "Laura": [
+        "laura": [
             [
                 "airplane",
                 "sky"
@@ -64,7 +64,7 @@
                 "sky"
             ]
         ],
-        "Dylan": [
+        "dylan": [
             [
                 "bowl",
                 "cupboard"
@@ -94,7 +94,7 @@
                 "air"
             ]
         ],
-        "Alexander": [
+        "alexander": [
             [
                 "bowl",
                 "cupboard"
@@ -112,7 +112,7 @@
                 "kennel"
             ]
         ],
-        "Anthony": [
+        "anthony": [
             [
                 "dog",
                 "kennel"
@@ -122,13 +122,13 @@
                 "kennel"
             ]
         ],
-        "Brenda": [
+        "brenda": [
             [
                 "keyboard",
                 "desk"
             ]
         ],
-        "Gloria": [
+        "gloria": [
             [
                 "bowl",
                 "cupboard"
@@ -154,7 +154,7 @@
                 "desk"
             ]
         ],
-        "Martha": [
+        "martha": [
             [
                 "keyboard",
                 "desk"
@@ -200,7 +200,7 @@
                 "cupboard"
             ]
         ],
-        "Lisa": [
+        "lisa": [
             [
                 "dog",
                 "kennel"
@@ -222,7 +222,7 @@
                 "cupboard"
             ]
         ],
-        "Brittany": [
+        "brittany": [
             [
                 "bowl",
                 "cupboard"
@@ -272,7 +272,7 @@
                 "sky"
             ]
         ],
-        "Keith": [
+        "keith": [
             [
                 "airplane",
                 "sky"
@@ -326,7 +326,7 @@
                 "kennel"
             ]
         ],
-        "Christina": [
+        "christina": [
             [
                 "keyboard",
                 "desk"
@@ -356,7 +356,7 @@
                 "sky"
             ]
         ],
-        "Carol": [
+        "carol": [
             [
                 "keyboard",
                 "park"
@@ -390,7 +390,7 @@
                 "kennel"
             ]
         ],
-        "Roger": [
+        "roger": [
             [
                 "keyboard",
                 "classroom"
@@ -428,7 +428,7 @@
                 "cupboard"
             ]
         ],
-        "Beverly": [
+        "beverly": [
             [
                 "keyboard",
                 "bakery"
@@ -450,7 +450,7 @@
                 "bakery"
             ]
         ],
-        "John": [
+        "john": [
             [
                 "bowl",
                 "cupboard"
