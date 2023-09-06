@@ -66,7 +66,6 @@ class RoomEnv0(gym.Env):
     def __init__(
         self,
         room_size: str = "small",
-        weighting_mode: str = "highest",
         probs: dict = {
             "commonsense": 0.7,
             "new_location": 0.1,
@@ -77,7 +76,7 @@ class RoomEnv0(gym.Env):
             "heads": None,
             "tails": None,
             "names": None,
-            "allow_spaces": False,
+            "allow_spaces": True,
         },
         max_step: int = 1000,
         disjoint_entities: bool = True,
@@ -88,7 +87,6 @@ class RoomEnv0(gym.Env):
         Args
         ----
         room_size: small or big
-        weighting_mode: Either "weighted" or "highest"
         probs: the probabilities that govern the room environment changes.
         limits: Limitation on the triples.
         max_step: maximum step an agent can take. The environment will terminate when
@@ -145,7 +143,6 @@ class RoomEnv0(gym.Env):
 
             assert lhs == rhs
 
-        self.weighting_mode = weighting_mode
         self.probs = probs
         self.max_step = max_step
         self.num_agents = num_agents
@@ -223,30 +220,22 @@ class RoomEnv0(gym.Env):
         Note that "head" shouldn't include a human name.
 
         """
+        relevant_tails = [
+            triple[2]
+            for triple in self.semantic_knowledge
+            if triple[0] == head and triple[1] == relation
+        ]
+        assert len(relevant_tails) == 1
+
         if random.random() < self.probs["commonsense"]:
             logging.debug(f"Generating a common location for {head} ...")
-            tails = self.semantic_knowledge[head][relation]
-
-            if len(tails) == 0:
-                return None
-
-            if self.weighting_mode == "weighted":
-                tail = random.choices(
-                    [tail["tail"] for tail in tails],
-                    weights=[tail["weight"] for tail in tails],
-                    k=1,
-                )[0]
-            elif self.weighting_mode == "highest":
-                tail = sorted(
-                    self.semantic_knowledge[head][relation], key=lambda x: x["weight"]
-                )[-1]["tail"]
-            else:
-                raise ValueError
+            tail = relevant_tails[0]
         else:
             logging.debug(f"Generating a NON common location for {head} ...")
             while True:
                 tail = random.choice(self.tails)
-                if tail not in self.semantic_knowledge[head][relation]:
+
+                if tail not in relevant_tails:
                     break
 
         return tail
@@ -514,4 +503,10 @@ class RoomEnv0(gym.Env):
         )
         logging.info(f"semantic knowledge successfully loaded from {path}!")
 
-        return semantic_knowledge, heads, relations, tails
+        semantic_knowledge_list = []
+        print(semantic_knowledge)
+        for key, val in semantic_knowledge.items():
+            for k, v in val.items():
+                semantic_knowledge_list.append([key, k, v[0]["tail"]])
+
+        return semantic_knowledge_list, heads, relations, tails

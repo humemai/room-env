@@ -23,7 +23,6 @@ class DataCollector:
         conceptnet_data_path: str,
         conceptnet_data_refresh: bool,
         semantic_knowledge_path: str,
-        weighting_mode: bool,
         api_url: str,
     ):
         """Data (conceptnet) collector class.
@@ -35,9 +34,6 @@ class DataCollector:
         conceptnet_data_path: Where to save raw queried conceptnet data path
         conceptnet_data_refresh: Whether to download the conceptnet data again or not.
         semantic_knowledge_path: Where to save pre-trained semantic (factual) knowledge
-        weighting_mode: "highest" chooses the one with the highest weight, "weighted"
-            chooses all of them by weight, and null chooses every single one of them
-            without weighting.
         api_url: e.g., http://api.conceptnet.io/, http://127.0.0.1:8084/, etc.
 
         """
@@ -47,7 +43,7 @@ class DataCollector:
         self.conceptnet_data_path = conceptnet_data_path
         self.conceptnet_data_refresh = conceptnet_data_refresh
         self.semantic_knowledge_path = semantic_knowledge_path
-        self.weighting_mode = weighting_mode
+        self.weighting_mode = "highest"
         self.api_url = api_url
 
         self.read_mscoco()
