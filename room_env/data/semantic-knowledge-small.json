@@ -1,6 +1,6 @@
 {
     "person": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "building",
                 "weight": 1
@@ -8,7 +8,7 @@
         ]
     },
     "bicycle": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "garage",
                 "weight": 1
@@ -16,7 +16,7 @@
         ]
     },
     "car": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "city",
                 "weight": 1
@@ -24,7 +24,7 @@
         ]
     },
     "laptop": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "desk",
                 "weight": 1
@@ -32,7 +32,7 @@
         ]
     },
     "dog": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "park",
                 "weight": 1
@@ -40,7 +40,7 @@
         ]
     },
     "cat": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "lap",
                 "weight": 10
@@ -48,7 +48,7 @@
         ]
     },
     "couch": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "house",
                 "weight": 5
@@ -56,7 +56,7 @@
         ]
     },
     "bird": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "tree",
                 "weight": 4
@@ -64,7 +64,7 @@
         ]
     },
     "cup": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "table",
                 "weight": 4
@@ -72,7 +72,7 @@
         ]
     },
     "chair": {
-        "AtLocation": [
+        "atlocation": [
             {
                 "tail": "office",
                 "weight": 8

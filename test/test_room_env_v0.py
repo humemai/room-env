@@ -2,8 +2,6 @@ import unittest
 
 import gymnasium as gym
 
-import room_env
-
 
 class RoomEnv1Test(unittest.TestCase):
     def test_all(self) -> None:

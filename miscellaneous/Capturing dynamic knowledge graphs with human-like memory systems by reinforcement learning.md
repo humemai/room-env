@@ -8,7 +8,7 @@
 
 ## Observations can also be extended.
 
-- Instead of simple triples, (one’s object, AtLocation, furniture), it can include more things.
+- Instead of simple triples, (one’s object, atlocation, furniture), it can include more things.
 - This means that the questions will also become more complicated. Instead of simply asking the object location, it can also ask other things.
 
 ## Delayed rewards
@@ -23,9 +23,9 @@
 
 ## The three policies
 
-1. Question answering policy: $\pi_{qa}(a_{qa}|M_{long})$
-1. Memory management policy: $\pi_{memory}(a_{memory} | M_{short}, M_{long})$
-1. Exploration policy: $\pi_{explore}(a_{explore} | M_{long})$
+1. Question answering policy: $\\pi\_{qa}(a\_{qa}|M\_{long})$
+1. Memory management policy: $\\pi\_{memory}(a\_{memory} | M\_{short}, M\_{long})$
+1. Exploration policy: $\\pi\_{explore}(a\_{explore} | M\_{long})$
 
 First, I'll have the agent learn one policy, while the other two are fixed. How can I do
 this actually? Should this be one environment?

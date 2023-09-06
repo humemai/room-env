@@ -133,18 +133,18 @@ def main(
         if "_" in key:
             del semantic_knowledge[key]
             continue
-        if val["AtLocation"][0]["tail"] in unique_locations:
+        if val["atlocation"][0]["tail"] in unique_locations:
             del semantic_knowledge[key]
             continue
-        if "_" in val["AtLocation"][0]["tail"]:
+        if "_" in val["atlocation"][0]["tail"]:
             del semantic_knowledge[key]
             continue
         # This avoids locations being same as object names.
-        if val["AtLocation"][0]["tail"] in list(semantic_knowledge):
+        if val["atlocation"][0]["tail"] in list(semantic_knowledge):
             del semantic_knowledge[key]
             continue
 
-        unique_locations.append(val["AtLocation"][0]["tail"])
+        unique_locations.append(val["atlocation"][0]["tail"])
 
     logging.info(
         f"There are now {len(semantic_knowledge)} objects before after the duplicate "
@@ -152,7 +152,7 @@ def main(
     )
 
     semantic_knowledge = {
-        key: val["AtLocation"][0]["tail"] for key, val in semantic_knowledge.items()
+        key: val["atlocation"][0]["tail"] for key, val in semantic_knowledge.items()
     }
 
     assert num_total_objects <= len(semantic_knowledge)

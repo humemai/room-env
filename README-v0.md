@@ -16,7 +16,7 @@ memory systems. See the [paper](https://arxiv.org/abs/2204.01611) for more infor
 ## Data collection
 
 Data is collected from querying ConceptNet APIs. For simplicity, we only collect triples
-whose format is (`head`, `AtLocation`, `tail`). Here `head` is one of the 80 MS COCO
+whose format is (`head`, `atlocation`, `tail`). Here `head` is one of the 80 MS COCO
 dataset categories. This was kept in mind so that later on we can use images as well.
 
 If you want to collect the data manually, then run below:
@@ -38,10 +38,10 @@ room. They can only observe one human placing an object, one at a time;
 about the location of an object; **q**<sup>(_t_)</sup>.
 **x**<sup>(_t_)</sup> is given as a quadruple,
 (**h**<sup>(_t_)</sup>,**r**<sup>(_t_)</sup>,**t**<sup>(_t_)</sup>,_t_),
-For example, `<James’s laptop, AtLocation, James’s desk, 42>` accounts
+For example, `<James’s laptop, atlocation, James’s desk, 42>` accounts
 for an observation where an agent sees James placing his laptop on his
 desk at *t* = 42. **q**<sup>(_t_)</sup> is given as a double,
-(**h**,**r**). For example, `<Karen’s cat, AtLocation>` is asking where
+(**h**,**r**). For example, `<Karen’s cat, atlocation>` is asking where
 Karen’s cat is located. If the agent answers the question correctly, it
 gets a reward of  + 1, and if not, it gets 0.
 

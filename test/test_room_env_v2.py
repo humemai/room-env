@@ -1,6 +1,6 @@
 import logging
-import unittest
 import random
+import unittest
 
 import gymnasium as gym
 

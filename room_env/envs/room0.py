@@ -9,7 +9,7 @@ from typing import Tuple
 
 import gymnasium as gym
 
-from ..utils import read_lines, remove_name, split_name_entity
+from ..utils import read_lines, remove_posession, split_by_possessive
 
 CORRECT = 1
 WRONG = 0
@@ -60,6 +60,7 @@ class RoomEnv0(gym.Env):
     Every string value is lower-cased to avoid confusion!!!
 
     """
+
     metadata = {"render.modes": ["console"]}
 
     def __init__(
@@ -169,7 +170,7 @@ class RoomEnv0(gym.Env):
             relation = self.relations[0]  # At the moment there is only one relation.
             tail = self.generate_tail(head, relation)
             if tail is not None:
-                self.room.append([f"{name}'s {head}", relation, f"{name}'s {tail}"])
+                self.room.append([f"{name}'s {head}", relation, f"{tail}"])
 
         navigate = [[i for i in range(len(self.room))] for _ in range(self.num_agents)]
         for navigate_ in navigate:
@@ -206,13 +207,13 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        question: e.g., ["tae's laptop", "atlocation"]
-        answer: e.g., "tae's desk"
+        question: e.g., ["tae's laptop", "atlocation", "?", None]
+        answer: e.g., desk
 
         """
         random_choice = random.choice(self.room)
-        question = random_choice[:2]
-        answer = remove_name(random_choice[-1])
+        question = random_choice[:2] + ["?"] + [None]
+        answer = random_choice[2]
 
         return question, answer
 
@@ -272,10 +273,10 @@ class RoomEnv0(gym.Env):
         """
         room = []
         for head, relation, tail in self.room:
-            name1, head = split_name_entity(head)
-            name2, tail = split_name_entity(tail)
+            name1, head = split_by_possessive(head)
+            # name2, tail = split_by_possessive(tail)
 
-            assert name1 == name2, "we don't do name mixing at this moment."
+            # assert name1 == name2, "we don't do name mixing at this moment."
 
             if random.random() < self.probs["new_object"]:
                 while True:
@@ -296,7 +297,7 @@ class RoomEnv0(gym.Env):
                 [
                     f"{name1}'s {deepcopy(head)}",
                     deepcopy(relation),
-                    f"{name2}'s {deepcopy(tail)}",
+                    f"{deepcopy(tail)}",
                 ],
             )
 

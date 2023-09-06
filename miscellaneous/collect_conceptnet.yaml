@@ -1,5 +1,5 @@
 # See https://github.com/commonsense/conceptnet5/wiki/Relations for all relations
-relation: /r/AtLocation
+relation: /r/atlocation
 
 api_url: http://api.conceptnet.io/
 # api_url: http://127.0.0.1:8084/

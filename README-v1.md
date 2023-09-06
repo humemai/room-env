@@ -58,7 +58,7 @@ interaction with this environment to learn a policy.
 ## Data collection
 
 Data is collected from querying ConceptNet APIs. For simplicity, we only collect triples
-whose format is (`head`, `AtLocation`, `tail`). Here `head` is one of the 80 MS COCO
+whose format is (`head`, `atlocation`, `tail`). Here `head` is one of the 80 MS COCO
 dataset categories. This was kept in mind so that later on we can use images as well.
 
 If you want to collect the data manually, then run below:

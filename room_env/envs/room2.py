@@ -6,7 +6,7 @@ import logging
 import os
 import random
 from copy import deepcopy
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 import gymnasium as gym
 
