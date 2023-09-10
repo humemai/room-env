@@ -77,7 +77,10 @@ class RoomDes:
         """Initialize the simulator."""
         self.components = deepcopy(self.config["components"])
         self.resources = deepcopy(self.config["resources"])
-        self.semantic_knowledge = deepcopy(self.config["semantic_knowledge"])
+        self.semantic_knowledge = [
+            [key, "atlocation", val]
+            for key, val in self.config["semantic_knowledge"].items()
+        ]
 
         self.humans = []
         self.objects = []
