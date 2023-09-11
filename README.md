@@ -7,15 +7,15 @@ documentations.
 
 [Training agents for these environments are in a separate repo](https://github.com/tae898/explicit-memory).
 
-## [Click here for the documentation of RoomEnv-v0](./README-v0.md).
+## [Click here for the documentation of RoomEnv-v0](./README-v0.md)
 
 RoomEnv-v0 was featured in the paper ["A Machine With Human-Like Memory Systems"](https://arxiv.org/abs/2204.01611).
 
-## [Click here for the documentation of RoomEnv-v1](./README-v1.md).
+## [Click here for the documentation of RoomEnv-v1](./README-v1.md)
 
 RoomEnv-v1 was featured in the paper ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://doi.org/10.1609/aaai.v37i1.25075).
 
-## [Click here for the documentation of RoomEnv-v2](./README-v2.md).
+## [Click here for the documentation of RoomEnv-v2](./README-v2.md)
 
 Work in progress!
 

@@ -504,7 +504,6 @@ class RoomEnv0(gym.Env):
         logging.info(f"semantic knowledge successfully loaded from {path}!")
 
         semantic_knowledge_list = []
-        print(semantic_knowledge)
         for key, val in semantic_knowledge.items():
             for k, v in val.items():
                 semantic_knowledge_list.append([key, k, v[0]["tail"]])

@@ -252,7 +252,7 @@ class RoomEnv2(gym.Env):
         object_init_config: dict,
         question_prob: int = 1.0,
         seed: int = 42,
-        terminates_at: int = 100,
+        terminates_at: int = 99,
     ) -> None:
         """
 
@@ -365,6 +365,8 @@ class RoomEnv2(gym.Env):
 
     def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
         """Return what the agent sees in quadruples, and the question.
+
+        At the moment, the questions are all one-hop queries.
 
         Returns
         -------
