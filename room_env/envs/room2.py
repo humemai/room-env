@@ -2,6 +2,7 @@
 
 This is the most complicated room environment so far. It has multiple rooms.
 """
+import json
 import logging
 import os
 import random
@@ -17,6 +18,19 @@ logging.basicConfig(
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+
+
+def read_json(fname: str) -> dict:
+    """Read json.
+
+    There is some path magic going on here. This is to account for both the production
+    and development mode. Don't use this function for a general purpose.
+
+    """
+    fullpath = os.path.join(os.path.dirname(__file__), "../", fname)
+
+    with open(fullpath, "r") as stream:
+        return json.load(stream)
 
 
 class Object:
@@ -247,9 +261,9 @@ class RoomEnv2(gym.Env):
 
     def __init__(
         self,
-        room_config: dict,
-        object_transition_config: dict,
-        object_init_config: dict,
+        room_config: dict = None,
+        object_transition_config: dict = None,
+        object_init_config: dict = None,
         question_prob: int = 1.0,
         seed: int = 42,
         terminates_at: int = 99,
@@ -274,11 +288,24 @@ class RoomEnv2(gym.Env):
         terminates_at: the environment terminates at this time step.
 
         """
+        super().__init__()
+        if (
+            room_config is None
+            and object_transition_config is None
+            and object_init_config is None
+        ):
+            config_all = read_json("./data/room-config-v2.json")
+
+            self.room_config = config_all["room_config"]
+            self.object_transition_config = config_all["object_transition_config"]
+            self.object_init_config = config_all["object_init_config"]
+        else:
+            self.room_config = room_config
+            self.object_transition_config = object_transition_config
+            self.object_init_config = object_init_config
+
         self.seed = seed
         seed_everything(self.seed)
-        self.room_config = room_config
-        self.object_transition_config = object_transition_config
-        self.object_init_config = object_init_config
         self.question_prob = question_prob
         self.terminates_at = terminates_at
 
@@ -351,10 +378,10 @@ class RoomEnv2(gym.Env):
         """
         self.hidden_global_state = []
         for name, room in self.rooms.items():
-            self.hidden_global_state.append([name, "tothenorth", room.north])
-            self.hidden_global_state.append([name, "totheeast", room.east])
-            self.hidden_global_state.append([name, "tothesouth", room.south])
-            self.hidden_global_state.append([name, "tothewest", room.west])
+            self.hidden_global_state.append([name, "north", room.north])
+            self.hidden_global_state.append([name, "east", room.east])
+            self.hidden_global_state.append([name, "south", room.south])
+            self.hidden_global_state.append([name, "west", room.west])
 
         for obj_type in ["static", "independent", "dependent", "agent"]:
             for obj in self.objects[obj_type]:
@@ -384,7 +411,7 @@ class RoomEnv2(gym.Env):
                 if triple[2] == agent_location:
                     self.observations.append(triple)
 
-            elif triple[1] in ["tothenorth", "totheeast", "tothesouth", "tothewest"]:
+            elif triple[1] in ["north", "east", "south", "west"]:
                 if triple[0] == agent_location:
                     self.observations.append(triple)
 

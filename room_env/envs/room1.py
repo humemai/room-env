@@ -52,6 +52,7 @@ class RoomEnv1(gym.Env):
         check_resources: whether to check the resources in the DES.
 
         """
+        super().__init__()
         self.seed = seed
         seed_everything(self.seed)
         self.question_prob = question_prob

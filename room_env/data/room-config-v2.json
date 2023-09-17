@@ -1,0 +1,184 @@
+{
+    "room_config": {
+        "officeroom": {
+            "north": "wall",
+            "east": "livingroom",
+            "south": "wall",
+            "west": "wall"
+        },
+        "livingroom": {
+            "north": "wall",
+            "east": "wall",
+            "south": "bedroom",
+            "west": "officeroom"
+        },
+        "bedroom": {
+            "north": "livingroom",
+            "east": "wall",
+            "south": "wall",
+            "west": "wall"
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "bed": null,
+            "desk": null,
+            "table": null
+        },
+        "independent": {
+            "tae": {
+                "officeroom": {
+                    "north": 0,
+                    "east": 0.1,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0.9
+                },
+                "livingroom": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0.1,
+                    "stay": 0.9
+                },
+                "bedroom": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0
+                }
+            },
+            "michael": {
+                "officeroom": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0
+                },
+                "livingroom": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0.9,
+                    "west": 0,
+                    "stay": 0.1
+                },
+                "bedroom": {
+                    "north": 0.1,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0.9
+                }
+            },
+            "vincent": {
+                "officeroom": {
+                    "north": 0,
+                    "east": 0.5,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0.5
+                },
+                "livingroom": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0.333,
+                    "west": 0.333,
+                    "stay": 0.333
+                },
+                "bedroom": {
+                    "north": 0.5,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 0.5
+                }
+            }
+        },
+        "dependent": {
+            "laptop": {
+                "tae": 0.7,
+                "michael": 0.4,
+                "vincent": 0.1
+            },
+            "phone": {
+                "tae": 0.1,
+                "michael": 0.7,
+                "vincent": 0.4
+            },
+            "headset": {
+                "tae": 0.4,
+                "michael": 0.1,
+                "vincent": 0.9
+            }
+        },
+        "agent": {
+            "agent": {
+                "officeroom": null,
+                "livingroom": null,
+                "bedroom": null
+            }
+        }
+    },
+    "object_init_config": {
+        "static": {
+            "bed": {
+                "officeroom": 0,
+                "livingroom": 0,
+                "bedroom": 1
+            },
+            "desk": {
+                "officeroom": 1,
+                "livingroom": 0,
+                "bedroom": 0
+            },
+            "table": {
+                "officeroom": 0,
+                "livingroom": 1,
+                "bedroom": 0
+            }
+        },
+        "independent": {
+            "tae": {
+                "officeroom": 0.5,
+                "livingroom": 0.5,
+                "bedroom": 0
+            },
+            "michael": {
+                "officeroom": 0,
+                "livingroom": 0.5,
+                "bedroom": 0.5
+            },
+            "vincent": {
+                "officeroom": 0.333,
+                "livingroom": 0.333,
+                "bedroom": 0.333
+            }
+        },
+        "dependent": {
+            "laptop": {
+                "officeroom": 0.333,
+                "livingroom": 0.333,
+                "bedroom": 0.333
+            },
+            "phone": {
+                "officeroom": 0.333,
+                "livingroom": 0.333,
+                "bedroom": 0.333
+            },
+            "headset": {
+                "officeroom": 0.333,
+                "livingroom": 0.333,
+                "bedroom": 0.333
+            }
+        },
+        "agent": {
+            "agent": {
+                "officeroom": 0.333,
+                "livingroom": 0.333,
+                "bedroom": 0.333
+            }
+        }
+    }
+}
