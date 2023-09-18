@@ -319,6 +319,9 @@ class RoomEnv2(gym.Env):
 
         self.CORRECT = 1
         self.WRONG = -1
+        self.relations = ["north", "east", "south", "west", "atlocation"]
+
+        self.entities = [obj.name for _, objs in self.objects.items() for obj in objs]
 
     def _create_rooms(self) -> None:
         """Create rooms."""
@@ -418,7 +421,14 @@ class RoomEnv2(gym.Env):
             else:
                 raise ValueError("Unknown relation.")
 
-        self.question = random.choice(self.hidden_global_state)
+        while True:  # We don't want to ask a question about the agent.
+            self.question = random.choice(self.hidden_global_state)
+            if (
+                (self.question[0] != "agent")
+                and (self.question[1] != "agent")
+                and (self.question[2] != "agent")
+            ):
+                break
 
         idx = random.randint(0, len(self.question) - 2)
         self.question = self.question[:idx] + ["?"] + self.question[idx + 1 :]
