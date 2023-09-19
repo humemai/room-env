@@ -80,7 +80,13 @@ class Object:
         next_location: next location
 
         """
-        assert action in ["north", "east", "south", "west", "stay"]
+        assert action in [
+            "north",
+            "east",
+            "south",
+            "west",
+            "stay",
+        ], f"{action} is not a valid action"
         if action == "north":
             next_location = rooms[current_location].north
         elif action == "east":
@@ -310,6 +316,7 @@ class RoomEnv2(gym.Env):
         self.terminates_at = terminates_at
 
         self._create_rooms()
+        self._get_room_map()
         self._create_objects()
 
         # Our state / actionspace are not tensors. Here we just make a dummy spaces
@@ -321,7 +328,11 @@ class RoomEnv2(gym.Env):
         self.WRONG = -1
         self.relations = ["north", "east", "south", "west", "atlocation"]
 
-        self.entities = [obj.name for _, objs in self.objects.items() for obj in objs]
+        self.entities = (
+            [obj.name for _, objs in self.objects.items() for obj in objs]
+            + [room_name for room_name in self.rooms]
+            + ["wall"]
+        )
 
     def _create_rooms(self) -> None:
         """Create rooms."""
@@ -371,6 +382,15 @@ class RoomEnv2(gym.Env):
                     self.rooms,
                 )
             )
+
+    def _get_room_map(self) -> None:
+        """Get the room layout for semantic knowledge."""
+        self.room_layout = []
+        for name, room in self.rooms.items():
+            self.room_layout.append([name, "north", room.north])
+            self.room_layout.append([name, "east", room.east])
+            self.room_layout.append([name, "south", room.south])
+            self.room_layout.append([name, "west", room.west])
 
     def _get_hidden_global_state(self) -> None:
         """Get global hidden state, i.e., list of quadruples, of the environment.
