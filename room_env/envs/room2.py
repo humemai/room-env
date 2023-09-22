@@ -267,12 +267,10 @@ class RoomEnv2(gym.Env):
 
     def __init__(
         self,
-        room_config: dict = None,
-        object_transition_config: dict = None,
-        object_init_config: dict = None,
         question_prob: int = 1.0,
         seed: int = 42,
         terminates_at: int = 99,
+        room_size: str = "dev",
     ) -> None:
         """
 
@@ -283,32 +281,25 @@ class RoomEnv2(gym.Env):
         question: question: list of strings
         answers: answers: list of strings
         current_time: current time: int
-
-        Args
-        ----
         room_config: room configuration
         object_transition_config: object transition configuration
         object_init_config: object initial configuration
+
+        Args
+        ----
         question_prob: The probability of a question being asked at every observation.
         seed: random seed number
         terminates_at: the environment terminates at this time step.
+        room_size: The room configuration to use. Choose one of "dev", "xxs", "xs",
+            "s", "m", or "l".
 
         """
         super().__init__()
-        if (
-            room_config is None
-            and object_transition_config is None
-            and object_init_config is None
-        ):
-            config_all = read_json("./data/room-config-v2.json")
+        config_all = read_json(f"./data/room-config-{room_size}-v2.json")
 
-            self.room_config = config_all["room_config"]
-            self.object_transition_config = config_all["object_transition_config"]
-            self.object_init_config = config_all["object_init_config"]
-        else:
-            self.room_config = room_config
-            self.object_transition_config = object_transition_config
-            self.object_init_config = object_init_config
+        self.room_config = config_all["room_config"]
+        self.object_transition_config = config_all["object_transition_config"]
+        self.object_init_config = config_all["object_init_config"]
 
         self.seed = seed
         seed_everything(self.seed)
