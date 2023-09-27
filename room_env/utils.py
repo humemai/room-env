@@ -338,7 +338,7 @@ def run_des_seeds(
                 seed=seed,
                 policies={
                     "memory_management": "rl",
-                    "question_answer": "episodic_semantic",
+                    "answer_question": "episodic_semantic",
                     "encoding": "argmax",
                 },
                 capacity=capacity_,
@@ -519,7 +519,7 @@ def get_handcrafted(
     observation_params: str = "perfect",
     policies: dict = {
         "memory_management": "rl",
-        "question_answer": "episodic_semantic",
+        "answer_question": "episodic_semantic",
         "encoding": "argmax",
     },
     capacities: list = [2, 4, 8, 16, 32, 64],
@@ -540,7 +540,7 @@ def get_handcrafted(
     question_prob: float = 0.1,
     policies: dict = {
         "memory_management": "rl",
-        "question_answer": "episodic_semantic",
+        "answer_question": "episodic_semantic",
         "encoding": "argmax",
     },
     capacities: list = [2, 4, 8, 16, 32, 64],
