@@ -185,7 +185,6 @@ class RoomEnv1(gym.Env):
                 f"{human_q}'s {obj_q}",
                 "atlocation",
                 "?",
-                self.des.current_time,
             ]
             answer = obj_loc_q
 

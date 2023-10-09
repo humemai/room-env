@@ -391,15 +391,16 @@ class RoomEnv2(gym.Env):
 
         """
         self.hidden_global_state = []
+
+        for obj_type in ["agent", "static", "independent", "dependent"]:
+            for obj in self.objects[obj_type]:
+                self.hidden_global_state.append([obj.name, "atlocation", obj.location])
+
         for name, room in self.rooms.items():
             self.hidden_global_state.append([name, "north", room.north])
             self.hidden_global_state.append([name, "east", room.east])
             self.hidden_global_state.append([name, "south", room.south])
             self.hidden_global_state.append([name, "west", room.west])
-
-        for obj_type in ["static", "independent", "dependent", "agent"]:
-            for obj in self.objects[obj_type]:
-                self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
         for triple in self.hidden_global_state:
             triple.append(self.current_time)
@@ -407,7 +408,8 @@ class RoomEnv2(gym.Env):
     def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
         """Return what the agent sees in quadruples, and the question.
 
-        At the moment, the questions are all one-hop queries.
+        At the moment, the questions are all one-hop queries. The first observation
+        is always the agent's location. Use this wisely.
 
         Returns
         -------
@@ -434,6 +436,8 @@ class RoomEnv2(gym.Env):
 
         while True:  # We don't want to ask a question about the agent.
             self.question = random.choice(self.hidden_global_state)
+            # remove current_time
+            self.question = self.question[:-1]
             if (
                 (self.question[0] != "agent")
                 and (self.question[1] != "agent")
@@ -513,7 +517,7 @@ class RoomEnv2(gym.Env):
         else:
             done = True
         truncated = False
-        info = {}
+        info = deepcopy({"answers": self.answers})
 
         self.current_time += 1
 

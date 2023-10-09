@@ -204,12 +204,12 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        question: e.g., ["tae's laptop", "atlocation", "?", None]
+        question: e.g., ["tae's laptop", "atlocation", "?"]
         answer: e.g., desk
 
         """
         random_choice = random.choice(self.room)
-        question = random_choice[:2] + ["?"] + [None]
+        question = random_choice[:2] + ["?"]
         answer = random_choice[2]
 
         return question, answer
