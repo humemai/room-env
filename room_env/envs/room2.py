@@ -383,6 +383,14 @@ class RoomEnv2(gym.Env):
             self.room_layout.append([name, "south", room.south])
             self.room_layout.append([name, "west", room.west])
 
+    def return_room_layout(self) -> List[List[str]]:
+        """Return the room layout for semantic knowledge."""
+        room_layout = [
+            deepcopy(triple) for triple in self.room_layout if triple[2] != "wall"
+        ]
+
+        return room_layout
+
     def _get_hidden_global_state(self) -> None:
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
@@ -414,8 +422,7 @@ class RoomEnv2(gym.Env):
         Returns
         -------
         observations: [head, relation, tail, time]
-        question: [object, relation, tail, time], where one of object, relation, tail is
-        replaced with ?
+        question: [head, relation, tail], where either head or tail is "?"
 
         """
         agent_location = self.objects["agent"][0].location
@@ -434,15 +441,11 @@ class RoomEnv2(gym.Env):
             else:
                 raise ValueError("Unknown relation.")
 
-        while True:  # We don't want to ask a question about the agent.
+        while True:  # We don't want to ask a question about the agent and walls.
             self.question = random.choice(self.hidden_global_state)
             # remove current_time
             self.question = self.question[:-1]
-            if (
-                (self.question[0] != "agent")
-                and (self.question[1] != "agent")
-                and (self.question[2] != "agent")
-            ):
+            if self.question[0] != "agent" and self.question[2] != "wall":
                 break
 
         idx = random.randint(0, len(self.question) - 2)
