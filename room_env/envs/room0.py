@@ -158,7 +158,7 @@ class RoomEnv0(gym.Env):
         which will be placed by the human in a random location.
 
         """
-        self.step_counter = 0
+        self.current_time = 0
         random.shuffle(self.names)
         random.shuffle(self.heads)
         self.room = []
@@ -193,7 +193,7 @@ class RoomEnv0(gym.Env):
 
         """
         observations = {
-            i: deepcopy([*self.room[next(navigate_)], self.step_counter])
+            i: deepcopy([*self.room[next(navigate_)], self.current_time])
             for i, navigate_ in enumerate(self.navigate)
         }
 
@@ -204,12 +204,12 @@ class RoomEnv0(gym.Env):
 
         Returns
         -------
-        question: e.g., ["tae's laptop", "atlocation", "?"]
+        question: e.g., ["tae's laptop", "atlocation", "?", 10]
         answer: e.g., desk
 
         """
         random_choice = random.choice(self.room)
-        question = random_choice[:2] + ["?"]
+        question = random_choice[:2] + ["?"] + [self.current_time]
         answer = random_choice[2]
 
         return question, answer
@@ -324,7 +324,7 @@ class RoomEnv0(gym.Env):
             )
             reward = WRONG
 
-        self.step_counter += 1
+        self.current_time += 1
 
         # Things will change in the room!
         self.renew()
@@ -334,7 +334,7 @@ class RoomEnv0(gym.Env):
 
         info = {}
 
-        if self.step_counter >= self.max_step:
+        if self.current_time >= self.max_step:
             done = True
         else:
             done = False

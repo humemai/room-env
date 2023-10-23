@@ -63,6 +63,15 @@ class Object:
     def __repr__(self) -> str:
         return f"{self.type.title()}Object(name: {self.name}, location: {self.location}"
 
+    def __eq__(self, other) -> bool:
+        return (
+            self.name == other.name
+            and self.type == other.type
+            and self.init_probs == other.init_probs
+            and self.transition_probs == other.transition_probs
+            and self.location == other.location
+        )
+
     def move_with_action(self, action: str, rooms: dict, current_location: str) -> str:
         """Move with action.
 
@@ -162,6 +171,17 @@ class IndepdentObject(Object):
     def __repr__(self) -> str:
         return super().__repr__() + f", attached: {[do.name for do in self.attached]})"
 
+    def __eq__(self, other) -> bool:
+        return (
+            self.name == other.name
+            and self.type == other.type
+            and self.init_probs == other.init_probs
+            and self.transition_probs == other.transition_probs
+            and self.location == other.location
+            and self.attached == other.attached
+            and self.rooms == other.rooms
+        )
+
 
 class DependentObject(Object):
     def __init__(
@@ -209,6 +229,17 @@ class DependentObject(Object):
         else:
             return super().__repr__() + f", attached: {self.attached.name})"
 
+    def __eq__(self, other) -> bool:
+        return (
+            self.name == other.name
+            and self.type == other.type
+            and self.init_probs == other.init_probs
+            and self.transition_probs == other.transition_probs
+            and self.location == other.location
+            and self.attached == other.attached
+            and self.independent_objects == other.independent_objects
+        )
+
 
 class Agent(Object):
     def __init__(
@@ -225,6 +256,16 @@ class Agent(Object):
 
     def __repr__(self) -> str:
         return "Agent(name: agent, location: " + self.location + ")"
+
+    def __eq__(self, other) -> bool:
+        return (
+            self.name == other.name
+            and self.type == other.type
+            and self.init_probs == other.init_probs
+            and self.transition_probs == other.transition_probs
+            and self.location == other.location
+            and self.rooms == other.rooms
+        )
 
 
 class Room:
@@ -249,6 +290,15 @@ class Room:
             f"south: {self.south}, west: {self.west})"
         )
 
+    def __eq__(self, other) -> bool:
+        return (
+            self.name == other.name
+            and self.north == other.north
+            and self.east == other.east
+            and self.south == other.south
+            and self.west == other.west
+        )
+
 
 class RoomEnv2(gym.Env):
     """the Room environment version 2.
@@ -270,6 +320,7 @@ class RoomEnv2(gym.Env):
         question_prob: int = 1.0,
         seed: int = 42,
         terminates_at: int = 99,
+        randomize_order: bool = False,
         room_size: str = "dev",
     ) -> None:
         """
@@ -284,18 +335,33 @@ class RoomEnv2(gym.Env):
         room_config: room configuration
         object_transition_config: object transition configuration
         object_init_config: object initial configuration
+        randomize_order: whether to randomize the order of the observations.
 
         Args
         ----
         question_prob: The probability of a question being asked at every observation.
         seed: random seed number
         terminates_at: the environment terminates at this time step.
+        randomize_order: whether to randomize the order of the observations.
+            If True, the first observation is always the agent's location. and the reset
+            is random. If False, the first observation is always the agent's location,
+            and the rest is in the order of the hidden global state, i.e., agent, static
+            independent, dependent, and rooms.
         room_size: The room configuration to use. Choose one of "dev", "xxs", "xs",
-            "s", "m", or "l".
+            "s", "m", or "l". You can also pass this argument as a dictionary, if you
+            have your pre-configured room configuration.
 
         """
         super().__init__()
-        config_all = read_json(f"./data/room-config-{room_size}-v2.json")
+        if isinstance(room_size, str):
+            config_all = read_json(f"./data/room-config-{room_size}-v2.json")
+        else:
+            assert [
+                "object_init_config",
+                "object_transition_config",
+                "room_config",
+            ] == sorted(list(room_size.keys()))
+            config_all = room_size
 
         self.room_config = config_all["room_config"]
         self.object_transition_config = config_all["object_transition_config"]
@@ -305,12 +371,13 @@ class RoomEnv2(gym.Env):
         seed_everything(self.seed)
         self.question_prob = question_prob
         self.terminates_at = terminates_at
+        self.randomize_order = randomize_order
 
         self._create_rooms()
         self._get_room_map()
         self._create_objects()
 
-        # Our state / actionspace are not tensors. Here we just make a dummy spaces
+        # Our state / action spaces are not tensors. Here we just make a dummy spaces
         # to bypass the gymnasium sanity check.
         self.observation_space = gym.spaces.Discrete(1)
         self.action_space = gym.spaces.Discrete(1)
@@ -384,7 +451,7 @@ class RoomEnv2(gym.Env):
             self.room_layout.append([name, "west", room.west])
 
     def return_room_layout(self) -> List[List[str]]:
-        """Return the room layout for semantic knowledge."""
+        """Return the room layout for semantic knowledge. Walls are not included."""
         room_layout = [
             deepcopy(triple) for triple in self.room_layout if triple[2] != "wall"
         ]
@@ -411,7 +478,7 @@ class RoomEnv2(gym.Env):
             self.hidden_global_state.append([name, "west", room.west])
 
         for triple in self.hidden_global_state:
-            triple.append(self.current_time)
+            triple.append((self.current_time))
 
     def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
         """Return what the agent sees in quadruples, and the question.
@@ -421,52 +488,64 @@ class RoomEnv2(gym.Env):
 
         Returns
         -------
-        observations: [head, relation, tail, time]
-        question: [head, relation, tail], where either head or tail is "?"
+        observations: [head, relation, tail, current_time]
+        question: [head, relation, tail, current_time], where either head or tail is "?"
 
         """
         agent_location = self.objects["agent"][0].location
         self._get_hidden_global_state()
         self.observations = []
 
-        for triple in self.hidden_global_state:  # atm, there are only 5 relations.
-            if triple[1] == "atlocation":
-                if triple[2] == agent_location:
-                    self.observations.append(triple)
+        for quadruple in self.hidden_global_state:  # atm, there are only 5 relations.
+            if quadruple[1] == "atlocation":
+                if quadruple[2] == agent_location:
+                    self.observations.append(quadruple)
 
-            elif triple[1] in ["north", "east", "south", "west"]:
-                if triple[0] == agent_location:
-                    self.observations.append(triple)
+            elif quadruple[1] in ["north", "east", "south", "west"]:
+                if quadruple[0] == agent_location:
+                    self.observations.append(quadruple)
 
             else:
                 raise ValueError("Unknown relation.")
 
-        while True:  # We don't want to ask a question about the agent and walls.
-            self.question = random.choice(self.hidden_global_state)
-            # remove current_time
-            self.question = self.question[:-1]
-            if self.question[0] != "agent" and self.question[2] != "wall":
-                break
+        question_candidates = [
+            quadruple
+            for quadruple in self.hidden_global_state
+            # We don't want to ask a question about the agent and walls.
+            if quadruple[0] != "agent" and quadruple[1] == "atlocation"
+        ]
 
-        idx = random.randint(0, len(self.question) - 2)
+        self.question = random.choice(question_candidates)
+
+        idx = random.choice([0, 2])  # we don't ask a qusetion about the relation.
         self.question = self.question[:idx] + ["?"] + self.question[idx + 1 :]
 
         self.answers = []
-        for triple in self.hidden_global_state:
+        for quadruple in self.hidden_global_state:
             if self.question[0] == "?":
-                if triple[1] == self.question[1] and triple[2] == self.question[2]:
-                    self.answers.append(triple[0])
-            elif self.question[1] == "?":
-                if triple[0] == self.question[0] and triple[2] == self.question[2]:
-                    self.answers.append(triple[1])
+                if (
+                    quadruple[0] != "agent"
+                    and quadruple[1] == self.question[1]
+                    and quadruple[2] == self.question[2]
+                ):
+                    self.answers.append(quadruple[0])
             elif self.question[2] == "?":
-                if triple[0] == self.question[0] and triple[1] == self.question[1]:
-                    self.answers.append(triple[2])
+                if (
+                    quadruple[0] == self.question[0]
+                    and quadruple[1] == self.question[1]
+                ):
+                    self.answers.append(quadruple[2])
             else:
                 raise ValueError(f"Unknown question: {self.question}")
 
         if random.random() >= self.question_prob:
             self.question = None
+
+        if self.randomize_order:
+            obs_first = self.observations[0]
+            obs_rest = self.observations[1:]
+            random.shuffle(obs_rest)
+            self.observations = [obs_first] + obs_rest
 
         return deepcopy(self.observations), deepcopy(self.question)
 
@@ -498,7 +577,7 @@ class RoomEnv2(gym.Env):
 
         Returns
         -------
-        (observation, question), reward, done, info
+        (observation, question), reward, truncated, done, info
 
         """
         action_qa, action_explore = actions
@@ -519,8 +598,9 @@ class RoomEnv2(gym.Env):
             done = False
         else:
             done = True
+
         truncated = False
-        info = deepcopy({"answers": self.answers})
+        info = deepcopy({"answers": self.answers, "timestamp": self.current_time})
 
         self.current_time += 1
 
