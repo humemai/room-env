@@ -320,7 +320,7 @@ class RoomEnv2(gym.Env):
         question_prob: int = 1.0,
         seed: int = 42,
         terminates_at: int = 99,
-        randomize_order: bool = False,
+        randomize_observations: bool = False,
         room_size: str = "dev",
     ) -> None:
         """
@@ -335,14 +335,14 @@ class RoomEnv2(gym.Env):
         room_config: room configuration
         object_transition_config: object transition configuration
         object_init_config: object initial configuration
-        randomize_order: whether to randomize the order of the observations.
+        randomize_observations: whether to randomize the order of the observations.
 
         Args
         ----
         question_prob: The probability of a question being asked at every observation.
         seed: random seed number
         terminates_at: the environment terminates at this time step.
-        randomize_order: whether to randomize the order of the observations.
+        randomize_observations: whether to randomize the order of the observations.
             If True, the first observation is always the agent's location. and the reset
             is random. If False, the first observation is always the agent's location,
             and the rest is in the order of the hidden global state, i.e., agent, static
@@ -371,7 +371,7 @@ class RoomEnv2(gym.Env):
         seed_everything(self.seed)
         self.question_prob = question_prob
         self.terminates_at = terminates_at
-        self.randomize_order = randomize_order
+        self.randomize_observations = randomize_observations
 
         self._create_rooms()
         self._get_room_map()
@@ -541,7 +541,7 @@ class RoomEnv2(gym.Env):
         if random.random() >= self.question_prob:
             self.question = None
 
-        if self.randomize_order:
+        if self.randomize_observations:
             obs_first = self.observations[0]
             obs_rest = self.observations[1:]
             random.shuffle(obs_rest)
