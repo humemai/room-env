@@ -62,7 +62,7 @@ class RoomEnv2MockTest(unittest.TestCase):
                 "dependent": {
                     "laptop": {"officeroom": 1.0, "livingroom": 0},
                 },
-                "agent": {"agent": {"officeroom": 1.0, "livingroom": 0, "bedroom": 0}},
+                "agent": {"agent": {"officeroom": 1.0, "livingroom": 0}},
             },
         }
         config = {
