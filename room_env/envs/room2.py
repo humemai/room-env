@@ -372,6 +372,7 @@ class RoomEnv2(gym.Env):
         self.question_prob = question_prob
         self.terminates_at = terminates_at
         self.randomize_observations = randomize_observations
+        self.total_episode_rewards = self.terminates_at + 1
 
         self._create_rooms()
         self._get_room_map()
