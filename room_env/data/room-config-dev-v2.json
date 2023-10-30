@@ -1,19 +1,19 @@
 {
     "room_config": {
-        "officeroom": {
+        "beneath_the_boardwalk_bungalow": {
             "north": "wall",
-            "east": "livingroom",
+            "east": "mythical_museum_of_miracles",
             "south": "wall",
             "west": "wall"
         },
-        "livingroom": {
+        "mythical_museum_of_miracles": {
             "north": "wall",
             "east": "wall",
-            "south": "bedroom",
-            "west": "officeroom"
+            "south": "retro_rollercoaster_rink",
+            "west": "beneath_the_boardwalk_bungalow"
         },
-        "bedroom": {
-            "north": "livingroom",
+        "retro_rollercoaster_rink": {
+            "north": "mythical_museum_of_miracles",
             "east": "wall",
             "south": "wall",
             "west": "wall"
@@ -21,163 +21,163 @@
     },
     "object_transition_config": {
         "static": {
-            "bed": null,
-            "desk": null,
-            "table": null
+            "sectional_sofa": null,
+            "bench": null
         },
         "independent": {
-            "tae": {
-                "officeroom": {
-                    "north": 0,
-                    "east": 0.1,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0.9
+            "lisa": {
+                "beneath_the_boardwalk_bungalow": {
+                    "north": 0.0,
+                    "east": 0.42555294058144444,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.5744470594185556
                 },
-                "livingroom": {
-                    "north": 0,
-                    "east": 0,
-                    "south": 0,
-                    "west": 0.1,
-                    "stay": 0.9
+                "mythical_museum_of_miracles": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.3852079679212757,
+                    "west": 0.5399601902921358,
+                    "stay": 0.07483184178658844
                 },
-                "bedroom": {
-                    "north": 0,
-                    "east": 0,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0
+                "retro_rollercoaster_rink": {
+                    "north": 0.9092561017618532,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.09074389823814673
                 }
             },
-            "michael": {
-                "officeroom": {
-                    "north": 0,
-                    "east": 0,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0
+            "teresa": {
+                "beneath_the_boardwalk_bungalow": {
+                    "north": 0.0,
+                    "east": 0.062324349568893676,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9376756504311063
                 },
-                "livingroom": {
-                    "north": 0,
-                    "east": 0,
-                    "south": 0.9,
-                    "west": 0,
-                    "stay": 0.1
+                "mythical_museum_of_miracles": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.5903317705783347,
+                    "west": 0.2872753873851953,
+                    "stay": 0.1223928420364698
                 },
-                "bedroom": {
-                    "north": 0.1,
-                    "east": 0,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0.9
+                "retro_rollercoaster_rink": {
+                    "north": 0.574926951164043,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.4250730488359569
                 }
             },
-            "vincent": {
-                "officeroom": {
-                    "north": 0,
-                    "east": 0.5,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0.5
+            "angela": {
+                "beneath_the_boardwalk_bungalow": {
+                    "north": 0.0,
+                    "east": 0.1276612444614253,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.8723387555385748
                 },
-                "livingroom": {
-                    "north": 0,
-                    "east": 0,
-                    "south": 0.333,
-                    "west": 0.333,
-                    "stay": 0.333
+                "mythical_museum_of_miracles": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.10350935106315726,
+                    "west": 0.796353823898099,
+                    "stay": 0.1001368250387438
                 },
-                "bedroom": {
-                    "north": 0.5,
-                    "east": 0,
-                    "south": 0,
-                    "west": 0,
-                    "stay": 0.5
+                "retro_rollercoaster_rink": {
+                    "north": 0.5780044432064136,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.42199555679358636
                 }
             }
         },
         "dependent": {
-            "laptop": {
-                "tae": 0.7,
-                "michael": 0.4,
-                "vincent": 0.1
+            "clothes_hanger": {
+                "lisa": 0.20113020053106523,
+                "teresa": 0.5730998475374468,
+                "angela": 0.34455857963379444
             },
-            "phone": {
-                "tae": 0.1,
-                "michael": 0.7,
-                "vincent": 0.4
+            "tupperware": {
+                "lisa": 0.9613934909749343,
+                "teresa": 0.23147678054048304,
+                "angela": 0.4153185536912235
             },
-            "headset": {
-                "tae": 0.4,
-                "michael": 0.1,
-                "vincent": 0.9
+            "salad_bowl": {
+                "lisa": 0.25756663366148946,
+                "teresa": 0.9526415305663241,
+                "angela": 0.5462518969713208
+            },
+            "conditioner": {
+                "lisa": 0.16739126819103634,
+                "teresa": 0.07919765596141826,
+                "angela": 0.7736805035716278
             }
         },
         "agent": {
-            "agent": {
-                "officeroom": null,
-                "livingroom": null,
-                "bedroom": null
-            }
+            "agent": null
         }
     },
     "object_init_config": {
         "static": {
-            "bed": {
-                "officeroom": 0,
-                "livingroom": 0,
-                "bedroom": 1
+            "sectional_sofa": {
+                "beneath_the_boardwalk_bungalow": 0.310048504002918,
+                "mythical_museum_of_miracles": 0.27313767312474646,
+                "retro_rollercoaster_rink": 0.4168138228723355
             },
-            "desk": {
-                "officeroom": 1,
-                "livingroom": 0,
-                "bedroom": 0
-            },
-            "table": {
-                "officeroom": 0,
-                "livingroom": 1,
-                "bedroom": 0
+            "bench": {
+                "beneath_the_boardwalk_bungalow": 0.2436123152918496,
+                "mythical_museum_of_miracles": 0.3907284361364566,
+                "retro_rollercoaster_rink": 0.3656592485716939
             }
         },
         "independent": {
-            "tae": {
-                "officeroom": 0.5,
-                "livingroom": 0.5,
-                "bedroom": 0
+            "lisa": {
+                "beneath_the_boardwalk_bungalow": 0.5787313774070794,
+                "mythical_museum_of_miracles": 0.3457964819215503,
+                "retro_rollercoaster_rink": 0.0754721406713702
             },
-            "michael": {
-                "officeroom": 0,
-                "livingroom": 0.5,
-                "bedroom": 0.5
+            "teresa": {
+                "beneath_the_boardwalk_bungalow": 0.05171016431662777,
+                "mythical_museum_of_miracles": 0.4266562966627597,
+                "retro_rollercoaster_rink": 0.5216335390206125
             },
-            "vincent": {
-                "officeroom": 0.333,
-                "livingroom": 0.333,
-                "bedroom": 0.333
+            "angela": {
+                "beneath_the_boardwalk_bungalow": 0.23459629797034592,
+                "mythical_museum_of_miracles": 0.21180316099010998,
+                "retro_rollercoaster_rink": 0.553600541039544
             }
         },
         "dependent": {
-            "laptop": {
-                "officeroom": 0.333,
-                "livingroom": 0.333,
-                "bedroom": 0.333
+            "clothes_hanger": {
+                "beneath_the_boardwalk_bungalow": 0.23534909782079913,
+                "mythical_museum_of_miracles": 0.19128808715434095,
+                "retro_rollercoaster_rink": 0.57336281502486
             },
-            "phone": {
-                "officeroom": 0.333,
-                "livingroom": 0.333,
-                "bedroom": 0.333
+            "tupperware": {
+                "beneath_the_boardwalk_bungalow": 0.40942600569021476,
+                "mythical_museum_of_miracles": 0.566975879834503,
+                "retro_rollercoaster_rink": 0.023598114475282265
             },
-            "headset": {
-                "officeroom": 0.333,
-                "livingroom": 0.333,
-                "bedroom": 0.333
+            "salad_bowl": {
+                "beneath_the_boardwalk_bungalow": 0.39173332893299806,
+                "mythical_museum_of_miracles": 0.30021202361981086,
+                "retro_rollercoaster_rink": 0.30805464744719113
+            },
+            "conditioner": {
+                "beneath_the_boardwalk_bungalow": 0.5224479230762781,
+                "mythical_museum_of_miracles": 0.4647870372485351,
+                "retro_rollercoaster_rink": 0.012765039675186768
             }
         },
         "agent": {
             "agent": {
-                "officeroom": 0.333,
-                "livingroom": 0.333,
-                "bedroom": 0.333
+                "beneath_the_boardwalk_bungalow": 0.32923031268796815,
+                "mythical_museum_of_miracles": 0.25415776546243735,
+                "retro_rollercoaster_rink": 0.4166119218495944
             }
         }
     }

@@ -19,6 +19,8 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+EPSILON = 1e-3
+
 
 def read_json(fname: str) -> dict:
     """Read json.
@@ -51,6 +53,8 @@ class Object:
         self.name = name
         self.type = type
         self.init_probs = init_probs
+        if abs(sum(self.init_probs.values()) - 1) >= EPSILON:
+            raise ValueError("The sum of the initial probabilities must be 1.")
         self.transition_probs = transition_probs
 
         # place an object in one of the rooms when it is created.
@@ -115,7 +119,7 @@ class Object:
 
 class StaticObject(Object):
     def __init__(self, name: str, init_probs: dict, transition_probs: dict) -> None:
-        """Static object does not move. One they are initialized, they stay forever.
+        """Static object does not move. Once they are initialized, they stay forever.
 
 
         Args
@@ -125,6 +129,7 @@ class StaticObject(Object):
         transition_probs: just a place holder. It's not gonna be used anyway.
         """
         super().__init__(name, "static", init_probs, transition_probs)
+        assert self.transition_probs is None, "Static objects do not move."
 
     def __repr__(self) -> str:
         return super().__repr__() + ")"
@@ -145,6 +150,9 @@ class IndepdentObject(Object):
 
         """
         super().__init__(name, "independent", init_probs, transition_probs)
+        for key, val in self.transition_probs.items():
+            if abs(sum(val.values()) - 1) >= EPSILON:
+                raise ValueError("The sum of the transition probabilities must be 1.")
         self.attached = []
         self.rooms = rooms
 
@@ -203,6 +211,9 @@ class DependentObject(Object):
         independent_objects: independent objects in the environment.
         """
         super().__init__(name, "dependent", init_probs, transition_probs)
+        for key, val in self.transition_probs.items():
+            if val >= 1 + EPSILON:
+                raise ValueError("The transition probability must be <= 1.")
         self.independent_objects = independent_objects
         self.attach()  # attach to an independent object when it is created.
 
@@ -248,6 +259,7 @@ class Agent(Object):
         """Agent class is the same as the independent object class, except that it
         moves with the provided action."""
         super().__init__(name, "agent", init_probs, transition_probs)
+        assert self.transition_probs is None, "Agent objects do not move by itself."
         self.rooms = rooms
 
     def move(self, action: str) -> None:
@@ -283,6 +295,10 @@ class Room:
         self.east = east
         self.south = south
         self.west = west
+
+        rooms_walls = [self.north, self.east, self.south, self.west]
+        rooms_walls = [rw for rw in rooms_walls if rw != "wall"]
+        assert len(set(rooms_walls)) == len(rooms_walls), "room layout wrong."
 
     def __repr__(self) -> str:
         return (
@@ -481,7 +497,7 @@ class RoomEnv2(gym.Env):
         for triple in self.hidden_global_state:
             triple.append((self.current_time))
 
-    def get_observations_and_question(self) -> Tuple[List[List[str]], List[str]]:
+    def get_observations_and_question(self) -> Dict:
         """Return what the agent sees in quadruples, and the question.
 
         At the moment, the questions are all one-hop queries. The first observation
@@ -489,23 +505,33 @@ class RoomEnv2(gym.Env):
 
         Returns
         -------
-        observations: [head, relation, tail, current_time]
+        observations_self: [head, relation, tail, current_time]
+        observations_room: [head, relation, tail, current_time]
         question: [head, relation, tail, current_time], where either head or tail is "?"
 
         """
+        if self.current_time > self.terminates_at:
+            self.observations_self = None
+            self.observations_room = None
+            self.question = None
+            self.answers = None
+
+            return None
+
         agent_location = self.objects["agent"][0].location
         self._get_hidden_global_state()
-        self.observations = []
+        self.observations_room = []
 
-        for quadruple in self.hidden_global_state:  # atm, there are only 5 relations.
+        self.observations_self = self.hidden_global_state[0]
+        for quadruple in self.hidden_global_state[
+            1:
+        ]:  # atm, there are only 5 relations.
             if quadruple[1] == "atlocation":
                 if quadruple[2] == agent_location:
-                    self.observations.append(quadruple)
-
+                    self.observations_room.append(quadruple)
             elif quadruple[1] in ["north", "east", "south", "west"]:
                 if quadruple[0] == agent_location:
-                    self.observations.append(quadruple)
-
+                    self.observations_room.append(quadruple)
             else:
                 raise ValueError("Unknown relation.")
 
@@ -543,12 +569,13 @@ class RoomEnv2(gym.Env):
             self.question = None
 
         if self.randomize_observations:
-            obs_first = self.observations[0]
-            obs_rest = self.observations[1:]
-            random.shuffle(obs_rest)
-            self.observations = [obs_first] + obs_rest
+            random.shuffle(self.observations_room)
 
-        return deepcopy(self.observations), deepcopy(self.question)
+        return {
+            "self": deepcopy(self.observations_self),
+            "room": deepcopy(self.observations_room),
+            "question": deepcopy(self.question),
+        }
 
     def reset(self) -> Tuple[Tuple[list, list], dict]:
         """Reset the environment.
@@ -595,10 +622,10 @@ class RoomEnv2(gym.Env):
 
         self.objects["agent"][0].move(action_explore)
 
-        if self.current_time < self.terminates_at:
-            done = False
-        else:
+        if self.current_time == self.terminates_at:
             done = True
+        else:
+            done = False
 
         truncated = False
         info = deepcopy({"answers": self.answers, "timestamp": self.current_time})
