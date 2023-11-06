@@ -3,19 +3,45 @@ import json
 import os
 from copy import deepcopy
 from pprint import pprint
+from .utils import read_json_prod as read_json
+from .utils import write_json
 
+def fill_des_resources(des_size: str) -> None:
+    """Fill resources
 
-def read_json(fname: str) -> dict:
-    """Read json.
-
-    There is some path magic going on here. This is to account for both the production
-    and development mode. Don't use this function for a general purpose.
+    Args
+    ----
+    des_size
 
     """
-    fullpath = os.path.join(os.path.dirname(__file__), fname)
+    des = RoomDes(des_size=des_size, check_resources=False)
+    des.run()
+    resources = {
+        foo: 9999
+        for foo in set(
+            [bar["object_location"] for foo in des.states for bar in foo.values()]
+        )
+    }
+    des.config["resources"] = deepcopy(resources)
+    write_json(des.config, f"./room_env/data/des-config-{des_size}.json")
+    resources = []
+    des = RoomDes(des_size=des_size, check_resources=True)
+    resources.append(deepcopy(des.resources))
+    while des.until > 0:
+        des.step()
+        des.until -= 1
+        resources.append(deepcopy(des.resources))
 
-    with open(fullpath, "r") as stream:
-        return json.load(stream)
+    object_locations = deepcopy(list(des.resources.keys()))
+    resources = {
+        object_location: 9999
+        - min([resource[object_location] for resource in resources])
+        for object_location in object_locations
+    }
+
+    des.config["resources"] = deepcopy(resources)
+    write_json(des.config, f"./room_env/data/des-config-{des_size}.json")
+    des = RoomDes(des_size=des_size, check_resources=True)
 
 
 class RoomDes:

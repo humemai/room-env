@@ -1,120 +1,85 @@
 {
     "room_config": {
-        "beneath_the_boardwalk_bungalow": {
+        "enchanted_engine_room": {
             "north": "wall",
-            "east": "mythical_museum_of_miracles",
+            "east": "wall",
+            "south": "arctic_aurora_abode",
+            "west": "wall"
+        },
+        "arctic_aurora_abode": {
+            "north": "enchanted_engine_room",
+            "east": "oceanic_dream_den",
             "south": "wall",
             "west": "wall"
         },
-        "mythical_museum_of_miracles": {
+        "oceanic_dream_den": {
             "north": "wall",
             "east": "wall",
-            "south": "retro_rollercoaster_rink",
-            "west": "beneath_the_boardwalk_bungalow"
-        },
-        "retro_rollercoaster_rink": {
-            "north": "mythical_museum_of_miracles",
-            "east": "wall",
             "south": "wall",
-            "west": "wall"
+            "west": "arctic_aurora_abode"
         }
     },
     "object_transition_config": {
         "static": {
-            "sectional_sofa": null,
-            "bench": null
+            "bookshelf": null,
+            "jewelry_box": null
         },
         "independent": {
-            "lisa": {
-                "beneath_the_boardwalk_bungalow": {
-                    "north": 0.0,
-                    "east": 0.42555294058144444,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.5744470594185556
-                },
-                "mythical_museum_of_miracles": {
+            "rita": {
+                "enchanted_engine_room": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.3852079679212757,
-                    "west": 0.5399601902921358,
-                    "stay": 0.07483184178658844
+                    "south": 0.26096715457846725,
+                    "west": 0.0,
+                    "stay": 0.7390328454215328
                 },
-                "retro_rollercoaster_rink": {
-                    "north": 0.9092561017618532,
-                    "east": 0.0,
+                "arctic_aurora_abode": {
+                    "north": 0.1642885994279585,
+                    "east": 0.8009988950723448,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.09074389823814673
+                    "stay": 0.03471250549969676
+                },
+                "oceanic_dream_den": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.4111177217446417,
+                    "stay": 0.5888822782553583
                 }
             },
-            "teresa": {
-                "beneath_the_boardwalk_bungalow": {
-                    "north": 0.0,
-                    "east": 0.062324349568893676,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.9376756504311063
-                },
-                "mythical_museum_of_miracles": {
+            "carol": {
+                "enchanted_engine_room": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.5903317705783347,
-                    "west": 0.2872753873851953,
-                    "stay": 0.1223928420364698
+                    "south": 0.04045977127314057,
+                    "west": 0.0,
+                    "stay": 0.9595402287268594
                 },
-                "retro_rollercoaster_rink": {
-                    "north": 0.574926951164043,
-                    "east": 0.0,
+                "arctic_aurora_abode": {
+                    "north": 0.2095154240852622,
+                    "east": 0.7128468005232856,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.4250730488359569
-                }
-            },
-            "angela": {
-                "beneath_the_boardwalk_bungalow": {
-                    "north": 0.0,
-                    "east": 0.1276612444614253,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8723387555385748
+                    "stay": 0.07763777539145217
                 },
-                "mythical_museum_of_miracles": {
+                "oceanic_dream_den": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.10350935106315726,
-                    "west": 0.796353823898099,
-                    "stay": 0.1001368250387438
-                },
-                "retro_rollercoaster_rink": {
-                    "north": 0.5780044432064136,
-                    "east": 0.0,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.42199555679358636
+                    "west": 0.6417177907886441,
+                    "stay": 0.35828220921135584
                 }
             }
         },
         "dependent": {
-            "clothes_hanger": {
-                "lisa": 0.20113020053106523,
-                "teresa": 0.5730998475374468,
-                "angela": 0.34455857963379444
+            "kettle": {
+                "rita": 0.32684580488130854,
+                "carol": 0.7612297078940271
             },
-            "tupperware": {
-                "lisa": 0.9613934909749343,
-                "teresa": 0.23147678054048304,
-                "angela": 0.4153185536912235
-            },
-            "salad_bowl": {
-                "lisa": 0.25756663366148946,
-                "teresa": 0.9526415305663241,
-                "angela": 0.5462518969713208
-            },
-            "conditioner": {
-                "lisa": 0.16739126819103634,
-                "teresa": 0.07919765596141826,
-                "angela": 0.7736805035716278
+            "bottle_stopper": {
+                "rita": 0.3791262155641363,
+                "carol": 0.7520098235547849
             }
         },
         "agent": {
@@ -123,62 +88,97 @@
     },
     "object_init_config": {
         "static": {
-            "sectional_sofa": {
-                "beneath_the_boardwalk_bungalow": 0.310048504002918,
-                "mythical_museum_of_miracles": 0.27313767312474646,
-                "retro_rollercoaster_rink": 0.4168138228723355
+            "bookshelf": {
+                "enchanted_engine_room": 0.273402612053742,
+                "arctic_aurora_abode": 0.32556840153499184,
+                "oceanic_dream_den": 0.4010289864112661
             },
-            "bench": {
-                "beneath_the_boardwalk_bungalow": 0.2436123152918496,
-                "mythical_museum_of_miracles": 0.3907284361364566,
-                "retro_rollercoaster_rink": 0.3656592485716939
+            "jewelry_box": {
+                "enchanted_engine_room": 0.6646526550442383,
+                "arctic_aurora_abode": 0.33022864671689217,
+                "oceanic_dream_den": 0.005118698238869683
             }
         },
         "independent": {
-            "lisa": {
-                "beneath_the_boardwalk_bungalow": 0.5787313774070794,
-                "mythical_museum_of_miracles": 0.3457964819215503,
-                "retro_rollercoaster_rink": 0.0754721406713702
+            "rita": {
+                "enchanted_engine_room": 0.17958955283594613,
+                "arctic_aurora_abode": 0.3846847889935188,
+                "oceanic_dream_den": 0.435725658170535
             },
-            "teresa": {
-                "beneath_the_boardwalk_bungalow": 0.05171016431662777,
-                "mythical_museum_of_miracles": 0.4266562966627597,
-                "retro_rollercoaster_rink": 0.5216335390206125
-            },
-            "angela": {
-                "beneath_the_boardwalk_bungalow": 0.23459629797034592,
-                "mythical_museum_of_miracles": 0.21180316099010998,
-                "retro_rollercoaster_rink": 0.553600541039544
+            "carol": {
+                "enchanted_engine_room": 0.4497382308361164,
+                "arctic_aurora_abode": 0.19765459806429794,
+                "oceanic_dream_den": 0.3526071710995856
             }
         },
         "dependent": {
-            "clothes_hanger": {
-                "beneath_the_boardwalk_bungalow": 0.23534909782079913,
-                "mythical_museum_of_miracles": 0.19128808715434095,
-                "retro_rollercoaster_rink": 0.57336281502486
+            "kettle": {
+                "enchanted_engine_room": 0.39865895625485287,
+                "arctic_aurora_abode": 0.4403549161604417,
+                "oceanic_dream_den": 0.16098612758470543
             },
-            "tupperware": {
-                "beneath_the_boardwalk_bungalow": 0.40942600569021476,
-                "mythical_museum_of_miracles": 0.566975879834503,
-                "retro_rollercoaster_rink": 0.023598114475282265
-            },
-            "salad_bowl": {
-                "beneath_the_boardwalk_bungalow": 0.39173332893299806,
-                "mythical_museum_of_miracles": 0.30021202361981086,
-                "retro_rollercoaster_rink": 0.30805464744719113
-            },
-            "conditioner": {
-                "beneath_the_boardwalk_bungalow": 0.5224479230762781,
-                "mythical_museum_of_miracles": 0.4647870372485351,
-                "retro_rollercoaster_rink": 0.012765039675186768
+            "bottle_stopper": {
+                "enchanted_engine_room": 0.32065945990210293,
+                "arctic_aurora_abode": 0.6369241069876123,
+                "oceanic_dream_den": 0.04241643311028478
             }
         },
         "agent": {
             "agent": {
-                "beneath_the_boardwalk_bungalow": 0.32923031268796815,
-                "mythical_museum_of_miracles": 0.25415776546243735,
-                "retro_rollercoaster_rink": 0.4166119218495944
+                "enchanted_engine_room": 0.2367796293897197,
+                "arctic_aurora_abode": 0.4784077057634197,
+                "oceanic_dream_den": 0.28481266484686074
             }
         }
+    },
+    "grid": [
+        [
+            0,
+            0,
+            0
+        ],
+        [
+            1,
+            0,
+            0
+        ],
+        [
+            1,
+            1,
+            0
+        ]
+    ],
+    "room_indexes": [
+        [
+            1,
+            0
+        ],
+        [
+            2,
+            0
+        ],
+        [
+            2,
+            1
+        ]
+    ],
+    "names": {
+        "room": [
+            "enchanted_engine_room",
+            "arctic_aurora_abode",
+            "oceanic_dream_den"
+        ],
+        "static_objects": [
+            "bookshelf",
+            "jewelry_box"
+        ],
+        "independent_objects": [
+            "rita",
+            "carol"
+        ],
+        "dependent_objects": [
+            "kettle",
+            "bottle_stopper"
+        ]
     }
 }

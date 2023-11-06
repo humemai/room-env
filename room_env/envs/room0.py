@@ -10,6 +10,7 @@ from typing import Tuple
 import gymnasium as gym
 
 from ..utils import read_lines, remove_posession, split_by_possessive
+from ..utils import read_json_prod as read_json
 
 CORRECT = 1
 WRONG = 0
@@ -19,19 +20,6 @@ logging.basicConfig(
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
-
-
-def read_json(fname: str) -> dict:
-    """Read json.
-
-    There is some path magic going on here. This is to account for both the production
-    and development mode. Don't use this function for a general purpose.
-
-    """
-    fullpath = os.path.join(os.path.dirname(__file__), "../", fname)
-
-    with open(fullpath, "r") as stream:
-        return json.load(stream)
 
 
 class RoomEnv0(gym.Env):

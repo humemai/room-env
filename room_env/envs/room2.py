@@ -9,9 +9,12 @@ import random
 from copy import deepcopy
 from typing import Dict, List, Tuple
 
+from IPython.display import clear_output
+from pprint import pprint
+import matplotlib.pyplot as plt
 import gymnasium as gym
 
-from ..utils import seed_everything
+from ..utils import seed_everything, is_running_notebook, read_json_prod as read_json
 
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
@@ -20,19 +23,6 @@ logging.basicConfig(
 )
 
 EPSILON = 1e-3
-
-
-def read_json(fname: str) -> dict:
-    """Read json.
-
-    There is some path magic going on here. This is to account for both the production
-    and development mode. Don't use this function for a general purpose.
-
-    """
-    fullpath = os.path.join(os.path.dirname(__file__), "../", fname)
-
-    with open(fullpath, "r") as stream:
-        return json.load(stream)
 
 
 class Object:
@@ -54,7 +44,10 @@ class Object:
         self.type = type
         self.init_probs = init_probs
         if abs(sum(self.init_probs.values()) - 1) >= EPSILON:
-            raise ValueError("The sum of the initial probabilities must be 1.")
+            raise ValueError(
+                f"The sum of the initial probabilities must be 1. "
+                f"but it's {sum(self.init_probs.values())}"
+            )
         self.transition_probs = transition_probs
 
         # place an object in one of the rooms when it is created.
@@ -152,7 +145,10 @@ class IndepdentObject(Object):
         super().__init__(name, "independent", init_probs, transition_probs)
         for key, val in self.transition_probs.items():
             if abs(sum(val.values()) - 1) >= EPSILON:
-                raise ValueError("The sum of the transition probabilities must be 1.")
+                raise ValueError(
+                    "The sum of the transition probabilities for an independent object "
+                    f"must be 1. but it's {sum(val.values())}"
+                )
         self.attached = []
         self.rooms = rooms
 
@@ -213,7 +209,10 @@ class DependentObject(Object):
         super().__init__(name, "dependent", init_probs, transition_probs)
         for key, val in self.transition_probs.items():
             if val >= 1 + EPSILON:
-                raise ValueError("The transition probability must be <= 1.")
+                raise ValueError(
+                    "The transition probability for a dependent object must "
+                    f"be <= 1. but it's {val}"
+                )
         self.independent_objects = independent_objects
         self.attach()  # attach to an independent object when it is created.
 
@@ -329,8 +328,6 @@ class RoomEnv2(gym.Env):
 
     """
 
-    metadata = {"render.modes": ["console"]}
-
     def __init__(
         self,
         question_prob: int = 1.0,
@@ -369,19 +366,27 @@ class RoomEnv2(gym.Env):
 
         """
         super().__init__()
+        self.is_notebook = is_running_notebook()
         if isinstance(room_size, str):
             config_all = read_json(f"./data/room-config-{room_size}-v2.json")
         else:
-            assert [
+            for key in [
                 "object_init_config",
                 "object_transition_config",
                 "room_config",
-            ] == sorted(list(room_size.keys()))
+            ]:
+                assert key in room_size.keys(), f"{key} is not in the room_size dict."
             config_all = room_size
 
         self.room_config = config_all["room_config"]
         self.object_transition_config = config_all["object_transition_config"]
         self.object_init_config = config_all["object_init_config"]
+        if "grid" in config_all.keys():
+            self.grid = config_all["grid"]
+        if "room_indexes" in config_all.keys():
+            self.room_indexes = config_all["room_indexes"]
+        if "names" in config_all.keys():
+            self.names = config_all["names"]
 
         self.seed = seed
         seed_everything(self.seed)
@@ -391,7 +396,7 @@ class RoomEnv2(gym.Env):
         self.total_episode_rewards = self.terminates_at + 1
 
         self._create_rooms()
-        self._get_room_map()
+        self._compute_room_map()
         self._create_objects()
 
         # Our state / action spaces are not tensors. Here we just make a dummy spaces
@@ -408,6 +413,11 @@ class RoomEnv2(gym.Env):
             + [room_name for room_name in self.rooms]
             + ["wall"]
         )
+
+        self.hidden_global_states_all = []
+        self.observations_all = []
+        self.answers_all = []
+        self.info_all = []
 
     def _create_rooms(self) -> None:
         """Create rooms."""
@@ -458,7 +468,7 @@ class RoomEnv2(gym.Env):
                 )
             )
 
-    def _get_room_map(self) -> None:
+    def _compute_room_map(self) -> None:
         """Get the room layout for semantic knowledge."""
         self.room_layout = []
         for name, room in self.rooms.items():
@@ -475,7 +485,7 @@ class RoomEnv2(gym.Env):
 
         return room_layout
 
-    def _get_hidden_global_state(self) -> None:
+    def _compute_hidden_global_state(self) -> None:
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
         quadruples: [head, relation, tail, time]
@@ -497,6 +507,8 @@ class RoomEnv2(gym.Env):
         for triple in self.hidden_global_state:
             triple.append((self.current_time))
 
+        self.hidden_global_states_all.append(deepcopy(self.hidden_global_state))
+
     def get_observations_and_question(self) -> Dict:
         """Return what the agent sees in quadruples, and the question.
 
@@ -516,10 +528,15 @@ class RoomEnv2(gym.Env):
             self.question = None
             self.answers = None
 
+            observations = {"self": None, "room": None, "question": None}
+            answers = None
+
+            self.observations_all.append(observations)
+            self.answers_all.append(answers)
             return None
 
         agent_location = self.objects["agent"][0].location
-        self._get_hidden_global_state()
+        self._compute_hidden_global_state()
         self.observations_room = []
 
         self.observations_self = self.hidden_global_state[0]
@@ -571,11 +588,16 @@ class RoomEnv2(gym.Env):
         if self.randomize_observations:
             random.shuffle(self.observations_room)
 
-        return {
+        observations = {
             "self": deepcopy(self.observations_self),
             "room": deepcopy(self.observations_room),
             "question": deepcopy(self.question),
         }
+        answers = deepcopy(self.answers)
+        self.observations_all.append(observations)
+        self.answers_all.append(answers)
+
+        return observations
 
     def reset(self) -> Tuple[Tuple[list, list], dict]:
         """Reset the environment.
@@ -590,7 +612,7 @@ class RoomEnv2(gym.Env):
         self._create_rooms()
         self._create_objects()
         self.current_time = 0
-
+        self.info_all.append(info)
         return self.get_observations_and_question(), info
 
     def step(self, actions: Tuple[str, str]) -> Tuple[Tuple, int, bool, dict]:
@@ -629,13 +651,93 @@ class RoomEnv2(gym.Env):
 
         truncated = False
         info = deepcopy({"answers": self.answers, "timestamp": self.current_time})
+        self.info_all.append(info)
 
         self.current_time += 1
 
         return self.get_observations_and_question(), reward, done, truncated, info
 
-    def render(self, mode="console") -> None:
-        if mode != "console":
-            raise NotImplementedError()
-        else:
-            pass
+    def _find_objects_in_room(self, room_name: str) -> Dict[str, list]:
+        """Find objects in a room.
+
+        Args
+        ----
+        room_name: room name
+
+        Returns
+        -------
+        objects_in_room: objects in the room
+
+        """
+        objects_in_room = {obj_type: [] for obj_type in self.objects.keys()}
+        for obj_type, objects in self.objects.items():
+            for obj in objects:
+                if obj.location == room_name:
+                    objects_in_room[obj_type].append(obj.name)
+
+        return objects_in_room
+
+    def render(
+        self,
+        render_mode: str = "console",
+        figsize: Tuple[int, int] = (15, 15),
+        cell_text_size: int = 10,
+        save_fig_dir: str = None,
+        image_format: str = "png",
+    ) -> None:
+        """Render the environment."""
+        if render_mode == "console":
+            pprint(self.hidden_global_state)
+        elif render_mode == "image":
+            if self.is_notebook:
+                clear_output(True)
+            plt.figure(figsize=figsize)
+            num_rows = len(self.grid)
+            num_cols = len(self.grid[0])
+
+            plt.subplot(111)
+            plt.title(f"Hidden state at time={self.current_time}")
+
+            for row in range(num_rows):
+                for col in range(num_cols):
+                    text = ""
+                    cell_content = self.grid[row][col]
+                    if cell_content != 0:
+                        color = "white"
+                        room_index = self.room_indexes.index([row, col])
+                        room_name = self.names["room"][room_index]
+                        text += f"room name={room_name}"
+
+                        objects_in_room = self._find_objects_in_room(room_name)
+                        for obj_type, objects in objects_in_room.items():
+                            if len(objects) > 0:
+                                text += f"\n{obj_type} objects: {objects}"
+
+                    else:
+                        color = "black"
+                    plt.gca().add_patch(
+                        plt.Rectangle((col, num_rows - 1 - row), 1, 1, facecolor=color)
+                    )
+                    plt.text(
+                        col + 0.5,
+                        num_rows - 1 - row + 0.5,
+                        text,
+                        ha="center",
+                        va="center",
+                        color="black",
+                        fontsize=cell_text_size,
+                    )
+            plt.gca().set_aspect("equal")
+            plt.gca().set_xticks(range(num_cols + 1))
+            plt.gca().set_yticks(range(num_rows + 1))
+            plt.gca().grid(which="both")
+
+            if save_fig_dir is not None:
+                plt.savefig(
+                    os.path.join(
+                        save_fig_dir,
+                        f"hidden_state-"
+                        f"{str(self.current_time).zfill(3)}.{image_format}",
+                    )
+                )
+            plt.show()

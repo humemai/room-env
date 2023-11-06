@@ -1,0 +1,81 @@
+{
+    "room_config": {
+        "room_000": {
+            "north": "wall",
+            "east": "wall",
+            "south": "wall",
+            "west": "wall"
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 1.0
+                }
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "ind_000": 0.03502343380903228
+            }
+        },
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_init_config": {
+        "static": {
+            "sta_000": {
+                "room_000": 1.0
+            }
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": 1.0
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "room_000": 1.0
+            }
+        },
+        "agent": {
+            "agent": {
+                "room_000": 1.0
+            }
+        }
+    },
+    "grid": [
+        [
+            1
+        ]
+    ],
+    "room_indexes": [
+        [
+            0,
+            0
+        ]
+    ],
+    "names": {
+        "room": [
+            "room_000"
+        ],
+        "static_objects": [
+            "sta_000"
+        ],
+        "independent_objects": [
+            "ind_000"
+        ],
+        "dependent_objects": [
+            "dep_000"
+        ]
+    }
+}

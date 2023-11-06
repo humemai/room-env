@@ -12,7 +12,6 @@ import numpy as np
 import torch
 import yaml
 
-from .des import RoomDes
 
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
@@ -52,7 +51,7 @@ def read_lines(fname: str) -> list:
     return names
 
 
-def read_json(fname: str) -> dict:
+def read_json(fname: str) -> None:
     """Read json"""
     logging.debug(f"reading json {fname} ...")
     with open(fname, "r") as stream:
@@ -66,7 +65,33 @@ def write_json(content: dict, fname: str) -> None:
         json.dump(content, stream, indent=4, sort_keys=False)
 
 
-def read_yaml(fname: str) -> dict:
+def read_json_prod(fname: str) -> None:
+    """Read json.
+
+    There is some path magic going on here. This is to account for both the production
+    and development mode. Don't use this function for a general purpose.
+
+    """
+    fullpath = os.path.join(os.path.dirname(__file__), fname)
+
+    with open(fullpath, "r") as stream:
+        return json.load(stream)
+
+
+def write_json_prod(content: dict, fname: str) -> None:
+    """Write json.
+
+    There is some path magic going on here. This is to account for both the production
+    and development mode. Don't use this function for a general purpose.
+
+    """
+    fullpath = os.path.join(os.path.dirname(__file__), fname)
+
+    with open(fullpath, "w") as stream:
+        json.dump(content, stream, indent=4, sort_keys=False)
+
+
+def read_yaml(fname: str) -> None:
     """Read yaml.
 
     There is some path magic going on here. This is to account for both the production
@@ -109,7 +134,7 @@ def read_data(data_path: str) -> dict:
     return data
 
 
-def argmax(iterable):
+def argmax(iterable) -> int:
     """argmax"""
     return max(enumerate(iterable), key=lambda x: x[1])[0]
 
@@ -473,44 +498,6 @@ def run_all_des_configs(
     return deepcopy(results)
 
 
-def fill_des_resources(des_size: str) -> None:
-    """Fill resources
-
-    Args
-    ----
-    des_size
-
-    """
-    des = RoomDes(des_size=des_size, check_resources=False)
-    des.run()
-    resources = {
-        foo: 9999
-        for foo in set(
-            [bar["object_location"] for foo in des.states for bar in foo.values()]
-        )
-    }
-    des.config["resources"] = deepcopy(resources)
-    write_json(des.config, f"./room_env/data/des-config-{des_size}.json")
-    resources = []
-    des = RoomDes(des_size=des_size, check_resources=True)
-    resources.append(deepcopy(des.resources))
-    while des.until > 0:
-        des.step()
-        des.until -= 1
-        resources.append(deepcopy(des.resources))
-
-    object_locations = deepcopy(list(des.resources.keys()))
-    resources = {
-        object_location: 9999
-        - min([resource[object_location] for resource in resources])
-        for object_location in object_locations
-    }
-
-    des.config["resources"] = deepcopy(resources)
-    write_json(des.config, f"./room_env/data/des-config-{des_size}.json")
-    des = RoomDes(des_size=des_size, check_resources=True)
-
-
 def get_handcrafted(
     env: str = "room_env:RoomEnv-v1",
     des_size: str = "l",
@@ -624,3 +611,49 @@ def get_handcrafted(
             handcrafted_results[capacity][forget_short] = {"mean": mean_, "std": std_}
 
     return handcrafted_results
+
+
+def find_connected_nodes(graph):
+    def dfs(node, row, col):
+        if (
+            row < 0
+            or col < 0
+            or row >= len(graph)
+            or col >= len(graph[0])
+            or graph[row][col] == 0
+        ):
+            return
+
+        connected_nodes.append((row, col))
+        graph[row][col] = 0  # Mark the node as visited
+
+        # Check the neighbors
+        dfs(node, row - 1, col)  # Up
+        dfs(node, row + 1, col)  # Down
+        dfs(node, row, col - 1)  # Left
+        dfs(node, row, col + 1)  # Right
+
+    connected_components = []
+    for row in range(len(graph)):
+        for col in range(len(graph[row])):
+            if graph[row][col] == 1:
+                connected_nodes = []
+                dfs(1, row, col)
+                if connected_nodes:
+                    connected_components.append(connected_nodes)
+
+    return connected_components
+
+
+def is_running_notebook() -> bool:
+    """See if the code is running in a notebook or not."""
+    try:
+        shell = get_ipython().__class__.__name__
+        if shell == "ZMQInteractiveShell":
+            return True  # Jupyter notebook or qtconsole
+        elif shell == "TerminalInteractiveShell":
+            return False  # Terminal running IPython
+        else:
+            return False  # Other type (?)
+    except NameError:
+        return False  # Probably standard Python interpreter
