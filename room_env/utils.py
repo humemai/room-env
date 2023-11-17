@@ -12,7 +12,6 @@ import numpy as np
 import torch
 import yaml
 
-
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",

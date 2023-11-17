@@ -4,20 +4,18 @@ import logging
 import os
 import random
 from copy import deepcopy
+from pprint import pprint
 from typing import Dict, List, Tuple
 
-from pprint import pprint
-import matplotlib.pyplot as plt
 import gymnasium as gym
+import matplotlib.pyplot as plt
 import numpy as np
 from IPython.display import clear_output
 
-from .utils import (
-    write_json,
-    find_connected_nodes,
-    read_json_prod as read_json,
-    write_json_prod as write_json,
-)
+from .utils import find_connected_nodes
+from .utils import read_json_prod as read_json
+from .utils import write_json
+from .utils import write_json_prod as write_json
 
 EPSILON = 1e-3
 
@@ -86,24 +84,28 @@ class RoomCreator:
                 [1 if random.random() < self.room_prob else 0 for _ in range(cols)]
                 for _ in range(rows)
             ]
-            if sum(sum(row) for row in self.grid) >= 1:
+            if sum(sum(row) for row in self.grid) == 0:
+                continue
+
+            self.connected_components = find_connected_nodes(deepcopy(self.grid))
+
+            self.previous_grid = deepcopy(self.grid)
+
+            self.room_indexes = max(
+                enumerate(self.connected_components), key=lambda x: len(x[1])
+            )[1]
+            self.room_indexes.sort(key=lambda x: x[1])
+            self.room_indexes.sort(key=lambda x: x[0])
+            self.grid = [[0 for _ in range(cols)] for _ in range(rows)]
+            for i in range(rows):
+                for j in range(cols):
+                    if (i, j) in self.room_indexes:
+                        self.grid[i][j] = 1
+            self.num_rooms = len(self.room_indexes)
+
+            # This is to assure that every room as at least one static object.
+            if self.num_static_objects >= self.num_rooms:
                 break
-
-        self.connected_components = find_connected_nodes(deepcopy(self.grid))
-
-        self.previous_grid = deepcopy(self.grid)
-
-        self.room_indexes = max(
-            enumerate(self.connected_components), key=lambda x: len(x[1])
-        )[1]
-        self.room_indexes.sort(key=lambda x: x[1])
-        self.room_indexes.sort(key=lambda x: x[0])
-        self.grid = [[0 for _ in range(cols)] for _ in range(rows)]
-        for i in range(rows):
-            for j in range(cols):
-                if (i, j) in self.room_indexes:
-                    self.grid[i][j] = 1
-        self.num_rooms = len(self.room_indexes)
 
     def _create_room_config(self) -> None:
         """Create a room configuration."""
@@ -130,14 +132,18 @@ class RoomCreator:
         """Create an object initialization configuration."""
         self.object_init_config = {}
 
+        self.object_init_config["static"] = {
+            object_num: {room_num: 0 for room_num in range(self.num_rooms)}
+            for object_num in range(self.num_static_objects)
+        }
+
+        for object_num in range(self.num_static_objects):
+            room_num = object_num % self.num_rooms
+            self.object_init_config["static"][object_num][room_num] = 1
+
         for object_type, num_objects in zip(
-            ["static", "independent", "dependent", "agent"],
-            [
-                self.num_static_objects,
-                self.num_independent_objects,
-                self.num_dependent_objects,
-                1,
-            ],
+            ["independent", "dependent", "agent"],
+            [self.num_independent_objects, self.num_dependent_objects, 1],
         ):
             self.object_init_config[object_type] = {
                 object_num: {
@@ -148,6 +154,7 @@ class RoomCreator:
                 }
                 for object_num in range(num_objects)
             }
+
             # check if the values sum upto 1
 
         for object_type in ["static", "independent", "dependent", "agent"]:

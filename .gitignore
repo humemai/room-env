@@ -130,3 +130,6 @@ dmypy.json
 
 # vs-code
 .vscode/
+
+# debug files images
+DEBUG/

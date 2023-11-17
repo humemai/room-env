@@ -7,14 +7,16 @@ import logging
 import os
 import random
 from copy import deepcopy
+from pprint import pprint
 from typing import Dict, List, Tuple
 
-from IPython.display import clear_output
-from pprint import pprint
-import matplotlib.pyplot as plt
 import gymnasium as gym
+import matplotlib.pyplot as plt
+from IPython.display import clear_output
 
-from ..utils import seed_everything, is_running_notebook, read_json_prod as read_json
+from ..utils import is_running_notebook
+from ..utils import read_json_prod as read_json
+from ..utils import seed_everything
 
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
@@ -517,18 +519,16 @@ class RoomEnv2(gym.Env):
 
         Returns
         -------
-        observations_self: [head, relation, tail, current_time]
         observations_room: [head, relation, tail, current_time]
         question: [head, relation, tail, current_time], where either head or tail is "?"
 
         """
         if self.current_time > self.terminates_at:
-            self.observations_self = None
             self.observations_room = None
             self.question = None
             self.answers = None
 
-            observations = {"self": None, "room": None, "question": None}
+            observations = {"room": None, "question": None}
             answers = None
 
             self.observations_all.append(observations)
@@ -539,10 +539,7 @@ class RoomEnv2(gym.Env):
         self._compute_hidden_global_state()
         self.observations_room = []
 
-        self.observations_self = self.hidden_global_state[0]
-        for quadruple in self.hidden_global_state[
-            1:
-        ]:  # atm, there are only 5 relations.
+        for quadruple in self.hidden_global_state:  # atm, there are only 5 relations.
             if quadruple[1] == "atlocation":
                 if quadruple[2] == agent_location:
                     self.observations_room.append(quadruple)
@@ -589,7 +586,6 @@ class RoomEnv2(gym.Env):
             random.shuffle(self.observations_room)
 
         observations = {
-            "self": deepcopy(self.observations_self),
             "room": deepcopy(self.observations_room),
             "question": deepcopy(self.question),
         }

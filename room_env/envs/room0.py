@@ -9,8 +9,8 @@ from typing import Tuple
 
 import gymnasium as gym
 
-from ..utils import read_lines, remove_posession, split_by_possessive
 from ..utils import read_json_prod as read_json
+from ..utils import read_lines, remove_posession, split_by_possessive
 
 CORRECT = 1
 WRONG = 0

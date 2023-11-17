@@ -24,7 +24,7 @@
         },
         "dependent": {
             "dep_000": {
-                "ind_000": 0.03502343380903228
+                "ind_000": 0.7540801777738203
             }
         },
         "agent": {
@@ -34,7 +34,7 @@
     "object_init_config": {
         "static": {
             "sta_000": {
-                "room_000": 1.0
+                "room_000": 1
             }
         },
         "independent": {

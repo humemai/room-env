@@ -3,8 +3,10 @@ import json
 import os
 from copy import deepcopy
 from pprint import pprint
+
 from .utils import read_json_prod as read_json
 from .utils import write_json
+
 
 def fill_des_resources(des_size: str) -> None:
     """Fill resources

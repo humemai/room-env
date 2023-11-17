@@ -60,9 +60,8 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                     )
                 },
             )
-            self.assertEqual(
-                observations["self"],
-                ["agent", "atlocation", "officeroom", 0],
+            self.assertIn(
+                ["agent", "atlocation", "officeroom", 0], observations["room"]
             )
             self.assertIn(["desk", "atlocation", "officeroom", 0], observations["room"])
             self.assertIn(["officeroom", "north", "wall", 0], observations["room"])
@@ -98,9 +97,8 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             else:
                 raise ValueError
 
-            self.assertEqual(
-                observations["self"],
-                ["agent", "atlocation", "officeroom", 1],
+            self.assertIn(
+                ["agent", "atlocation", "officeroom", 1], observations["room"]
             )
             self.assertIn(["desk", "atlocation", "officeroom", 1], observations["room"])
             self.assertIn(["officeroom", "north", "wall", 1], observations["room"])
@@ -150,7 +148,6 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             self.assertEqual(len(rewards), 10)
             self.assertEqual(reward, -1)
             self.assertTrue(done)
-            self.assertIsNone(self.env.observations_self)
             self.assertIsNone(self.env.observations_room)
             self.assertIsNone(self.env.question)
             self.assertIsNone(self.env.answers)
@@ -244,12 +241,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 },
             )
             self.assertEqual(
-                observations["self"],
-                ["agent", "atlocation", "officeroom", 0],
-            )
-            self.assertEqual(
                 observations["room"],
                 [
+                    ["agent", "atlocation", "officeroom", 0],
                     ["desk", "atlocation", "officeroom", 0],
                     ["tae", "atlocation", "officeroom", 0],
                     ["laptop", "atlocation", "officeroom", 0],
@@ -288,12 +282,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 self.assertEqual(info, {"answers": ["officeroom"], "timestamp": 0})
 
             self.assertEqual(
-                observations["self"],
-                ["agent", "atlocation", "livingroom", 1],
-            )
-            self.assertEqual(
                 observations["room"],
                 [
+                    ["agent", "atlocation", "livingroom", 1],
                     ["tae", "atlocation", "livingroom", 1],
                     ["laptop", "atlocation", "livingroom", 1],
                     ["livingroom", "north", "wall", 1],
@@ -356,12 +347,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 raise ValueError
 
             self.assertEqual(
-                observations["self"],
-                ["agent", "atlocation", "officeroom", 2],
-            )
-            self.assertEqual(
                 observations["room"],
                 [
+                    ["agent", "atlocation", "officeroom", 2],
                     ["desk", "atlocation", "officeroom", 2],
                     ["tae", "atlocation", "officeroom", 2],
                     ["laptop", "atlocation", "officeroom", 2],
@@ -398,7 +386,6 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertEqual(len(rewards), 100)
             self.assertEqual(reward, -1)
             self.assertTrue(done)
-            self.assertIsNone(self.env.observations_self)
             self.assertIsNone(self.env.observations_room)
             self.assertIsNone(self.env.question)
             self.assertIsNone(self.env.answers)
@@ -406,12 +393,14 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
 
 class RoomEnv2DevTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.env = gym.make("room_env:RoomEnv-v2", room_size="dev")
+        self.env = gym.make(
+            "room_env:RoomEnv-v2", room_size="dev", randomize_observations=False
+        )
 
     def test_all(self) -> None:
         observations, info = self.env.reset()
-        self.assertEqual(observations["self"][0], "agent")
-        for obs in observations["room"]:
+        self.assertEqual(observations["room"][0][0], "agent")
+        for obs in observations["room"][1:]:
             self.assertNotEqual(obs[0], "agent")
         while True:
             action_qa = random.choice(observations["question"])
@@ -422,6 +411,6 @@ class RoomEnv2DevTest(unittest.TestCase):
             if done:
                 break
 
-            self.assertEqual(observations["self"][0], "agent")
-            for obs in observations["room"]:
+            self.assertEqual(observations["room"][0][0], "agent")
+            for obs in observations["room"][1:]:
                 self.assertNotEqual(obs[0], "agent")
