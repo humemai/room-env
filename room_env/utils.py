@@ -5,7 +5,7 @@ import os
 import random
 import subprocess
 from copy import deepcopy
-from typing import List, Tuple
+from typing import Any
 
 import gymnasium as gym
 import numpy as np
@@ -17,6 +17,12 @@ logging.basicConfig(
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+
+
+def sample_max_value_key(prob_dict: dict[Any, float]) -> Any:
+    """Sample the key with the maximum value."""
+    max_key = max(prob_dict, key=prob_dict.get)
+    return max_key
 
 
 def seed_everything(seed: int) -> None:
@@ -116,15 +122,14 @@ def write_yaml(content: dict, fname: str) -> None:
 def read_data(data_path: str) -> dict:
     """Read train, val, test spilts.
 
-    Args
-    ----
-    data_path: path to data.
+    Args:
+        data_path: path to data.
 
-    Returns
-    -------
-    data: {'train': list of training obs,
-           'val': list of val obs,
-           'test': list of test obs}
+    Returns:
+        data: {'train': list of training obs,
+            'val': list of val obs,
+            'test': list of test obs}
+
     """
     logging.debug(f"reading data from {data_path} ...")
     data = read_json(data_path)
@@ -141,29 +146,25 @@ def argmax(iterable) -> int:
 def remove_posession(entity: str) -> str:
     """Remove name from the entity.
 
-    Args
-    ----
-    entity: e.g., bob's laptop
+    Args:
+        entity: e.g., bob's laptop
 
-    Returns
-    -------
-    e.g., laptop
+    Returns:
+        e.g., laptop
 
     """
     return entity.split("'s ")[-1]
 
 
-def split_by_possessive(name_entity: str) -> Tuple[str, str]:
+def split_by_possessive(name_entity: str) -> tuple[str, str]:
     """Separate name and entity from the given string.
 
-    Args
-    ----
-    name_entity: e.g., "tae's laptop"
+    Args:
+        name_entity: e.g., "tae's laptop"
 
-    Returns
-    -------
-    name: e.g., tae
-    entity: e.g., laptop
+    Returns:
+        name: e.g., tae
+        entity: e.g., laptop
 
     """
     logging.debug(f"spliting name and entity from {name_entity}")
@@ -175,17 +176,15 @@ def split_by_possessive(name_entity: str) -> Tuple[str, str]:
     return name, entity
 
 
-def get_duplicate_dicts(search: dict, target: list) -> List:
+def get_duplicate_dicts(search: dict, target: list) -> list:
     """Find if there are duplicate dicts.
 
-    Args
-    ----
-    search: dict
-    target: target list to look up.
+    Args:
+        search: dict
+        target: target list to look up.
 
-    Returns
-    -------
-    duplicates: a list of dicts or None
+    Returns:
+        duplicates: a list of dicts or None
 
     """
     assert isinstance(search, dict)
@@ -203,7 +202,7 @@ def get_duplicate_dicts(search: dict, target: list) -> List:
     return duplicates
 
 
-def list_duplicates_of(seq, item) -> List:
+def list_duplicates_of(seq, item) -> list:
     # https://stackoverflow.com/questions/5419204/index-of-duplicates-items-in-a-python-list
     start_at = -1
     locs = []
@@ -230,20 +229,18 @@ def make_des_config(
 ) -> dict:
     """Make a des config.
 
-    Args
-    ----
-    commonsense_prob: commonsense probability
-    num_humans: number of humans
-    num_total_objects: number of total objects
-    maximum_num_objects_per_human: maximum number of objects per human
-    maximum_num_locations_per_object: maximum number of locations per object
-    maxiumum_days_period: maxiumum number of days period
-    des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
-    last_timestep: last time step where the DES terminates.
+    Args:
+        commonsense_prob: commonsense probability
+        num_humans: number of humans
+        num_total_objects: number of total objects
+        maximum_num_objects_per_human: maximum number of objects per human
+        maximum_num_locations_per_object: maximum number of locations per object
+        maxiumum_days_period: maxiumum number of days period
+        des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
+        last_timestep: last time step where the DES terminates.
 
-    Returns
-    -------
-    des config
+    Returns:
+        des config
 
     """
     des_config = {
@@ -264,16 +261,14 @@ def make_des_config(
     return des_config
 
 
-def get_des_variables(des_size: str = "l") -> Tuple[int, int, int]:
+def get_des_variables(des_size: str = "l") -> tuple[int, int, int]:
     """Get the des variables.
 
-    Args
-    ----
-    des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
+    Args:
+        des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
 
-    Returns
-    -------
-    capacity, num_humans, num_total_objects
+    Returns:
+        capacity, num_humans, num_total_objects
 
     """
     if des_size == "dev":
@@ -313,18 +308,16 @@ def run_des_seeds(
 ) -> dict:
     """Run the RoomEnv-v1 with multiple different seeds.
 
-    Args
-    ----
-    seeds:
-    capacity:
-    des_size:
-    allow_random_human:
-    allow_random_question:
-    question_prob:
+    Args:
+        seeds:
+        capacity:
+        des_size:
+        allow_random_human:
+        allow_random_question:
+        question_prob:
 
-    Returns
-    -------
-    results
+    Returns:
+        results
 
     """
     results = {}
@@ -415,25 +408,23 @@ def run_all_des_configs(
 ) -> dict:
     """Run the RoomEnv-v1 with different des configs, with multiple different seeds.
 
-    Args
-    ----
-    des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
-    capacity: int,
-    maximum_num_objects_per_human: maximum number of objects per human
-    maximum_num_locations_per_object: maximum number of locations per object
-    maxiumum_days_period: maxiumum number of days period
-    commonsense_prob: commonsense probability
-    num_humans: number of humans
-    num_total_objects: number of total objects
-    seeds: list,
-    allow_random_human: bool,
-    allow_random_question: bool,
-    last_timestep: int,
-    question_prob: float,
+    Args:
+        des_size: The size of DES (i.e., "xxs", "xs", "s", "m", "l", "dev")
+        capacity: int,
+        maximum_num_objects_per_human: maximum number of objects per human
+        maximum_num_locations_per_object: maximum number of locations per object
+        maxiumum_days_period: maxiumum number of days period
+        commonsense_prob: commonsense probability
+        num_humans: number of humans
+        num_total_objects: number of total objects
+        seeds: list,
+        allow_random_human: bool,
+        allow_random_question: bool,
+        last_timestep: int,
+        question_prob: float,
 
-    Returns
-    -------
-    results
+    Returns:
+        results
 
     """
     des_config = make_des_config(
@@ -518,26 +509,24 @@ def get_handcrafted(
 
     At the moment only {"memory_management": "rl"} is supported.
 
-    Args
-    ----
-    env: str = "RoomEnv-v1",
-    des_size: str = "l",
-    seeds: list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    question_prob: float = 0.1,
-    policies: dict = {
-        "memory_management": "rl",
-        "answer_question": "episodic_semantic",
-        "encoding": "argmax",
-    },
-    capacities: list = [2, 4, 8, 16, 32, 64],
-    allow_random_human: whether to allow random humans to be observed.
-    allow_random_question: whether to allow random questions to be asked.
-    varying_rewards: If true, then the rewards are scaled in every episode so that
-            total_episode_rewards is 128.
+    Args:
+        env: str = "RoomEnv-v1",
+        des_size: str = "l",
+        seeds: list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        question_prob: float = 0.1,
+        policies: dict = {
+            "memory_management": "rl",
+            "answer_question": "episodic_semantic",
+            "encoding": "argmax",
+        },
+        capacities: list = [2, 4, 8, 16, 32, 64],
+        allow_random_human: whether to allow random humans to be observed.
+        allow_random_question: whether to allow random questions to be asked.
+        varying_rewards: If true, then the rewards are scaled in every episode so that
+                total_episode_rewards is 128.
 
-    Returns
-    -------
-    handcrafted_results
+    Returns:
+        handcrafted_results
 
     """
     how_to_forget = ["episodic", "semantic", "random", "pre_sem"]

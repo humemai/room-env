@@ -7,7 +7,6 @@ import logging
 import os
 import random
 from copy import deepcopy
-from typing import Tuple
 
 import gymnasium as gym
 
@@ -41,15 +40,14 @@ class RoomEnv1(gym.Env):
     ) -> None:
         """
 
-        Args
-        ----
-        des_size: "xxs", "xs", "s", "m", or "l".
-        seed: random seed number
-        question_prob: The probability of a question being asked at every observation.
-        allow_random_human: whether or not to generate a random human sequence.
-        allow_random_question: whether or not to geneate a random question sequence.
-        total_episode_rewards: total episode rewards
-        check_resources: whether to check the resources in the DES.
+        Args:
+            des_size: "xxs", "xs", "s", "m", or "l".
+            seed: random seed number
+            question_prob: The probability of a question being asked at every observation.
+            allow_random_human: whether or not to generate a random human sequence.
+            allow_random_question: whether or not to geneate a random question sequence.
+            total_episode_rewards: total episode rewards
+            check_resources: whether to check the resources in the DES.
 
         """
         super().__init__()
@@ -142,19 +140,17 @@ class RoomEnv1(gym.Env):
 
     def generate_oqa(
         self, increment_des: bool = False
-    ) -> Tuple[dict, dict, dict, bool]:
+    ) -> tuple[dict, dict, dict, bool]:
         """Generate an observation, question, and answer.
 
-        Args
-        ----
-        increment_des: whether or not to take a step in the DES.
+        Args:
+            increment_des: whether or not to take a step in the DES.
 
-        Returns
-        -------
-        observation: [head, relation, tail, timestamp]
-        question: [head, relation, ?, timestamp]
-        answer = tail
-        is_last: True, if its the last observation in the queue, othewise False
+        Returns:
+            observation: [head, relation, tail, timestamp]
+            question: [head, relation, ?, timestamp]
+            answer = tail
+            is_last: True, if its the last observation in the queue, othewise False
 
         """
         human_o = self.human_sequence.pop(0)
@@ -195,15 +191,14 @@ class RoomEnv1(gym.Env):
 
         return observation, question, answer, is_last
 
-    def reset(self) -> Tuple[dict, dict]:
+    def reset(self) -> tuple[dict, dict]:
         """Reset the environment.
 
         This method somehow can't take arguments. I think it's a bug.
 
 
-        Returns
-        -------
-        state, info
+        Returns:
+            state, info
 
         """
         self.des._initialize()
@@ -215,16 +210,14 @@ class RoomEnv1(gym.Env):
 
         return deepcopy((self.obs, self.question)), info
 
-    def step(self, action: str) -> Tuple[Tuple, int, bool, bool, dict]:
+    def step(self, action: str) -> tuple[tuple, int, bool, bool, dict]:
         """An agent takes an action.
 
-        Args
-        ----
-        action: An answer to the question.
+        Args:
+            action: An answer to the question.
 
-        Returns
-        -------
-        state, reward, done, truncated, info
+        Returns:
+            state, reward, done, truncated, info
 
         """
         info = {}

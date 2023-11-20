@@ -5,7 +5,6 @@ import os
 import random
 from copy import deepcopy
 from itertools import cycle
-from typing import Tuple
 
 import gymnasium as gym
 
@@ -72,15 +71,14 @@ class RoomEnv0(gym.Env):
     ) -> None:
         """Initialize the environment.
 
-        Args
-        ----
-        room_size: small or big
-        probs: the probabilities that govern the room environment changes.
-        limits: Limitation on the triples.
-        max_step: maximum step an agent can take. The environment will terminate when
-            the number reaches this value.
-        disjoint_entities: Assure that the heads and the tails don't overlap.
-        num_agents: number of agents in the room.
+        Args:
+            room_size: small or big
+            probs: the probabilities that govern the room environment changes.
+            limits: Limitation on the triples.
+            max_step: maximum step an agent can take. The environment will terminate when
+                the number reaches this value.
+            disjoint_entities: Assure that the heads and the tails don't overlap.
+            num_agents: number of agents in the room.
 
         """
         super().__init__()
@@ -139,7 +137,7 @@ class RoomEnv0(gym.Env):
         self.observation_space = gym.spaces.Discrete(1)
         self.action_space = gym.spaces.Discrete(1)
 
-    def reset(self) -> Tuple:
+    def reset(self) -> tuple:
         """Reset the environment.
 
         This will place N_{humans} humans in the room. Each human only has one object,
@@ -173,11 +171,10 @@ class RoomEnv0(gym.Env):
     def generate_observations(self) -> list:
         """Generate a random obseration.
 
-        Returns
-        -------
-        observations: e.g., ["tae's laptop, "atlocation", "tae's desk", 10]
+        Returns:
+            observations: e.g., ["tae's laptop, "atlocation", "tae's desk", 10]
 
-        The last element in the list accounts for the timestamp.
+            The last element in the list accounts for the timestamp.
 
         """
         observations = {
@@ -187,13 +184,12 @@ class RoomEnv0(gym.Env):
 
         return observations
 
-    def generate_qa(self) -> Tuple[list, str]:
+    def generate_qa(self) -> tuple[list, str]:
         """Generate a question and the answer.
 
-        Returns
-        -------
-        question: e.g., ["tae's laptop", "atlocation", "?", 10]
-        answer: e.g., desk
+        Returns:
+            question: e.g., ["tae's laptop", "atlocation", "?", 10]
+            answer: e.g., desk
 
         """
         random_choice = random.choice(self.room)
@@ -292,12 +288,19 @@ class RoomEnv0(gym.Env):
 
         self.room = room
 
-    def step(self, action: str) -> Tuple[Tuple, int, bool, bool, dict]:
+    def step(self, action: str) -> tuple[tuple, int, bool, bool, dict]:
         """An agent takes an action.
 
-        Args
-        ----
-        action: This is the agent's answer to the previous question.
+        Args:
+            action: This is the agent's answer to the previous question.
+
+        Returns:
+            observations: e.g., ["tae's laptop, "atlocation", "tae's desk", 10]
+            question: e.g., ["tae's laptop", "atlocation", "?", 10]
+            answer: e.g., desk
+            reward: +1 for correct answer, 0 for wrong answer.
+            done: True if the current_time reaches the max_step.
+            truncated: False
 
         """
         if str(action).lower() == self.answer.lower():
@@ -348,16 +351,14 @@ class RoomEnv0(gym.Env):
     ) -> list:
         """Read 20 most common names.
 
-        Args
-        ----
-        path: The path to the top 20 human name list.
-        limit_names: Limit the number of names
-        allow_spaces: Whether to include words that have spaces
-            (e.g., corner of two streets)
+        Args:
+            path: The path to the top 20 human name list.
+            limit_names: Limit the number of names
+            allow_spaces: Whether to include words that have spaces
+                (e.g., corner of two streets)
 
-        Returns
-        -------
-        names: human names (e.g., james)
+        Returns:
+            names: human names (e.g., james)
 
         """
         names = read_lines(path)
@@ -381,25 +382,23 @@ class RoomEnv0(gym.Env):
         limit_tails: int = None,
         allow_spaces: bool = False,
         disjoint_entities: bool = True,
-    ) -> Tuple[list, list, list, list]:
+    ) -> tuple[list, list, list, list]:
         """Load saved semantic knowledge.
 
-        Args
-        ----
-        path: the path to the pretrained semantic memory.
-        limit_heads: Limit the number of heads (e.g., 10)
-        limit_tails: Limit the number of tails per heads (e.g., 1)
-        allow_spaces: Whether to include words that have spaces
-            (e.g., corner of two streets)
-        disjoint_entities: Whether to force that there are no common elements between
-            entities.
+        Args:
+            path: the path to the pretrained semantic memory.
+            limit_heads: Limit the number of heads (e.g., 10)
+            limit_tails: Limit the number of tails per heads (e.g., 1)
+            allow_spaces: Whether to include words that have spaces
+                (e.g., corner of two streets)
+            disjoint_entities: Whether to force that there are no common elements between
+                entities.
 
-        Returns
-        -------
-        semantic_knowledge
-        heads
-        relations
-        tails
+        Returns:
+            semantic_knowledge
+            heads
+            relations
+            tails
 
         """
         logging.debug(f"loading the semantic knowledge from {path}...")

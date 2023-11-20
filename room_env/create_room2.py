@@ -5,7 +5,6 @@ import os
 import random
 from copy import deepcopy
 from pprint import pprint
-from typing import Dict, List, Tuple
 
 import gymnasium as gym
 import matplotlib.pyplot as plt
@@ -23,24 +22,25 @@ EPSILON = 1e-3
 class RoomCreator:
     def __init__(
         self,
-        grid_length: int = 3,
-        num_static_objects: int = 2,
-        num_independent_objects: int = 3,
-        num_dependent_objects: int = 4,
-        room_prob: float = 0.5,
+        grid_length: int = 1,
+        num_rooms: int = 1,
+        num_static_objects: int = 1,
+        num_independent_objects: int = 1,
+        num_dependent_objects: int = 1,
+        room_prob: float = 0.7,
         filename: str = "dev",
         give_fake_names: bool = False,
     ) -> None:
         """Create rooms with objects.
 
-        Args
-        ----
-        grid_length: grid legnth
-        num_static_objects: Number of static objects to create.
-        num_independent_objects: Number of independent objects to create.
-        num_dependent_objects: Number of dependent objects to create.
-        room_prob: probability of a cell being a room.
-        give_fake_names: If True, give fake names to the rooms and objects.
+        Args:
+            grid_length: grid legnth
+            num_rooms: number of rooms in the grid
+            num_static_objects: Number of static objects to create.
+            num_independent_objects: Number of independent objects to create.
+            num_dependent_objects: Number of dependent objects to create.
+            room_prob: probability of a cell being a room.
+            give_fake_names: If True, give fake names to the rooms and objects.
 
         """
         self.filename = filename
@@ -49,6 +49,7 @@ class RoomCreator:
             f"./room_env/data/room-config-{self.filename}-v2.json\n"
         )
         self.grid_length = grid_length
+        self.num_rooms = num_rooms
         self.num_static_objects = num_static_objects
         self.num_independent_objects = num_independent_objects
         self.num_dependent_objects = num_dependent_objects
@@ -101,10 +102,12 @@ class RoomCreator:
                 for j in range(cols):
                     if (i, j) in self.room_indexes:
                         self.grid[i][j] = 1
-            self.num_rooms = len(self.room_indexes)
 
             # This is to assure that every room as at least one static object.
-            if self.num_static_objects >= self.num_rooms:
+            if (
+                len(self.room_indexes) == self.num_rooms
+                and self.num_static_objects >= self.num_rooms
+            ):
                 break
 
     def _create_room_config(self) -> None:
@@ -346,7 +349,7 @@ class RoomCreator:
             "agent"
         ]
 
-    def _generate_categorical_distribution(self, num_categories: int) -> List[float]:
+    def _generate_categorical_distribution(self, num_categories: int) -> list[float]:
         """Generate a categorical distribution."""
         dist = [random.random() for _ in range(num_categories)]
         dist = [x / sum(dist) for x in dist]
@@ -356,7 +359,7 @@ class RoomCreator:
         return dist
 
     def _visualize_grids(
-        self, figsize: Tuple[int, int] = (15, 15), cell_text_size: int = 10
+        self, figsize: tuple[int, int] = (15, 15), cell_text_size: int = 10
     ) -> None:
         plt.figure(figsize=figsize)
         num_rows = len(self.grid)

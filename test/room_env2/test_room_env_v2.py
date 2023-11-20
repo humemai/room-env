@@ -391,10 +391,13 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertIsNone(self.env.answers)
 
 
-class RoomEnv2DevTest(unittest.TestCase):
+class RoomEnv2xxlTest(unittest.TestCase):
     def setUp(self) -> None:
         self.env = gym.make(
-            "room_env:RoomEnv-v2", room_size="dev", randomize_observations=False
+            "room_env:RoomEnv-v2",
+            room_size="xxl",
+            randomize_observations=False,
+            deterministic_init=False,
         )
 
     def test_all(self) -> None:
@@ -414,3 +417,31 @@ class RoomEnv2DevTest(unittest.TestCase):
             self.assertEqual(observations["room"][0][0], "agent")
             for obs in observations["room"][1:]:
                 self.assertNotEqual(obs[0], "agent")
+
+    def test_deterministic_init(self) -> None:
+        self.env_ = gym.make(
+            "room_env:RoomEnv-v2",
+            question_prob=1.0,
+            seed=42,
+            terminates_at=99,
+            randomize_observations=True,
+            room_size="xxl",
+            deterministic_init=True,
+        )
+
+        for seed in range(5):
+            self.env__ = gym.make(
+                "room_env:RoomEnv-v2",
+                question_prob=1.0,
+                seed=seed,
+                terminates_at=99,
+                randomize_observations=True,
+                room_size="xxl",
+                deterministic_init=True,
+            )
+            for object_type, objects in self.env__.objects.items():
+                for obj_idx, obj in enumerate(objects):
+                    self.assertEqual(
+                        obj.location,
+                        self.env_.objects[object_type][obj_idx].location,
+                    )

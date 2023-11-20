@@ -3,7 +3,6 @@ import logging
 import os
 import random
 from copy import deepcopy
-from typing import List
 
 import yaml
 
@@ -22,7 +21,7 @@ def get_objects_and_locations(
     commonsense_prob: float,
     possible_object_locations: list,
     semantic_knowledge: dict,
-) -> List:
+) -> list:
     """Get objects and their locations for one human.
 
     Args

@@ -11,9 +11,8 @@ from .utils import write_json
 def fill_des_resources(des_size: str) -> None:
     """Fill resources
 
-    Args
-    ----
-    des_size
+    Args:
+        des_size
 
     """
     des = RoomDes(des_size=des_size, check_resources=False)
@@ -60,30 +59,29 @@ class RoomDes:
     def __init__(self, des_size: str = "l", check_resources: bool = True) -> None:
         """Instantiate the class.
 
-        Args
-        ----
-        des_size: configuartion for the RoomDes simulation. It should be either size or
-            dict. size can be "xxs (extra extra small", "xs (extra small)", "s (small)",
-            "m (medium)", or "l (large)".
+        Args:
+            des_size: configuartion for the RoomDes simulation. It should be either size or
+                dict. size can be "xxs (extra extra small", "xs (extra small)", "s (small)",
+                "m (medium)", or "l (large)".
 
-            {"components": <COMPONENTS>, "resources": <RESOURCES>,
-            "last_timestep": <LAST_TIMESTEP>,
-            "semantic_knowledge": <SEMANTIC_KNOWLEDGE>, "complexity", <COMPLEXITY>}
+                {"components": <COMPONENTS>, "resources": <RESOURCES>,
+                "last_timestep": <LAST_TIMESTEP>,
+                "semantic_knowledge": <SEMANTIC_KNOWLEDGE>, "complexity", <COMPLEXITY>}
 
-            <COMPONENTS> should look like this:
+                <COMPONENTS> should look like this:
 
-            <RESOURCES> should look like this:
+                <RESOURCES> should look like this:
 
-            {'desk': 2, 'A': 10000, 'lap': 10000}
+                {'desk': 2, 'A': 10000, 'lap': 10000}
 
-            <LAST_TIMESTEP> is a number where the DES terminates.
+                <LAST_TIMESTEP> is a number where the DES terminates.
 
-            <SEMANTIC_KNOWLEDGE> is a dictionary of semantic knowledge.
+                <SEMANTIC_KNOWLEDGE> is a dictionary of semantic knowledge.
 
-            <COMPLEXITY> is defined as num_humans * num_total_objects
-            * maximum_num_objects_per_human * maximum_num_locations_per_object
+                <COMPLEXITY> is defined as num_humans * num_total_objects
+                * maximum_num_objects_per_human * maximum_num_locations_per_object
 
-        check_resources: whether to check if the resources are depleted or not.
+            check_resources: whether to check if the resources are depleted or not.
 
         """
         if isinstance(des_size, str):
@@ -194,16 +192,14 @@ class RoomDes:
     ) -> dict:
         """Check if any events have occured between the two consecutive states.
 
-        Args
-        ----
-        previous_state
-        previous_resources
-        current_state
-        current_resources
+        Args:
+            previous_state
+            previous_resources
+            current_state
+            current_resources
 
-        Returns
-        -------
-        event
+        Returns:
+            event
 
         """
         assert len(previous_state) == len(current_state)
