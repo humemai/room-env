@@ -148,9 +148,9 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             self.assertEqual(len(rewards), 10)
             self.assertEqual(reward, -1)
             self.assertTrue(done)
-            self.assertIsNone(self.env.observations_room)
-            self.assertIsNone(self.env.question)
-            self.assertIsNone(self.env.answers)
+            # self.assertIsNone(self.env.observations_room)
+            # self.assertIsNone(self.env.question)
+            # self.assertIsNone(self.env.answers)
 
 
 class RoomEnv2TwoRoomsTest(unittest.TestCase):
@@ -386,9 +386,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertEqual(len(rewards), 100)
             self.assertEqual(reward, -1)
             self.assertTrue(done)
-            self.assertIsNone(self.env.observations_room)
-            self.assertIsNone(self.env.question)
-            self.assertIsNone(self.env.answers)
+            # self.assertIsNone(self.env.observations_room)
+            # self.assertIsNone(self.env.question)
+            # self.assertIsNone(self.env.answers)
 
 
 class RoomEnv2xxlTest(unittest.TestCase):

@@ -58,12 +58,7 @@ class Object:
         self.transition_probs = transition_probs
 
         if deterministic_init:
-            try:
-                self.location = sample_max_value_key(self.init_probs)
-            except:
-                import pdb
-
-                pdb.set_trace()
+            self.location = sample_max_value_key(self.init_probs)
         else:
             # place an object in one of the rooms when it is created.
             self.location = random.choices(
@@ -566,17 +561,18 @@ class RoomEnv2(gym.Env):
             question: [head, relation, tail, current_time], where either head or tail is "?"
 
         """
-        if self.current_time > self.terminates_at:
-            self.observations_room = None
-            self.question = None
-            self.answers = None
+        # I don't think we need this anymore.
+        # if self.current_time > self.terminates_at:
+        #     self.observations_room = None
+        #     self.question = None
+        #     self.answers = None
 
-            observations = {"room": None, "question": None}
-            answers = None
+        #     observations = {"room": None, "question": None}
+        #     answers = None
 
-            self.observations_all.append(observations)
-            self.answers_all.append(answers)
-            return None
+        #     self.observations_all.append(observations)
+        #     self.answers_all.append(answers)
+        #     return None
 
         agent_location = self.objects["agent"][0].location
         self._compute_hidden_global_state()
