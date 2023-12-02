@@ -49,6 +49,7 @@ class ObjectTest(unittest.TestCase):
                     "room0": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
+                question_prob=0.5,
             )
 
         foo = Object(
@@ -71,6 +72,7 @@ class ObjectTest(unittest.TestCase):
                     "stay": 0,
                 },
             },
+            question_prob=0.5,
         )
 
         bar = Object(
@@ -93,6 +95,7 @@ class ObjectTest(unittest.TestCase):
                     "stay": 0,
                 },
             },
+            question_prob=0.5,
         )
         self.assertEqual(foo, bar)
 
@@ -131,6 +134,7 @@ class ObjectTest(unittest.TestCase):
                     "stay": 0,
                 },
             },
+            question_prob=0.5,
         )
 
         bar = Object(
@@ -153,6 +157,7 @@ class ObjectTest(unittest.TestCase):
                     "stay": 0,
                 },
             },
+            question_prob=0.5,
         )
         self.assertNotEqual(foo, bar)
 
@@ -167,6 +172,7 @@ class StaticObjectTest(unittest.TestCase):
                     "room0": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
+                question_prob=0.5,
             )
         with self.assertRaises(AssertionError):
             foo = StaticObject(
@@ -176,16 +182,19 @@ class StaticObjectTest(unittest.TestCase):
                     "room0": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
+                question_prob=0.5,
             )
         foo = StaticObject(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
+            question_prob=0.5,
         )
         bar = StaticObject(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
+            question_prob=0.5,
         )
         self.assertEqual(foo, bar)
 
@@ -201,6 +210,7 @@ class IndepdentObjectTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 rooms=None,
+                question_prob=0.5,
             )
 
         with self.assertRaises(ValueError):
@@ -218,6 +228,7 @@ class IndepdentObjectTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 rooms=None,
+                question_prob=0.5,
             )
 
         rooms = {
@@ -242,6 +253,7 @@ class IndepdentObjectTest(unittest.TestCase):
                 },
                 "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 1.0},
             },
+            question_prob=0.5,
             rooms=rooms,
         )
         self.assertEqual(foo.location, "room0")
@@ -292,6 +304,7 @@ class DependentObjectTest(unittest.TestCase):
                     "stay": 1.0,
                 },
             },
+            question_prob=0.5,
             rooms=rooms,
         )
         ind1 = IndepdentObject(
@@ -320,6 +333,7 @@ class DependentObjectTest(unittest.TestCase):
                     "stay": 1.0,
                 },
             },
+            question_prob=0.5,
             rooms=rooms,
         )
 
@@ -329,6 +343,7 @@ class DependentObjectTest(unittest.TestCase):
                 init_probs={"room0": 1.0, "room1": 0.01, "room2": 0.0},
                 transition_probs={"ind0": 1.0, "ind1": 0.0},
                 independent_objects=[ind0, ind1],
+                question_prob=0.5,
             )
 
         with self.assertRaises(ValueError):
@@ -337,6 +352,7 @@ class DependentObjectTest(unittest.TestCase):
                 init_probs={"room0": 1.0, "room1": 0.0, "room2": 0.0},
                 transition_probs={"ind0": 1.1, "ind1": 0.0},
                 independent_objects=[ind0, ind1],
+                question_prob=0.5,
             )
 
         dep0 = DependentObject(
@@ -344,6 +360,7 @@ class DependentObjectTest(unittest.TestCase):
             init_probs={"room0": 1.0, "room1": 0.0, "room2": 0.0},
             transition_probs={"ind0": 1.0, "ind1": 0.0},
             independent_objects=[ind0, ind1],
+            question_prob=0.5,
         )
 
         self.assertEqual(ind0.location, "room0")
@@ -400,6 +417,7 @@ class AgentTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 rooms=None,
+                question_prob=0.5,
             )
 
         agent = Agent(
@@ -407,11 +425,13 @@ class AgentTest(unittest.TestCase):
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             rooms=rooms,
+            question_prob=0.5,
         )
         agent_ = Agent(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
+            question_prob=0.5,
             rooms=rooms,
         )
         self.assertEqual(agent, agent_)

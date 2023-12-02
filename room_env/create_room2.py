@@ -1,19 +1,13 @@
 """Only run this in Juputer notebook."""
-import json
-import logging
-import os
 import random
 from copy import deepcopy
 from pprint import pprint
 
-import gymnasium as gym
 import matplotlib.pyplot as plt
 import numpy as np
-from IPython.display import clear_output
 
 from .utils import find_connected_nodes
 from .utils import read_json_prod as read_json
-from .utils import write_json
 from .utils import write_json_prod as write_json
 
 EPSILON = 1e-3
@@ -28,8 +22,9 @@ class RoomCreator:
         num_independent_objects: int = 1,
         num_dependent_objects: int = 1,
         room_prob: float = 0.7,
-        filename: str = "dev",
+        minimum_transition_stay_prob: float = 0.5,
         give_fake_names: bool = False,
+        filename: str = "dev",
     ) -> None:
         """Create rooms with objects.
 
@@ -40,7 +35,10 @@ class RoomCreator:
             num_independent_objects: Number of independent objects to create.
             num_dependent_objects: Number of dependent objects to create.
             room_prob: probability of a cell being a room.
+            minimum_transition_stay_prob: probability of staying in the same room.
+                This should be quite high. Otherwise, the objects are not tractable.
             give_fake_names: If True, give fake names to the rooms and objects.
+            filename: filename to save the config.
 
         """
         self.filename = filename
@@ -55,6 +53,7 @@ class RoomCreator:
         self.num_dependent_objects = num_dependent_objects
         self.room_prob = room_prob
         self.give_fake_names = give_fake_names
+        self.minimum_transition_stay_prob = minimum_transition_stay_prob
 
     def run(self):
         self._create_grid_world()
@@ -62,11 +61,13 @@ class RoomCreator:
         self._create_object_init_config()
         self._create_object_transition_config()
         self._give_names()
+        self._create_question_probs()
         write_json(
             {
                 "room_config": self.room_config_str,
-                "object_transition_config": self.object_transition_config_str,
                 "object_init_config": self.object_init_config_str,
+                "object_transition_config": self.object_transition_config_str,
+                "object_question_probs": self.question_probs,
                 "grid": self.grid,
                 "room_indexes": self.room_indexes,
                 "names": self.names,
@@ -135,30 +136,42 @@ class RoomCreator:
         """Create an object initialization configuration."""
         self.object_init_config = {}
 
-        self.object_init_config["static"] = {
-            object_num: {room_num: 0 for room_num in range(self.num_rooms)}
-            for object_num in range(self.num_static_objects)
-        }
-
-        for object_num in range(self.num_static_objects):
-            room_num = object_num % self.num_rooms
-            self.object_init_config["static"][object_num][room_num] = 1
-
+        # This is made to be dertministic.
         for object_type, num_objects in zip(
-            ["independent", "dependent", "agent"],
-            [self.num_independent_objects, self.num_dependent_objects, 1],
+            ["static", "independent", "dependent", "agent"],
+            [
+                self.num_static_objects,
+                self.num_independent_objects,
+                self.num_dependent_objects,
+                1,
+            ],
         ):
             self.object_init_config[object_type] = {
-                object_num: {
-                    room_num: init_prob
-                    for room_num, init_prob in enumerate(
-                        self._generate_categorical_distribution(self.num_rooms)
-                    )
-                }
+                object_num: {room_num: 0 for room_num in range(self.num_rooms)}
                 for object_num in range(num_objects)
             }
 
-            # check if the values sum upto 1
+        # Every room has to have at least one static object.
+        # Otherwise, agent cant take an action in emtpy rooms
+        for object_num in range(self.num_static_objects):
+            if object_num < self.num_rooms:
+                room_num = object_num
+                self.object_init_config["static"][object_num][room_num] = 1
+            else:
+                room_num = random.randint(0, self.num_rooms - 1)
+                self.object_init_config["static"][object_num][room_num] = 1
+
+        for object_type, num_objects in zip(
+            ["independent", "dependent", "agent"],
+            [
+                self.num_independent_objects,
+                self.num_dependent_objects,
+                1,
+            ],
+        ):
+            for object_num in range(num_objects):
+                room_num = random.randint(0, self.num_rooms - 1)
+                self.object_init_config[object_type][object_num][room_num] = 1
 
         for object_type in ["static", "independent", "dependent", "agent"]:
             for _, room_num_dist in self.object_init_config[object_type].items():
@@ -190,20 +203,31 @@ class RoomCreator:
             "independent"
         ].items():
             for room_num, nesw in room_num_nesws.items():
-                for direction, zero in nesw.items():
-                    if direction == "stay":
-                        nesw[direction] = random.random()
-                    else:
-                        if self.room_config[room_num][direction] != "wall":
-                            nesw[direction] = random.random()
+                nesw["stay"] = random.uniform(self.minimum_transition_stay_prob, 1)
 
-                denominator = sum(nesw.values())
-                for direction, zero in nesw.items():
-                    nesw[direction] = nesw[direction] / denominator
+                for direction, _ in nesw.items():
+                    if (
+                        direction != "stay"
+                        and self.room_config[room_num][direction] != "wall"
+                    ):
+                        nesw[direction] = np.random.beta(0.5, 0.5, 1).item()
+
+                denominator = sum(
+                    [num for direction, num in nesw.items() if direction != "stay"]
+                )
+
+                denominator /= 1 - nesw["stay"]
+
+                if denominator != 0:
+                    for direction, _ in nesw.items():
+                        if direction != "stay":
+                            nesw[direction] = nesw[direction] / denominator
+                else:
+                    nesw["stay"] = 1
 
         self.object_transition_config["dependent"] = {
             dep_object_num: {
-                ind_object_num: random.random()
+                ind_object_num: np.random.beta(0.5, 0.5, 1).item()
                 for ind_object_num in range(self.num_independent_objects)
             }
             for dep_object_num in range(self.num_dependent_objects)
@@ -349,14 +373,40 @@ class RoomCreator:
             "agent"
         ]
 
-    def _generate_categorical_distribution(self, num_categories: int) -> list[float]:
-        """Generate a categorical distribution."""
-        dist = [random.random() for _ in range(num_categories)]
-        dist = [x / sum(dist) for x in dist]
+    def _create_question_probs(self) -> None:
+        """Create a question probability of an object being asked.
 
-        assert abs(sum(dist) - 1) < EPSILON, f"{sum(dist)} is not close to 1"
+        This is applied in a global manner.
 
-        return dist
+        """
+        self.question_probs = {}
+
+        for object_type in ["static", "independent", "dependent"]:
+            self.question_probs[object_type] = {
+                object_name: np.random.beta(0.5, 0.5, 1).item()
+                for object_name in self.names[f"{object_type}_objects"]
+            }
+
+        # we don't want to ask a question about the agent.
+        self.question_probs["agent"] = {"agent": 0}
+
+        denominator = 0
+        for object_type, object_probs in self.question_probs.items():
+            denominator += sum(object_probs.values())
+
+        for object_type, object_probs in self.question_probs.items():
+            for object_name, prob in object_probs.items():
+                self.question_probs[object_type][object_name] = prob / denominator
+
+        all_probs = [
+            prob
+            for object_probs in self.question_probs.values()
+            for prob in object_probs.values()
+        ]
+
+        assert (
+            abs(sum(all_probs) - 1) < EPSILON
+        ), f"{sum(all_probs)} should be close to 1"
 
     def _visualize_grids(
         self, figsize: tuple[int, int] = (15, 15), cell_text_size: int = 10

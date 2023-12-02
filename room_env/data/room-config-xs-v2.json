@@ -7,45 +7,6 @@
             "west": "wall"
         }
     },
-    "object_transition_config": {
-        "static": {
-            "sta_000": null,
-            "sta_001": null
-        },
-        "independent": {
-            "ind_000": {
-                "room_000": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 1.0
-                }
-            },
-            "ind_001": {
-                "room_000": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 1.0
-                }
-            }
-        },
-        "dependent": {
-            "dep_000": {
-                "ind_000": 0.797433214008021,
-                "ind_001": 0.6234150837835258
-            },
-            "dep_001": {
-                "ind_000": 0.10462968943990791,
-                "ind_001": 0.4584080456050631
-            }
-        },
-        "agent": {
-            "agent": null
-        }
-    },
     "object_init_config": {
         "static": {
             "sta_000": {
@@ -57,24 +18,80 @@
         },
         "independent": {
             "ind_000": {
-                "room_000": 1.0
+                "room_000": 1
             },
             "ind_001": {
-                "room_000": 1.0
+                "room_000": 1
             }
         },
         "dependent": {
             "dep_000": {
-                "room_000": 1.0
+                "room_000": 1
             },
             "dep_001": {
-                "room_000": 1.0
+                "room_000": 1
             }
         },
         "agent": {
             "agent": {
-                "room_000": 1.0
+                "room_000": 1
             }
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null,
+            "sta_001": null
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 1
+                }
+            },
+            "ind_001": {
+                "room_000": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 1
+                }
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "ind_000": 0.37061547061658573,
+                "ind_001": 0.5503058575303685
+            },
+            "dep_001": {
+                "ind_000": 0.30081220227043654,
+                "ind_001": 0.1940554216982006
+            }
+        },
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_question_probs": {
+        "static": {
+            "sta_000": 0.4918176900471745,
+            "sta_001": 0.2840161337114723
+        },
+        "independent": {
+            "ind_000": 0.0004191747291596715,
+            "ind_001": 0.18424006009445545
+        },
+        "dependent": {
+            "dep_000": 0.023495895442918215,
+            "dep_001": 0.016011045974819914
+        },
+        "agent": {
+            "agent": 0.0
         }
     },
     "grid": [

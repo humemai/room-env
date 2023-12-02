@@ -7,30 +7,6 @@
             "west": "wall"
         }
     },
-    "object_transition_config": {
-        "static": {
-            "sta_000": null
-        },
-        "independent": {
-            "ind_000": {
-                "room_000": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 1.0
-                }
-            }
-        },
-        "dependent": {
-            "dep_000": {
-                "ind_000": 0.8528586901873659
-            }
-        },
-        "agent": {
-            "agent": null
-        }
-    },
     "object_init_config": {
         "static": {
             "sta_000": {
@@ -39,18 +15,56 @@
         },
         "independent": {
             "ind_000": {
-                "room_000": 1.0
+                "room_000": 1
             }
         },
         "dependent": {
             "dep_000": {
-                "room_000": 1.0
+                "room_000": 1
             }
         },
         "agent": {
             "agent": {
-                "room_000": 1.0
+                "room_000": 1
             }
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": {
+                    "north": 0,
+                    "east": 0,
+                    "south": 0,
+                    "west": 0,
+                    "stay": 1
+                }
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "ind_000": 0.996476429155252
+            }
+        },
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_question_probs": {
+        "static": {
+            "sta_000": 0.4616340365296591
+        },
+        "independent": {
+            "ind_000": 0.46440696600155157
+        },
+        "dependent": {
+            "dep_000": 0.07395899746878912
+        },
+        "agent": {
+            "agent": 0.0
         }
     },
     "grid": [

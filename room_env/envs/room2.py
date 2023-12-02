@@ -34,7 +34,7 @@ class Object:
         type: str,
         init_probs: dict,
         transition_probs: dict,
-        deterministic_init: bool = False,
+        question_prob: float,
     ) -> None:
         """The simplest object class. One should inherit this class to make a more
         complex object.
@@ -44,28 +44,33 @@ class Object:
             type: static, independent, dependent, or agent
             init_probs: initial probabilities of being in a room
             transition_probs: transition probabilities of moving to another room
-            deterministic_init: whether to use a deterministic initial distribution
+            question_prob: the probability of a question being asked at every
+                observation
 
         """
         self.name = name
         self.type = type
         self.init_probs = init_probs
+        self.history = []
+
         if abs(sum(self.init_probs.values()) - 1) >= EPSILON:
             raise ValueError(
                 f"The sum of the initial probabilities must be 1. "
                 f"but it's {sum(self.init_probs.values())}"
             )
         self.transition_probs = transition_probs
+        self.question_prob = question_prob
 
-        if deterministic_init:
-            self.location = sample_max_value_key(self.init_probs)
-        else:
-            # place an object in one of the rooms when it is created.
-            self.location = random.choices(
-                list(self.init_probs.keys()),
-                weights=list(self.init_probs.values()),
-                k=1,
-            )[0]
+        assert (
+            self.question_prob >= 0 and self.question_prob <= 1
+        ), f"question_prob must be between 0 and 1, but it's {self.question_prob}"
+
+        # place an object in one of the rooms when it is created.
+        self.location = random.choices(
+            list(self.init_probs.keys()),
+            weights=list(self.init_probs.values()),
+            k=1,
+        )[0]
 
     def __repr__(self) -> str:
         return f"{self.type.title()}Object(name: {self.name}, location: {self.location}"
@@ -117,6 +122,15 @@ class Object:
         else:  # if the next location is a wall, stay.
             return current_location
 
+    def _update_history(self) -> None:
+        """Update the history of the object.
+
+        Args:
+            new_location: new location
+
+        """
+        self.history.append(self.location)
+
 
 class StaticObject(Object):
     def __init__(
@@ -124,7 +138,7 @@ class StaticObject(Object):
         name: str,
         init_probs: dict,
         transition_probs: dict,
-        deterministic_init: bool = False,
+        question_prob: float,
     ) -> None:
         """Static object does not move. Once they are initialized, they stay forever.
 
@@ -133,12 +147,16 @@ class StaticObject(Object):
             name: e.g., bed
             init_probs: initial probabilities of being in a room
             transition_probs: just a place holder. It's not gonna be used anyway.
-            deterministic_init: whether to use a deterministic initial distribution
+            question_prob: the probability of a question being asked at every
+                observation
 
         """
-        # Static objects are always initialized in a deterministic way.
         super().__init__(
-            name, "static", init_probs, transition_probs, deterministic_init
+            name,
+            "static",
+            init_probs,
+            transition_probs,
+            question_prob,
         )
         assert self.transition_probs is None, "Static objects do not move."
 
@@ -153,7 +171,7 @@ class IndepdentObject(Object):
         init_probs: dict,
         transition_probs: dict,
         rooms: dict,
-        deterministic_init: bool = False,
+        question_prob: float,
     ) -> None:
         """Independent object moves to another room with the attached dependent objects.
 
@@ -162,11 +180,16 @@ class IndepdentObject(Object):
             init_probs: initial probabilities of being in a room
             transition_probs: transition probabilities of moving to another room
             rooms: rooms
-            deterministic_init: whether to use a deterministic initial distribution
+            question_prob: the probability of a question being asked at every
+                observation
 
         """
         super().__init__(
-            name, "independent", init_probs, transition_probs, deterministic_init
+            name,
+            "independent",
+            init_probs,
+            transition_probs,
+            question_prob,
         )
         for key, val in self.transition_probs.items():
             if abs(sum(val.values()) - 1) >= EPSILON:
@@ -219,7 +242,7 @@ class DependentObject(Object):
         init_probs: dict,
         transition_probs: dict,
         independent_objects: list,
-        deterministic_init: bool = False,
+        question_prob: float,
     ) -> None:
         """Dependent object attaches to an independent object.
 
@@ -230,11 +253,16 @@ class DependentObject(Object):
             init_probs: initial probabilities of being in a room.
             transition_probs: transition probabilities of moving to another room.
             independent_objects: independent objects in the environment.
-            deterministic_init: whether to use a deterministic initial distribution
+            question_prob: the probability of a question being asked at every
+                observation.
 
         """
         super().__init__(
-            name, "dependent", init_probs, transition_probs, deterministic_init
+            name,
+            "dependent",
+            init_probs,
+            transition_probs,
+            question_prob,
         )
         for key, val in self.transition_probs.items():
             if val >= 1 + EPSILON:
@@ -287,12 +315,26 @@ class Agent(Object):
         init_probs: dict,
         transition_probs: dict,
         rooms: dict,
-        deterministic_init: bool = False,
+        question_prob: float,
     ) -> None:
         """Agent class is the same as the independent object class, except that it
-        moves with the provided action."""
+        moves with the provided action.
+
+        Args:
+            name: agent
+            init_probs: initial probabilities of being in a room
+            transition_probs: transition probabilities of moving to another room
+            rooms: rooms
+            question_prob: the probability of a question being asked at every
+                observation
+
+        """
         super().__init__(
-            name, "agent", init_probs, transition_probs, deterministic_init
+            name,
+            "agent",
+            init_probs,
+            transition_probs,
+            question_prob,
         )
         assert self.transition_probs is None, "Agent objects do not move by itself."
         self.rooms = rooms
@@ -370,7 +412,7 @@ class RoomEnv2(gym.Env):
         terminates_at: int = 99,
         randomize_observations: bool = False,
         room_size: str = "dev",
-        deterministic_init: bool = False,
+        rewards: dict = {"correct": 1, "wrong": -1, "partial": 0},
     ) -> None:
         """
 
@@ -378,7 +420,7 @@ class RoomEnv2(gym.Env):
             rooms: rooms: dict
             objects: objects: dict of lists
             question: question: list of strings
-            answers: answers: list of strings
+            answer: answer: list of strings
             current_time: current time: int
             room_config: room configuration
             object_transition_config: object transition configuration
@@ -397,7 +439,8 @@ class RoomEnv2(gym.Env):
             room_size: The room configuration to use. Choose one of "dev", "xxs", "xs",
                 "s", "m", or "l". You can also pass this argument as a dictionary, if you
                 have your pre-configured room configuration.
-            deterministic_init: Whether to use a deterministic initial distribution
+            rewards: rewards for correct, wrong, and partial answers. A partial answer
+                is when the agent answers with a previous answer (location).
 
         """
         super().__init__()
@@ -416,7 +459,7 @@ class RoomEnv2(gym.Env):
         self.room_config = config_all["room_config"]
         self.object_transition_config = config_all["object_transition_config"]
         self.object_init_config = config_all["object_init_config"]
-        self.deterministic_init = deterministic_init
+        self.object_question_probs = config_all["object_question_probs"]
 
         if "grid" in config_all.keys():
             self.grid = config_all["grid"]
@@ -441,8 +484,11 @@ class RoomEnv2(gym.Env):
         self.observation_space = gym.spaces.Discrete(1)
         self.action_space = gym.spaces.Discrete(1)
 
-        self.CORRECT = 1
-        self.WRONG = -1
+        self.CORRECT, self.WRONG, self.PARTIAL = (
+            rewards["correct"],
+            rewards["wrong"],
+            rewards["partial"],
+        )
         self.relations = ["north", "east", "south", "west", "atlocation"]
 
         self.entities = (
@@ -453,7 +499,7 @@ class RoomEnv2(gym.Env):
 
         self.hidden_global_states_all = []
         self.observations_all = []
-        self.answers_all = []
+        self.answer_all = []
         self.info_all = []
 
     def _create_rooms(self) -> None:
@@ -472,7 +518,7 @@ class RoomEnv2(gym.Env):
                     name,
                     init_probs,
                     self.object_transition_config["static"][name],
-                    self.deterministic_init,
+                    self.object_question_probs["static"][name],
                 )
             )
 
@@ -483,7 +529,7 @@ class RoomEnv2(gym.Env):
                     init_probs,
                     self.object_transition_config["independent"][name],
                     self.rooms,
-                    self.deterministic_init,
+                    self.object_question_probs["independent"][name],
                 )
             )
 
@@ -494,20 +540,31 @@ class RoomEnv2(gym.Env):
                     init_probs,
                     self.object_transition_config["dependent"][name],
                     self.objects["independent"],
-                    self.deterministic_init,
+                    self.object_question_probs["dependent"][name],
                 )
             )
 
         for name, init_probs in self.object_init_config["agent"].items():
             self.objects["agent"].append(
                 Agent(
-                    "agent",
+                    name,
                     init_probs,
                     self.object_transition_config["agent"][name],
                     self.rooms,
-                    self.deterministic_init,
+                    self.object_question_probs["agent"][name],
                 )
             )
+
+        # sanity check
+        question_probs = []
+        for obj_type, objects in self.objects.items():
+            for obj in objects:
+                question_probs.append(obj.question_prob)
+
+        assert abs(sum(question_probs) - 1) <= EPSILON, (
+            f"The sum of the question probabilities must be <= 1. but it's "
+            f"{sum(question_probs)}"
+        )
 
     def _compute_room_map(self) -> None:
         """Get the room layout for semantic knowledge."""
@@ -530,7 +587,7 @@ class RoomEnv2(gym.Env):
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
         quadruples: [head, relation, tail, time]
-        This is basically what the agent does not see and wants to estimate.
+        This is basically what the agent partially sees and wants to estimate.
 
         """
         self.hidden_global_state = []
@@ -546,9 +603,24 @@ class RoomEnv2(gym.Env):
             self.hidden_global_state.append([name, "west", room.west])
 
         for triple in self.hidden_global_state:
-            triple.append((self.current_time))
+            triple.append(self.current_time)
 
         self.hidden_global_states_all.append(deepcopy(self.hidden_global_state))
+
+    def _find_object_by_string(self, obj_str: str) -> Object:
+        """Find an object by string.
+
+        Args:
+            obj_str: object string
+
+        Returns:
+            obj: object
+
+        """
+        for obj_type, objects in self.objects.items():
+            for obj in objects:
+                if obj.name == obj_str:
+                    return obj
 
     def get_observations_and_question(self) -> dict:
         """Return what the agent sees in quadruples, and the question.
@@ -561,19 +633,6 @@ class RoomEnv2(gym.Env):
             question: [head, relation, tail, current_time], where either head or tail is "?"
 
         """
-        # I don't think we need this anymore.
-        # if self.current_time > self.terminates_at:
-        #     self.observations_room = None
-        #     self.question = None
-        #     self.answers = None
-
-        #     observations = {"room": None, "question": None}
-        #     answers = None
-
-        #     self.observations_all.append(observations)
-        #     self.answers_all.append(answers)
-        #     return None
-
         agent_location = self.objects["agent"][0].location
         self._compute_hidden_global_state()
         self.observations_room = []
@@ -589,37 +648,26 @@ class RoomEnv2(gym.Env):
                 raise ValueError("Unknown relation.")
 
         question_candidates = [
-            quadruple
-            for quadruple in self.hidden_global_state
-            # We don't want to ask a question about the agent and walls.
-            if quadruple[0] != "agent" and quadruple[1] == "atlocation"
+            (obj.name, obj.question_prob)
+            for obj_type, objs in self.objects.items()
+            for obj in objs
         ]
+        names, probs = zip(*question_candidates)
+        chosen_tuple = random.choices(question_candidates, weights=probs)[0]
+        name, _ = chosen_tuple
 
-        self.question = random.choice(question_candidates)
+        obj_chosen = self._find_object_by_string(name)
 
-        idx = random.choice([0, 2])  # we don't ask a qusetion about the relation.
-        self.question = self.question[:idx] + ["?"] + self.question[idx + 1 :]
-
-        self.answers = []
-        for quadruple in self.hidden_global_state:
-            if self.question[0] == "?":
-                if (
-                    quadruple[0] != "agent"
-                    and quadruple[1] == self.question[1]
-                    and quadruple[2] == self.question[2]
-                ):
-                    self.answers.append(quadruple[0])
-            elif self.question[2] == "?":
-                if (
-                    quadruple[0] == self.question[0]
-                    and quadruple[1] == self.question[1]
-                ):
-                    self.answers.append(quadruple[2])
-            else:
-                raise ValueError(f"Unknown question: {self.question}")
-
-        if random.random() >= self.question_prob:
+        if random.random() > self.question_prob:
             self.question = None
+            self.answer = None
+        else:
+            self.question = [obj_chosen.name, "atlocation", "?", self.current_time]
+            self.answer = {"current": obj_chosen.location, "previous": None}
+            for previous_location in obj_chosen.history[::-1]:
+                if previous_location != obj_chosen.location:
+                    self.answer["previous"] = previous_location
+                    break
 
         if self.randomize_observations:
             random.shuffle(self.observations_room)
@@ -628,9 +676,8 @@ class RoomEnv2(gym.Env):
             "room": deepcopy(self.observations_room),
             "question": deepcopy(self.question),
         }
-        answers = deepcopy(self.answers)
         self.observations_all.append(observations)
-        self.answers_all.append(answers)
+        self.answer_all.append(self.answer)
 
         return observations
 
@@ -647,6 +694,11 @@ class RoomEnv2(gym.Env):
         self._create_objects()
         self.current_time = 0
         self.info_all.append(info)
+
+        for obj_type, objs in self.objects.items():
+            for obj in objs:
+                obj._update_history()
+
         return self.get_observations_and_question(), info
 
     def step(self, actions: tuple[str, str]) -> tuple[tuple, int, bool, dict]:
@@ -663,8 +715,11 @@ class RoomEnv2(gym.Env):
 
         """
         action_qa, action_explore = actions
-        if action_qa in self.answers:
+
+        if action_qa == self.answer["current"]:
             reward = self.CORRECT
+        elif action_qa == self.answer["previous"]:
+            reward = self.PARTIAL
         else:
             reward = self.WRONG
 
@@ -682,10 +737,14 @@ class RoomEnv2(gym.Env):
             done = False
 
         truncated = False
-        info = deepcopy({"answers": self.answers, "timestamp": self.current_time})
+        info = deepcopy({"answers": self.answer, "timestamp": self.current_time})
         self.info_all.append(info)
 
         self.current_time += 1
+
+        for obj_type, objs in self.objects.items():
+            for obj in objs:
+                obj._update_history()
 
         return self.get_observations_and_question(), reward, done, truncated, info
 

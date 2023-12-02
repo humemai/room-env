@@ -36,6 +36,10 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                     "dependent": {},
                     "agent": {"agent": {"officeroom": 1.0}},
                 },
+                "object_question_probs": {
+                    "static": {"desk": 1.0},
+                    "agent": {"agent": 0},
+                },
             }
             config = {
                 "question_prob": 1.0,
@@ -90,10 +94,16 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             rewards.append(reward)
             self.assertEqual(reward, 1)
             self.assertFalse(done)
-            if question_previous == ["?", "atlocation", "officeroom", 0]:
-                self.assertEqual(info, {"answers": ["desk"], "timestamp": 0})
-            elif question_previous == ["desk", "atlocation", "?", 0]:
-                self.assertEqual(info, {"answers": ["officeroom"], "timestamp": 0})
+            # if question_previous == ["?", "atlocation", "officeroom", 0]:
+            #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 0})
+            if question_previous == ["desk", "atlocation", "?", 0]:
+                self.assertEqual(
+                    info,
+                    {
+                        "answers": {"current": "officeroom", "previous": None},
+                        "timestamp": 0,
+                    },
+                )
             else:
                 raise ValueError
 
@@ -127,10 +137,16 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             rewards.append(reward)
             self.assertEqual(reward, 1)
             self.assertFalse(done)
-            if question_previous == ["?", "atlocation", "officeroom", 1]:
-                self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
-            elif question_previous == ["desk", "atlocation", "?", 1]:
-                self.assertEqual(info, {"answers": ["officeroom"], "timestamp": 1})
+            # if question_previous == ["?", "atlocation", "officeroom", 1]:
+            #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
+            if question_previous == ["desk", "atlocation", "?", 1]:
+                self.assertEqual(
+                    info,
+                    {
+                        "answers": {"current": "officeroom", "previous": None},
+                        "timestamp": 1,
+                    },
+                )
             else:
                 raise ValueError
 
@@ -209,6 +225,12 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     },
                     "agent": {"agent": {"officeroom": 1.0, "livingroom": 0}},
                 },
+                "object_question_probs": {
+                    "static": {"desk": 0.5},
+                    "independent": {"tae": 0.2},
+                    "dependent": {"laptop": 0.3},
+                    "agent": {"agent": 0},
+                },
             }
             config = {
                 "question_prob": 1.0,
@@ -274,12 +296,18 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 (action_qa, "east")
             )
             rewards.append(reward)
-            if question_previous[0] == "?":
+            # if question_previous[0] == "?":
+            #     self.assertEqual(
+            #         info, {"answers": ["desk", "tae", "laptop"], "timestamp": 0}
+            #     )
+            if question_previous == ["desk", "atlocation", "?", 0]:
                 self.assertEqual(
-                    info, {"answers": ["desk", "tae", "laptop"], "timestamp": 0}
+                    info,
+                    {
+                        "answers": {"current": "officeroom", "previous": None},
+                        "timestamp": 0,
+                    },
                 )
-            else:
-                self.assertEqual(info, {"answers": ["officeroom"], "timestamp": 0})
 
             self.assertEqual(
                 observations["room"],
@@ -326,7 +354,13 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             )
             rewards.append(reward)
             if question_previous == ["desk", "atlocation", "?", 1]:
-                self.assertEqual(info, {"answers": ["officeroom"], "timestamp": 1})
+                self.assertEqual(
+                    info,
+                    {
+                        "answers": {"current": "officeroom", "previous": None},
+                        "timestamp": 1,
+                    },
+                )
             elif question_previous == [
                 "tae",
                 "atlocation",
@@ -338,11 +372,18 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 "?",
                 1,
             ]:
-                self.assertEqual(info, {"answers": ["livingroom"], "timestamp": 1})
-            elif question_previous == ["?", "atlocation", "officeroom", 1]:
-                self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
-            elif question_previous == ["?", "atlocation", "livingroom", 1]:
-                self.assertEqual(info, {"answers": ["tae", "laptop"], "timestamp": 1})
+                self.assertEqual(
+                    info,
+                    {
+                        "answers": {"current": "livingroom", "previous": "officeroom"},
+                        "timestamp": 1,
+                    },
+                )
+
+            # elif question_previous == ["?", "atlocation", "officeroom", 1]:
+            #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
+            # elif question_previous == ["?", "atlocation", "livingroom", 1]:
+            #     self.assertEqual(info, {"answers": ["tae", "laptop"], "timestamp": 1})
             else:
                 raise ValueError
 
@@ -397,7 +438,6 @@ class RoomEnv2xxlTest(unittest.TestCase):
             "room_env:RoomEnv-v2",
             room_size="xxl",
             randomize_observations=False,
-            deterministic_init=False,
         )
 
     def test_all(self) -> None:
@@ -417,31 +457,3 @@ class RoomEnv2xxlTest(unittest.TestCase):
             self.assertEqual(observations["room"][0][0], "agent")
             for obs in observations["room"][1:]:
                 self.assertNotEqual(obs[0], "agent")
-
-    def test_deterministic_init(self) -> None:
-        self.env_ = gym.make(
-            "room_env:RoomEnv-v2",
-            question_prob=1.0,
-            seed=42,
-            terminates_at=99,
-            randomize_observations=True,
-            room_size="xxl",
-            deterministic_init=True,
-        )
-
-        for seed in range(5):
-            self.env__ = gym.make(
-                "room_env:RoomEnv-v2",
-                question_prob=1.0,
-                seed=seed,
-                terminates_at=99,
-                randomize_observations=True,
-                room_size="xxl",
-                deterministic_init=True,
-            )
-            for object_type, objects in self.env__.objects.items():
-                for obj_idx, obj in enumerate(objects):
-                    self.assertEqual(
-                        obj.location,
-                        self.env_.objects[object_type][obj_idx].location,
-                    )
