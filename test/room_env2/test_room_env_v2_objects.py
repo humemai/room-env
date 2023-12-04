@@ -417,7 +417,7 @@ class AgentTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 rooms=None,
-                question_prob=0.5,
+                question_prob=0,
             )
 
         agent = Agent(
@@ -425,13 +425,13 @@ class AgentTest(unittest.TestCase):
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             rooms=rooms,
-            question_prob=0.5,
+            question_prob=0,
         )
         agent_ = Agent(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
-            question_prob=0.5,
+            question_prob=0,
             rooms=rooms,
         )
         self.assertEqual(agent, agent_)

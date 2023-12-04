@@ -329,6 +329,8 @@ class Agent(Object):
                 observation
 
         """
+        assert abs(question_prob) <= EPSILON, "Agents are not questionable."
+
         super().__init__(
             name,
             "agent",
@@ -413,6 +415,7 @@ class RoomEnv2(gym.Env):
         randomize_observations: bool = False,
         room_size: str = "dev",
         rewards: dict = {"correct": 1, "wrong": -1, "partial": 0},
+        make_everything_static: bool = False,
     ) -> None:
         """
 
@@ -441,6 +444,8 @@ class RoomEnv2(gym.Env):
                 have your pre-configured room configuration.
             rewards: rewards for correct, wrong, and partial answers. A partial answer
                 is when the agent answers with a previous answer (location).
+            make_everything_static: If True, all objects are static. This is useful for
+                debugging.
 
         """
         super().__init__()
@@ -489,6 +494,8 @@ class RoomEnv2(gym.Env):
             rewards["wrong"],
             rewards["partial"],
         )
+        self.make_everything_static = make_everything_static
+
         self.relations = ["north", "east", "south", "west", "atlocation"]
 
         self.entities = (
@@ -575,11 +582,19 @@ class RoomEnv2(gym.Env):
             self.room_layout.append([name, "south", room.south])
             self.room_layout.append([name, "west", room.west])
 
-    def return_room_layout(self) -> list[list[str]]:
-        """Return the room layout for semantic knowledge. Walls are not included."""
-        room_layout = [
-            deepcopy(triple) for triple in self.room_layout if triple[2] != "wall"
-        ]
+    def return_room_layout(self, exclude_walls: bool = False) -> list[list[str]]:
+        """Return the room layout for semantic knowledge.
+
+        Args:
+            exclude_walls: whether to exclude walls from the room layout.
+
+        Returns:
+            room_layout:
+        """
+        room_layout = [deepcopy(triple) for triple in self.room_layout]
+
+        if exclude_walls:
+            room_layout = [triple for triple in room_layout if triple[2] != "wall"]
 
         return room_layout
 
@@ -723,11 +738,12 @@ class RoomEnv2(gym.Env):
         else:
             reward = self.WRONG
 
-        for obj in self.objects["independent"]:
-            obj.move()
+        if not self.make_everything_static:
+            for obj in self.objects["independent"]:
+                obj.move()
 
-        for obj in self.objects["dependent"]:
-            obj.attach()
+            for obj in self.objects["dependent"]:
+                obj.attach()
 
         self.objects["agent"][0].move(action_explore)
 
