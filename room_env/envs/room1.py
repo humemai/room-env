@@ -35,7 +35,6 @@ class RoomEnv1(gym.Env):
         question_prob: int = 1.0,
         allow_random_human: bool = False,
         allow_random_question: bool = False,
-        total_episode_rewards: int = 128,
         check_resources: bool = True,
     ) -> None:
         """
@@ -46,7 +45,6 @@ class RoomEnv1(gym.Env):
             question_prob: The probability of a question being asked at every observation.
             allow_random_human: whether or not to generate a random human sequence.
             allow_random_question: whether or not to geneate a random question sequence.
-            total_episode_rewards: total episode rewards
             check_resources: whether to check the resources in the DES.
 
         """
@@ -56,7 +54,6 @@ class RoomEnv1(gym.Env):
         self.question_prob = question_prob
         self.allow_random_human = allow_random_human
         self.allow_random_question = allow_random_question
-        self.total_episode_rewards = total_episode_rewards
         self.check_resources = check_resources
 
         # Our state / actionspace is quite complex. Here we just make a dummy spaces
@@ -69,6 +66,7 @@ class RoomEnv1(gym.Env):
             des_size=self.des_size,
             check_resources=self.check_resources,
         )
+        self.total_episode_rewards = self.des.until
         assert 0 < self.question_prob <= 1
 
     def generate_sequences(self) -> None:
