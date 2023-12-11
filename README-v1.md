@@ -38,7 +38,7 @@ while True:
     "question_prob": 1.0,
     "allow_random_human": False,
     "allow_random_question": False,
-    "total_episode_rewards": 128,
+    "total_maximum_episode_rewards": 128,
     "check_resources": True,
 }
 ```

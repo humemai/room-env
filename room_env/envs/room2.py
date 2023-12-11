@@ -416,6 +416,8 @@ class RoomEnv2(gym.Env):
         room_size: str = "dev",
         rewards: dict = {"correct": 1, "wrong": -1, "partial": 0},
         make_everything_static: bool = False,
+        num_total_questions: int = 100,
+        question_interval: int = 1,
     ) -> None:
         """
 
@@ -446,6 +448,9 @@ class RoomEnv2(gym.Env):
                 is when the agent answers with a previous answer (location).
             make_everything_static: If True, all objects are static. This is useful for
                 debugging.
+            num_total_questions: The total number of questions to ask.
+            question_interval: The interval between questions. If 1, a question is asked
+                at every time step. If 2, a question is asked every other time step.
 
         """
         super().__init__()
@@ -478,7 +483,25 @@ class RoomEnv2(gym.Env):
         self.question_prob = question_prob
         self.terminates_at = terminates_at
         self.randomize_observations = randomize_observations
-        self.total_episode_rewards = self.terminates_at + 1
+        self.num_total_questions = num_total_questions
+        self.question_interval = question_interval
+
+        assert self.num_total_questions % (self.terminates_at + 1) == 0, (
+            f"The total number of questions must be a multiple of "
+            f"{self.terminates_at + 1}, but it's {self.num_total_questions}"
+        )
+
+        assert (self.terminates_at + 1) % self.question_interval == 0, (
+            f"The total number of steps must be a multiple of "
+            f"{self.question_interval}, but it's {self.terminates_at + 1}"
+        )
+
+        self.num_questions_step = (
+            self.num_total_questions
+            // (self.terminates_at + 1)
+            * self.question_interval
+        )
+        self.total_maximum_episode_rewards = num_total_questions
 
         self._create_rooms()
         self._compute_room_map()
@@ -506,7 +529,7 @@ class RoomEnv2(gym.Env):
 
         self.hidden_global_states_all = []
         self.observations_all = []
-        self.answer_all = []
+        self.answers_all = []
         self.info_all = []
 
     def _create_rooms(self) -> None:
@@ -637,15 +660,19 @@ class RoomEnv2(gym.Env):
                 if obj.name == obj_str:
                     return obj
 
-    def get_observations_and_question(self) -> dict:
+    def get_observations_and_question(self, generate_questions: bool = True) -> dict:
         """Return what the agent sees in quadruples, and the question.
 
         At the moment, the questions are all one-hop queries. The first observation
         is always the agent's location. Use this wisely.
 
+        Args:
+            generate_questions: whether to generate questions. If False, the questions
+                None
+
         Returns:
             observations_room: [head, relation, tail, current_time]
-            question: [head, relation, tail, current_time], where either head or tail is "?"
+            question: [head, relation, ?, current_time]
 
         """
         agent_location = self.objects["agent"][0].location
@@ -662,37 +689,50 @@ class RoomEnv2(gym.Env):
             else:
                 raise ValueError("Unknown relation.")
 
-        question_candidates = [
-            (obj.name, obj.question_prob)
-            for obj_type, objs in self.objects.items()
-            for obj in objs
-        ]
-        names, probs = zip(*question_candidates)
-        chosen_tuple = random.choices(question_candidates, weights=probs)[0]
-        name, _ = chosen_tuple
-
-        obj_chosen = self._find_object_by_string(name)
-
-        if random.random() > self.question_prob:
-            self.question = None
-            self.answer = None
-        else:
-            self.question = [obj_chosen.name, "atlocation", "?", self.current_time]
-            self.answer = {"current": obj_chosen.location, "previous": None}
-            for previous_location in obj_chosen.history[::-1]:
-                if previous_location != obj_chosen.location:
-                    self.answer["previous"] = previous_location
-                    break
-
         if self.randomize_observations:
             random.shuffle(self.observations_room)
 
+        self.questions = []
+        self.answers = []
+
+        if generate_questions:
+            question_candidates = [
+                (obj.name, obj.question_prob)
+                for obj_type, objs in self.objects.items()
+                for obj in objs
+            ]
+            names, probs = zip(*question_candidates)
+            chosen_tuples = random.choices(
+                question_candidates, weights=probs, k=self.num_questions_step
+            )
+            names = [chosen_tuple[0] for chosen_tuple in chosen_tuples]
+
+            objs_chosen = [self._find_object_by_string(name) for name in names]
+
+            for i in range(self.num_questions_step):
+                if random.random() > self.question_prob:
+                    self.questions.append(None)
+                    self.answers.append(None)
+                else:
+                    obj_chosen = objs_chosen[i]
+                    self.questions.append(
+                        [obj_chosen.name, "atlocation", "?", self.current_time]
+                    )
+                    answer = {"current": obj_chosen.location, "previous": None}
+
+                    for previous_location in obj_chosen.history[::-1]:
+                        if previous_location != obj_chosen.location:
+                            answer["previous"] = previous_location
+                            break
+
+                    self.answers.append(answer)
+
         observations = {
             "room": deepcopy(self.observations_room),
-            "question": deepcopy(self.question),
+            "questions": deepcopy(self.questions),
         }
         self.observations_all.append(observations)
-        self.answer_all.append(self.answer)
+        self.answers_all.append(self.answers)
 
         return observations
 
@@ -714,14 +754,17 @@ class RoomEnv2(gym.Env):
             for obj in objs:
                 obj._update_history()
 
-        return self.get_observations_and_question(), info
+        if (self.current_time + 1) % self.question_interval == 0:
+            return self.get_observations_and_question(generate_questions=True), info
+        else:
+            return self.get_observations_and_question(generate_questions=False), info
 
-    def step(self, actions: tuple[str, str]) -> tuple[tuple, int, bool, dict]:
+    def step(self, actions: tuple[list[str], str]) -> tuple[tuple, int, bool, dict]:
         """An agent takes a set of actions.
 
         Args:
             actions:
-                action_qa: An answer to the question.
+                actions_qa: Answers to the questions.
                 action_explore: An action to explore the environment, i.e., where to go.
                     north, east, south, west, or stay.
 
@@ -729,14 +772,27 @@ class RoomEnv2(gym.Env):
             (observation, question), reward, truncated, done, info
 
         """
-        action_qa, action_explore = actions
+        actions_qa, action_explore = actions
 
-        if action_qa == self.answer["current"]:
-            reward = self.CORRECT
-        elif action_qa == self.answer["previous"]:
-            reward = self.PARTIAL
+        assert isinstance(actions_qa, list), "actions_qa must be a list."
+        assert isinstance(action_explore, str), "action_explore must be a string."
+
+        if len(self.answers) == 0:
+            assert actions_qa == [], "You shouldn't answer any questions"
+            reward = 0
+
         else:
-            reward = self.WRONG
+            assert len(actions_qa) == len(
+                self.answers
+            ), "You should answer all the questions."
+            reward = 0
+            for actions_qa, answer in zip(actions_qa, self.answers):
+                if actions_qa == answer["current"]:
+                    reward += self.CORRECT
+                elif actions_qa == answer["previous"]:
+                    reward += self.PARTIAL
+                else:
+                    reward += self.WRONG
 
         if not self.make_everything_static:
             for obj in self.objects["independent"]:
@@ -753,7 +809,7 @@ class RoomEnv2(gym.Env):
             done = False
 
         truncated = False
-        info = deepcopy({"answers": self.answer, "timestamp": self.current_time})
+        info = deepcopy({"answers": self.answers, "timestamp": self.current_time})
         self.info_all.append(info)
 
         self.current_time += 1
@@ -762,7 +818,22 @@ class RoomEnv2(gym.Env):
             for obj in objs:
                 obj._update_history()
 
-        return self.get_observations_and_question(), reward, done, truncated, info
+        if (self.current_time + 1) % self.question_interval == 0:
+            return (
+                self.get_observations_and_question(generate_questions=True),
+                reward,
+                done,
+                truncated,
+                info,
+            )
+        else:
+            return (
+                self.get_observations_and_question(generate_questions=False),
+                reward,
+                done,
+                truncated,
+                info,
+            )
 
     def _find_objects_in_room(self, room_name: str) -> dict[str, list]:
         """Find objects in a room.

@@ -19,6 +19,9 @@ class ObjectHistoryTest(unittest.TestCase):
             "randomize_observations": True,
             "room_size": "m",
             "make_everything_static": True,
+            "rewards": {"correct": 1, "wrong": -1, "partial": 0},
+            "num_total_questions": 100,
+            "question_interval": 1,
         }
         env = gym.make("room_env:RoomEnv-v2", **env_config)
         observations, info = env.reset()
@@ -32,7 +35,7 @@ class ObjectHistoryTest(unittest.TestCase):
                     locations[obj.name] = [obj.location]
 
         while True:
-            observations, reward, done, truncated, info = env.step(("foo", "stay"))
+            observations, reward, done, truncated, info = env.step((["foo"], "stay"))
             for obj_type, objs in env.objects.items():
                 for obj in objs:
                     locations[obj.name].append(obj.location)
@@ -67,7 +70,7 @@ class ObjectHistoryTest(unittest.TestCase):
 
         while True:
             observations, reward, done, truncated, info = env.step(
-                ("foo", random.choice(["north", "south", "east", "west"]))
+                (["foo"], random.choice(["north", "south", "east", "west"]))
             )
             for obj_type, objs in env.objects.items():
                 for obj in objs:

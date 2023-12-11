@@ -73,6 +73,8 @@ class QuestionProbTest(unittest.TestCase):
             "room_size": self.room_size,
             "rewards": {"correct": 1, "wrong": -1, "partial": 0},
             "make_everything_static": False,
+            "num_total_questions": 100,
+            "question_interval": 1,
         }
         env = gym.make("room_env:RoomEnv-v2", **env_config)
         observations, info = env.reset()
@@ -80,11 +82,11 @@ class QuestionProbTest(unittest.TestCase):
         while True:
             observations, reward, done, truncated, info = env.step(
                 (
-                    "foo",
+                    ["foo"],
                     random.choice(["north", "south", "east", "west", "stay"]),
                 )
             )
-            self.assertEqual(observations["question"][0], "sta_000")
+            self.assertEqual(observations["questions"][0][0], "sta_000")
 
             if done:
                 break
@@ -149,16 +151,16 @@ class QuestionProbTest(unittest.TestCase):
 
         env = gym.make("room_env:RoomEnv-v2", **env_config)
         observations, info = env.reset()
-        questions.append(observations["question"][0])
+        questions.append(observations["questions"][0][0])
 
         while True:
             observations, reward, done, truncated, info = env.step(
                 (
-                    "foo",
+                    ["foo"],
                     random.choice(["north", "south", "east", "west", "stay"]),
                 )
             )
-            questions.append(observations["question"][0])
+            questions.append(observations["questions"][0][0])
 
             if done:
                 break

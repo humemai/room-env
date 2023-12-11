@@ -523,7 +523,7 @@ def get_handcrafted(
         allow_random_human: whether to allow random humans to be observed.
         allow_random_question: whether to allow random questions to be asked.
         varying_rewards: If true, then the rewards are scaled in every episode so that
-                total_episode_rewards is 128.
+                total_maximum_episode_rewards is 128.
 
     Returns:
         handcrafted_results

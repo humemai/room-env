@@ -22,7 +22,7 @@ logging.basicConfig(
 
 class RoomEnv1(gym.Env):
     """The Room environment version 1.
-
+self.question_sequence
     Every string value is lower-cased to avoid confusion!!!
     """
 
@@ -66,7 +66,7 @@ class RoomEnv1(gym.Env):
             des_size=self.des_size,
             check_resources=self.check_resources,
         )
-        self.total_episode_rewards = self.des.until
+        self.total_maximum_episode_rewards = self.des.until
         assert 0 < self.question_prob <= 1
 
     def generate_sequences(self) -> None:

@@ -24,6 +24,7 @@ class RoomCreator:
         room_prob: float = 0.7,
         minimum_transition_stay_prob: float = 0.5,
         give_fake_names: bool = False,
+        static_object_in_every_room: bool = True,
         filename: str = "dev",
     ) -> None:
         """Create rooms with objects.
@@ -38,6 +39,8 @@ class RoomCreator:
             minimum_transition_stay_prob: probability of staying in the same room.
                 This should be quite high. Otherwise, the objects are not tractable.
             give_fake_names: If True, give fake names to the rooms and objects.
+            static_object_in_every_room: If True, every room has at least one static
+                object.
             filename: filename to save the config.
 
         """
@@ -54,6 +57,7 @@ class RoomCreator:
         self.room_prob = room_prob
         self.give_fake_names = give_fake_names
         self.minimum_transition_stay_prob = minimum_transition_stay_prob
+        self.static_object_in_every_room = static_object_in_every_room
 
     def run(self):
         self._create_grid_world()
@@ -105,11 +109,12 @@ class RoomCreator:
                         self.grid[i][j] = 1
 
             # This is to assure that every room as at least one static object.
-            if (
-                len(self.room_indexes) == self.num_rooms
-                and self.num_static_objects >= self.num_rooms
-            ):
-                break
+            if len(self.room_indexes) == self.num_rooms:
+                if self.static_object_in_every_room:
+                    if self.num_static_objects >= self.num_rooms:
+                        break
+                else:
+                    break
 
     def _create_room_config(self) -> None:
         """Create a room configuration."""
@@ -151,10 +156,8 @@ class RoomCreator:
                 for object_num in range(num_objects)
             }
 
-        # Every room has to have at least one static object.
-        # Otherwise, agent cant take an action in emtpy rooms
         for object_num in range(self.num_static_objects):
-            if object_num < self.num_rooms:
+            if self.static_object_in_every_room and object_num < self.num_rooms:
                 room_num = object_num
                 self.object_init_config["static"][object_num][room_num] = 1
             else:
@@ -393,6 +396,9 @@ class RoomCreator:
         denominator = 0
         for object_type, object_probs in self.question_probs.items():
             denominator += sum(object_probs.values())
+
+        if denominator == 0:
+            raise ValueError("There should be at least one object to ask a question.")
 
         for object_type, object_probs in self.question_probs.items():
             for object_name, prob in object_probs.items():

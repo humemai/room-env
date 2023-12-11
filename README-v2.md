@@ -141,7 +141,7 @@ env = gym.make("room_env:RoomEnv-v2", **config)
 rewards = 0
 
 while True:
-    action_qa = question[0]
+    actions_qa = question[0]
     action_explore = random.choice(["north", "east", "south", "west", "stay"])
     (obs, question), reward, done, truncated, info = env.step(("wall", action_explore))
     rewards += reward
