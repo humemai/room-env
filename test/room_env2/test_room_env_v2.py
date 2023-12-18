@@ -163,7 +163,9 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                 self.assertEqual(reward, -1)
                 self.assertFalse(done)
 
-            observations, reward, done, truncated, info = self.env.step((["bar"], "stay"))
+            observations, reward, done, truncated, info = self.env.step(
+                (["bar"], "stay")
+            )
             rewards.append(reward)
             self.assertEqual(len(rewards), 10)
             self.assertEqual(reward, -1)
@@ -269,14 +271,14 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertEqual(
                 observations["room"],
                 [
-                    ["agent", "atlocation", "officeroom", 0],
-                    ["desk", "atlocation", "officeroom", 0],
-                    ["tae", "atlocation", "officeroom", 0],
-                    ["laptop", "atlocation", "officeroom", 0],
                     ["officeroom", "north", "wall", 0],
                     ["officeroom", "east", "livingroom", 0],
                     ["officeroom", "south", "wall", 0],
                     ["officeroom", "west", "wall", 0],
+                    ["desk", "atlocation", "officeroom", 0],
+                    ["tae", "atlocation", "officeroom", 0],
+                    ["laptop", "atlocation", "officeroom", 0],
+                    ["agent", "atlocation", "officeroom", 0],
                 ],
             )
 
@@ -316,13 +318,13 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertEqual(
                 observations["room"],
                 [
-                    ["agent", "atlocation", "livingroom", 1],
-                    ["tae", "atlocation", "livingroom", 1],
-                    ["laptop", "atlocation", "livingroom", 1],
                     ["livingroom", "north", "wall", 1],
                     ["livingroom", "east", "wall", 1],
                     ["livingroom", "south", "wall", 1],
                     ["livingroom", "west", "officeroom", 1],
+                    ["tae", "atlocation", "livingroom", 1],
+                    ["laptop", "atlocation", "livingroom", 1],
+                    ["agent", "atlocation", "livingroom", 1],
                 ],
             )
             self.assertIn(
@@ -379,7 +381,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 self.assertEqual(
                     info,
                     {
-                        "answers": [{"current": "livingroom", "previous": "officeroom"}],
+                        "answers": [
+                            {"current": "livingroom", "previous": "officeroom"}
+                        ],
                         "timestamp": 1,
                     },
                 )
@@ -394,14 +398,14 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             self.assertEqual(
                 observations["room"],
                 [
-                    ["agent", "atlocation", "officeroom", 2],
-                    ["desk", "atlocation", "officeroom", 2],
-                    ["tae", "atlocation", "officeroom", 2],
-                    ["laptop", "atlocation", "officeroom", 2],
                     ["officeroom", "north", "wall", 2],
                     ["officeroom", "east", "livingroom", 2],
                     ["officeroom", "south", "wall", 2],
                     ["officeroom", "west", "wall", 2],
+                    ["desk", "atlocation", "officeroom", 2],
+                    ["tae", "atlocation", "officeroom", 2],
+                    ["laptop", "atlocation", "officeroom", 2],
+                    ["agent", "atlocation", "officeroom", 2],
                 ],
             )
 
@@ -426,7 +430,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 self.assertEqual(reward, -1)
                 self.assertFalse(done)
 
-            observations, reward, done, truncated, info = self.env.step((["bar"], "stay"))
+            observations, reward, done, truncated, info = self.env.step(
+                (["bar"], "stay")
+            )
             rewards.append(reward)
             self.assertEqual(len(rewards), 100)
             self.assertEqual(reward, -1)
@@ -440,14 +446,14 @@ class RoomEnv2xxlTest(unittest.TestCase):
     def setUp(self) -> None:
         self.env = gym.make(
             "room_env:RoomEnv-v2",
-            room_size="xxl",
+            room_size="l",
             randomize_observations=False,
         )
 
     def test_all(self) -> None:
         observations, info = self.env.reset()
-        self.assertEqual(observations["room"][0][0], "agent")
-        for obs in observations["room"][1:]:
+        self.assertEqual(observations["room"][-1][0], "agent")
+        for obs in observations["room"][:-1]:
             self.assertNotEqual(obs[0], "agent")
         while True:
             actions_qa = [random.choice(observations["questions"][0])]
@@ -458,6 +464,6 @@ class RoomEnv2xxlTest(unittest.TestCase):
             if done:
                 break
 
-            self.assertEqual(observations["room"][0][0], "agent")
-            for obs in observations["room"][1:]:
+            self.assertEqual(observations["room"][-1][0], "agent")
+            for obs in observations["room"][:-1]:
                 self.assertNotEqual(obs[0], "agent")

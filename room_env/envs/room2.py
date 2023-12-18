@@ -418,20 +418,9 @@ class RoomEnv2(gym.Env):
         make_everything_static: bool = False,
         num_total_questions: int = 100,
         question_interval: int = 1,
+        include_walls_in_observations: bool = True,
     ) -> None:
         """
-
-        Attributes:
-            rooms: rooms: dict
-            objects: objects: dict of lists
-            question: question: list of strings
-            answer: answer: list of strings
-            current_time: current time: int
-            room_config: room configuration
-            object_transition_config: object transition configuration
-            object_init_config: object initial configuration
-            randomize_observations: whether to randomize the order of the observations.
-
         Args:
             question_prob: The probability of a question being asked at every observation.
             seed: random seed number
@@ -451,6 +440,7 @@ class RoomEnv2(gym.Env):
             num_total_questions: The total number of questions to ask.
             question_interval: The interval between questions. If 1, a question is asked
                 at every time step. If 2, a question is asked every other time step.
+            include_walls_in_observations: whether to include walls in the observations.
 
         """
         super().__init__()
@@ -485,6 +475,7 @@ class RoomEnv2(gym.Env):
         self.randomize_observations = randomize_observations
         self.num_total_questions = num_total_questions
         self.question_interval = question_interval
+        self.include_walls_in_observations = include_walls_in_observations
 
         assert self.num_total_questions % (self.terminates_at + 1) == 0, (
             f"The total number of questions must be a multiple of "
@@ -624,21 +615,21 @@ class RoomEnv2(gym.Env):
     def _compute_hidden_global_state(self) -> None:
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
-        quadruples: [head, relation, tail, time]
-        This is basically what the agent partially sees and wants to estimate.
+        The returned quadruples are in the format of [head, relation, tail, time].
+        They are in the order of rooms, static, independent, dependent, and agent
 
         """
         self.hidden_global_state = []
-
-        for obj_type in ["agent", "static", "independent", "dependent"]:
-            for obj in self.objects[obj_type]:
-                self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
         for name, room in self.rooms.items():
             self.hidden_global_state.append([name, "north", room.north])
             self.hidden_global_state.append([name, "east", room.east])
             self.hidden_global_state.append([name, "south", room.south])
             self.hidden_global_state.append([name, "west", room.west])
+
+        for obj_type in ["static", "independent", "dependent", "agent"]:
+            for obj in self.objects[obj_type]:
+                self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
         for triple in self.hidden_global_state:
             triple.append(self.current_time)
@@ -685,7 +676,12 @@ class RoomEnv2(gym.Env):
                     self.observations_room.append(quadruple)
             elif quadruple[1] in ["north", "east", "south", "west"]:
                 if quadruple[0] == agent_location:
-                    self.observations_room.append(quadruple)
+                    if self.include_walls_in_observations:
+                        self.observations_room.append(quadruple)
+                    else:
+                        if quadruple[2] != "wall":
+                            self.observations_room.append(quadruple)
+
             else:
                 raise ValueError("Unknown relation.")
 

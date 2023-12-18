@@ -22,8 +22,8 @@ logging.basicConfig(
 
 class RoomEnv1(gym.Env):
     """The Room environment version 1.
-self.question_sequence
-    Every string value is lower-cased to avoid confusion!!!
+    self.question_sequence
+        Every string value is lower-cased to avoid confusion!!!
     """
 
     metadata = {"render.modes": ["console"]}
