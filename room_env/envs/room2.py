@@ -17,6 +17,7 @@ from IPython.display import clear_output
 from ..utils import is_running_notebook
 from ..utils import read_json_prod as read_json
 from ..utils import sample_max_value_key, seed_everything
+from typing import Literal
 
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
@@ -412,7 +413,9 @@ class RoomEnv2(gym.Env):
         question_prob: int = 1.0,
         seed: int = 42,
         terminates_at: int = 99,
-        randomize_observations: bool = False,
+        randomize_observations: Literal[
+            "all", "objects", "none", "objects_middle"
+        ] = "objects",
         room_size: str = "dev",
         rewards: dict = {"correct": 1, "wrong": -1, "partial": 0},
         make_everything_static: bool = False,
@@ -425,11 +428,10 @@ class RoomEnv2(gym.Env):
             question_prob: The probability of a question being asked at every observation.
             seed: random seed number
             terminates_at: the environment terminates at this time step.
-            randomize_observations: whether to randomize the order of the observations.
-                If True, the first observation is always the agent's location. and the reset
-                is random. If False, the first observation is always the agent's location,
-                and the rest is in the order of the hidden global state, i.e., agent, static
-                independent, dependent, and rooms.
+            randomize_observations: whether to randomize observations. If "all", all
+                observations are randomized. If "objects", only objects are randomized.
+                If "objects_middle", only objects in the middle of the observation list
+                are randomized. If "none", no observations are randomized.
             room_size: The room configuration to use. Choose one of "dev", "xxs", "xs",
                 "s", "m", or "l". You can also pass this argument as a dictionary, if you
                 have your pre-configured room configuration.
@@ -616,7 +618,7 @@ class RoomEnv2(gym.Env):
         """Get global hidden state, i.e., list of quadruples, of the environment.
 
         The returned quadruples are in the format of [head, relation, tail, time].
-        They are in the order of rooms, static, independent, dependent, and agent
+        They are in the order of rooms, agent, static, independent, and dependent
 
         """
         self.hidden_global_state = []
@@ -627,7 +629,7 @@ class RoomEnv2(gym.Env):
             self.hidden_global_state.append([name, "south", room.south])
             self.hidden_global_state.append([name, "west", room.west])
 
-        for obj_type in ["static", "independent", "dependent", "agent"]:
+        for obj_type in ["agent", "static", "independent", "dependent"]:
             for obj in self.objects[obj_type]:
                 self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
@@ -685,8 +687,33 @@ class RoomEnv2(gym.Env):
             else:
                 raise ValueError("Unknown relation.")
 
-        if self.randomize_observations:
+        if self.randomize_observations == "all":
             random.shuffle(self.observations_room)
+        elif self.randomize_observations == "objects":
+            first = [
+                obs
+                for obs in self.observations_room
+                if obs[1] in ["north", "east", "south", "west"] or obs[0] == "agent"
+            ]
+            second = [obs for obs in self.observations_room if obs not in first]
+            random.shuffle(second)
+            self.observations_room = first + second
+
+        elif self.randomize_observations == "objects_middle":
+            first = [
+                obs
+                for obs in self.observations_room
+                if obs[1] in ["north", "east", "south", "west"]
+            ]
+            third = [obs for obs in self.observations_room if obs[0] == "agent"]
+            second = [obs for obs in self.observations_room if obs not in first + third]
+            random.shuffle(second)
+            self.observations_room = first + second + third
+
+        elif self.randomize_observations == "none":
+            pass
+        else:
+            raise ValueError("Unknown randomize_observations value.")
 
         self.questions = []
         self.answers = []

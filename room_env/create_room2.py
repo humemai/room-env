@@ -165,16 +165,17 @@ class RoomCreator:
                 self.object_init_config["static"][object_num][room_num] = 1
 
         for object_type, num_objects in zip(
-            ["independent", "dependent", "agent"],
+            ["independent", "dependent"],
             [
                 self.num_independent_objects,
                 self.num_dependent_objects,
-                1,
             ],
         ):
             for object_num in range(num_objects):
                 room_num = random.randint(0, self.num_rooms - 1)
                 self.object_init_config[object_type][object_num][room_num] = 1
+
+        self.object_init_config["agent"][0][0] = 1
 
         for object_type in ["static", "independent", "dependent", "agent"]:
             for _, room_num_dist in self.object_init_config[object_type].items():

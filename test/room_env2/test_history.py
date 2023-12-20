@@ -16,7 +16,7 @@ class ObjectHistoryTest(unittest.TestCase):
             "question_prob": 1.0,
             "seed": 0,
             "terminates_at": 99,
-            "randomize_observations": True,
+            "randomize_observations": "all",
             "room_size": "m",
             "make_everything_static": True,
             "rewards": {"correct": 1, "wrong": -1, "partial": 0},
@@ -53,8 +53,8 @@ class ObjectHistoryTest(unittest.TestCase):
             "question_prob": 1.0,
             "seed": 0,
             "terminates_at": 99,
-            "randomize_observations": True,
-            "room_size": "m",
+            "randomize_observations": "all",
+            "room_size": "l",
             "make_everything_static": False,
         }
         env = gym.make("room_env:RoomEnv-v2", **env_config)

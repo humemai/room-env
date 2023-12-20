@@ -9,53 +9,53 @@
         "room_001": {
             "north": "wall",
             "east": "wall",
-            "south": "room_002",
+            "south": "room_004",
             "west": "room_000"
         },
         "room_002": {
-            "north": "room_001",
+            "north": "wall",
             "east": "room_003",
-            "south": "room_008",
+            "south": "room_005",
             "west": "wall"
         },
         "room_003": {
             "north": "wall",
             "east": "wall",
-            "south": "room_009",
+            "south": "room_006",
             "west": "room_002"
         },
         "room_004": {
-            "north": "wall",
-            "east": "room_005",
-            "south": "room_011",
+            "north": "room_001",
+            "east": "wall",
+            "south": "room_009",
             "west": "wall"
         },
         "room_005": {
-            "north": "wall",
-            "east": "wall",
-            "south": "room_012",
-            "west": "room_004"
+            "north": "room_002",
+            "east": "room_006",
+            "south": "room_011",
+            "west": "wall"
         },
         "room_006": {
-            "north": "wall",
-            "east": "room_007",
-            "south": "wall",
-            "west": "wall"
+            "north": "room_003",
+            "east": "wall",
+            "south": "room_012",
+            "west": "room_005"
         },
         "room_007": {
             "north": "wall",
             "east": "room_008",
             "south": "room_013",
-            "west": "room_006"
+            "west": "wall"
         },
         "room_008": {
-            "north": "room_002",
+            "north": "wall",
             "east": "room_009",
             "south": "room_014",
             "west": "room_007"
         },
         "room_009": {
-            "north": "room_003",
+            "north": "room_004",
             "east": "room_010",
             "south": "room_015",
             "west": "room_008"
@@ -67,130 +67,130 @@
             "west": "room_009"
         },
         "room_011": {
-            "north": "room_004",
+            "north": "room_005",
             "east": "room_012",
             "south": "room_017",
             "west": "room_010"
         },
         "room_012": {
-            "north": "room_005",
+            "north": "room_006",
             "east": "wall",
-            "south": "room_018",
+            "south": "wall",
             "west": "room_011"
         },
         "room_013": {
             "north": "room_007",
             "east": "room_014",
-            "south": "room_020",
+            "south": "room_018",
             "west": "wall"
         },
         "room_014": {
             "north": "room_008",
             "east": "room_015",
-            "south": "room_021",
+            "south": "wall",
             "west": "room_013"
         },
         "room_015": {
             "north": "room_009",
             "east": "room_016",
-            "south": "room_022",
+            "south": "room_019",
             "west": "room_014"
         },
         "room_016": {
             "north": "room_010",
             "east": "room_017",
-            "south": "room_023",
+            "south": "room_020",
             "west": "room_015"
         },
         "room_017": {
             "north": "room_011",
-            "east": "room_018",
-            "south": "wall",
+            "east": "wall",
+            "south": "room_021",
             "west": "room_016"
         },
         "room_018": {
-            "north": "room_012",
+            "north": "room_013",
             "east": "wall",
-            "south": "room_024",
-            "west": "room_017"
+            "south": "room_022",
+            "west": "wall"
         },
         "room_019": {
-            "north": "wall",
+            "north": "room_015",
             "east": "room_020",
-            "south": "wall",
+            "south": "room_023",
             "west": "wall"
         },
         "room_020": {
-            "north": "room_013",
+            "north": "room_016",
             "east": "room_021",
-            "south": "room_025",
+            "south": "room_024",
             "west": "room_019"
         },
         "room_021": {
-            "north": "room_014",
-            "east": "room_022",
-            "south": "room_026",
+            "north": "room_017",
+            "east": "wall",
+            "south": "room_025",
             "west": "room_020"
         },
         "room_022": {
-            "north": "room_015",
-            "east": "room_023",
-            "south": "room_027",
-            "west": "room_021"
-        },
-        "room_023": {
-            "north": "room_016",
-            "east": "wall",
-            "south": "room_028",
-            "west": "room_022"
-        },
-        "room_024": {
             "north": "room_018",
             "east": "wall",
-            "south": "room_029",
+            "south": "wall",
             "west": "wall"
+        },
+        "room_023": {
+            "north": "room_019",
+            "east": "room_024",
+            "south": "room_028",
+            "west": "wall"
+        },
+        "room_024": {
+            "north": "room_020",
+            "east": "room_025",
+            "south": "wall",
+            "west": "room_023"
         },
         "room_025": {
-            "north": "room_020",
+            "north": "room_021",
             "east": "room_026",
-            "south": "wall",
-            "west": "wall"
+            "south": "room_029",
+            "west": "room_024"
         },
         "room_026": {
-            "north": "room_021",
+            "north": "wall",
             "east": "room_027",
-            "south": "wall",
+            "south": "room_030",
             "west": "room_025"
         },
         "room_027": {
-            "north": "room_022",
-            "east": "room_028",
-            "south": "room_030",
+            "north": "wall",
+            "east": "wall",
+            "south": "room_031",
             "west": "room_026"
         },
         "room_028": {
             "north": "room_023",
             "east": "wall",
             "south": "wall",
-            "west": "room_027"
+            "west": "wall"
         },
         "room_029": {
-            "north": "room_024",
-            "east": "wall",
-            "south": "room_031",
+            "north": "room_025",
+            "east": "room_030",
+            "south": "wall",
             "west": "wall"
         },
         "room_030": {
+            "north": "room_026",
+            "east": "room_031",
+            "south": "wall",
+            "west": "room_029"
+        },
+        "room_031": {
             "north": "room_027",
             "east": "wall",
             "south": "wall",
-            "west": "wall"
-        },
-        "room_031": {
-            "north": "room_029",
-            "east": "wall",
-            "south": "wall",
-            "west": "wall"
+            "west": "room_030"
         }
     },
     "object_init_config": {
@@ -218,7 +218,7 @@
                 "room_019": 0,
                 "room_020": 0,
                 "room_021": 0,
-                "room_022": 1,
+                "room_022": 0,
                 "room_023": 0,
                 "room_024": 0,
                 "room_025": 0,
@@ -227,13 +227,13 @@
                 "room_028": 0,
                 "room_029": 0,
                 "room_030": 0,
-                "room_031": 0
+                "room_031": 1
             },
             "sta_001": {
                 "room_000": 0,
                 "room_001": 0,
                 "room_002": 0,
-                "room_003": 1,
+                "room_003": 0,
                 "room_004": 0,
                 "room_005": 0,
                 "room_006": 0,
@@ -248,7 +248,7 @@
                 "room_015": 0,
                 "room_016": 0,
                 "room_017": 0,
-                "room_018": 0,
+                "room_018": 1,
                 "room_019": 0,
                 "room_020": 0,
                 "room_021": 0,
@@ -264,282 +264,6 @@
                 "room_031": 0
             },
             "sta_002": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 1,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "sta_003": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 1,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            }
-        },
-        "independent": {
-            "ind_000": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 1,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "ind_001": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 1,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "ind_002": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 1,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "ind_003": {
-                "room_000": 0,
-                "room_001": 1,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            }
-        },
-        "dependent": {
-            "dep_000": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 0,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 1,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "dep_001": {
-                "room_000": 0,
-                "room_001": 0,
-                "room_002": 1,
-                "room_003": 0,
-                "room_004": 0,
-                "room_005": 0,
-                "room_006": 0,
-                "room_007": 0,
-                "room_008": 0,
-                "room_009": 0,
-                "room_010": 0,
-                "room_011": 0,
-                "room_012": 0,
-                "room_013": 0,
-                "room_014": 0,
-                "room_015": 0,
-                "room_016": 0,
-                "room_017": 0,
-                "room_018": 0,
-                "room_019": 0,
-                "room_020": 0,
-                "room_021": 0,
-                "room_022": 0,
-                "room_023": 0,
-                "room_024": 0,
-                "room_025": 0,
-                "room_026": 0,
-                "room_027": 0,
-                "room_028": 0,
-                "room_029": 0,
-                "room_030": 0,
-                "room_031": 0
-            },
-            "dep_002": {
                 "room_000": 0,
                 "room_001": 0,
                 "room_002": 0,
@@ -573,7 +297,41 @@
                 "room_030": 0,
                 "room_031": 0
             },
-            "dep_003": {
+            "sta_003": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 1,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "sta_004": {
                 "room_000": 0,
                 "room_001": 0,
                 "room_002": 0,
@@ -604,12 +362,114 @@
                 "room_027": 0,
                 "room_028": 0,
                 "room_029": 0,
-                "room_030": 1,
+                "room_030": 0,
+                "room_031": 1
+            },
+            "sta_005": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 1,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "sta_006": {
+                "room_000": 0,
+                "room_001": 1,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "sta_007": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 1,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
                 "room_031": 0
             }
         },
-        "agent": {
-            "agent": {
+        "independent": {
+            "ind_000": {
                 "room_000": 0,
                 "room_001": 0,
                 "room_002": 0,
@@ -625,7 +485,555 @@
                 "room_012": 0,
                 "room_013": 0,
                 "room_014": 0,
-                "room_015": 1,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 1,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_001": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 1,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_002": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 1,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_003": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 1,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_004": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 1,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_005": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 1,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_006": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 1,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "ind_007": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 1,
+                "room_030": 0,
+                "room_031": 0
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 1,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_001": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 1,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_002": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 1,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_003": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 1,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_004": {
+                "room_000": 1,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_005": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 1,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_006": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 0,
+                "room_022": 1,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            },
+            "dep_007": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
+                "room_016": 0,
+                "room_017": 0,
+                "room_018": 0,
+                "room_019": 0,
+                "room_020": 0,
+                "room_021": 1,
+                "room_022": 0,
+                "room_023": 0,
+                "room_024": 0,
+                "room_025": 0,
+                "room_026": 0,
+                "room_027": 0,
+                "room_028": 0,
+                "room_029": 0,
+                "room_030": 0,
+                "room_031": 0
+            }
+        },
+        "agent": {
+            "agent": {
+                "room_000": 1,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0,
+                "room_004": 0,
+                "room_005": 0,
+                "room_006": 0,
+                "room_007": 0,
+                "room_008": 0,
+                "room_009": 0,
+                "room_010": 0,
+                "room_011": 0,
+                "room_012": 0,
+                "room_013": 0,
+                "room_014": 0,
+                "room_015": 0,
                 "room_016": 0,
                 "room_017": 0,
                 "room_018": 0,
@@ -650,938 +1058,1902 @@
             "sta_000": null,
             "sta_001": null,
             "sta_002": null,
-            "sta_003": null
+            "sta_003": null,
+            "sta_004": null,
+            "sta_005": null,
+            "sta_006": null,
+            "sta_007": null
         },
         "independent": {
             "ind_000": {
                 "room_000": {
                     "north": 0.0,
-                    "east": 0.18732970126038517,
+                    "east": 0.3100429931218375,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.8126702987396148
+                    "stay": 0.6899570068781625
                 },
                 "room_001": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.016017886031680417,
-                    "west": 0.15231091028316912,
-                    "stay": 0.8316712036851505
+                    "south": 0.0626205198920241,
+                    "west": 0.17690675261478658,
+                    "stay": 0.7604727274931893
                 },
                 "room_002": {
-                    "north": 0.02695413730252741,
-                    "east": 0.06687938462270764,
-                    "south": 0.08712661708778871,
+                    "north": 0.0,
+                    "east": 0.00658893982059903,
+                    "south": 0.11449012103440971,
                     "west": 0.0,
-                    "stay": 0.8190398609869762
+                    "stay": 0.8789209391449913
                 },
                 "room_003": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.14972633211179553,
-                    "west": 0.1006445813983172,
-                    "stay": 0.7496290864898872
+                    "south": 0.004007745613161838,
+                    "west": 0.16378606874250737,
+                    "stay": 0.8322061856443308
                 },
                 "room_004": {
-                    "north": 0.0,
-                    "east": 0.012804202472462936,
-                    "south": 0.04180495051425993,
+                    "north": 0.24671248100764684,
+                    "east": 0.0,
+                    "south": 0.08551709584919952,
                     "west": 0.0,
-                    "stay": 0.9453908470132771
+                    "stay": 0.6677704231431536
                 },
                 "room_005": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.010628942470787796,
-                    "west": 0.15406538586496757,
-                    "stay": 0.8353056716642446
+                    "north": 0.05464690454124409,
+                    "east": 0.2202654905100068,
+                    "south": 0.11980984057816016,
+                    "west": 0.0,
+                    "stay": 0.605277764370589
                 },
                 "room_006": {
-                    "north": 0.0,
-                    "east": 0.14342810168662878,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8565718983133712
+                    "north": 0.093053889722333,
+                    "east": 0.0,
+                    "south": 0.011083553644704407,
+                    "west": 0.09395843861373182,
+                    "stay": 0.8019041180192308
                 },
                 "room_007": {
                     "north": 0.0,
-                    "east": 0.022402703184258823,
-                    "south": 0.013918729850890377,
-                    "west": 0.001258966922330107,
-                    "stay": 0.9624196000425207
+                    "east": 0.005985602950951384,
+                    "south": 0.0863028706958885,
+                    "west": 0.0,
+                    "stay": 0.9077115263531601
                 },
                 "room_008": {
-                    "north": 0.021677575368445185,
-                    "east": 0.12063926116711775,
-                    "south": 0.07645231869061447,
-                    "west": 0.07929557931639637,
-                    "stay": 0.7019352654574262
+                    "north": 0.0,
+                    "east": 0.010993834264792142,
+                    "south": 0.022281765190735874,
+                    "west": 0.23540786975532746,
+                    "stay": 0.7313165307891445
                 },
                 "room_009": {
-                    "north": 0.10273968256613657,
-                    "east": 0.12735183454887328,
-                    "south": 0.011999224072943198,
-                    "west": 0.10341682292959235,
-                    "stay": 0.6544924358824546
+                    "north": 0.05528722849078994,
+                    "east": 0.029472236750185524,
+                    "south": 0.011954051093391626,
+                    "west": 0.01265715035988159,
+                    "stay": 0.8906293333057513
                 },
                 "room_010": {
                     "north": 0.0,
-                    "east": 0.031595653400782436,
-                    "south": 0.001372485815105929,
-                    "west": 0.0004972786526713582,
-                    "stay": 0.9665345821314403
+                    "east": 0.1668144353233639,
+                    "south": 0.17144053411552918,
+                    "west": 0.0064960526841509065,
+                    "stay": 0.655248977876956
                 },
                 "room_011": {
-                    "north": 0.010381487589122593,
-                    "east": 0.09781609205639895,
-                    "south": 0.11062919314757141,
-                    "west": 0.003930202710869707,
-                    "stay": 0.7772430244960373
+                    "north": 0.04095066339697197,
+                    "east": 0.022356739123175248,
+                    "south": 0.019286336397864614,
+                    "west": 0.04118834570009209,
+                    "stay": 0.8762179153818961
                 },
                 "room_012": {
-                    "north": 0.08642588551816616,
+                    "north": 0.04322106186852561,
                     "east": 0.0,
-                    "south": 0.29737781228199917,
-                    "west": 3.3005668674754476e-06,
-                    "stay": 0.6161930016329672
+                    "south": 0.0,
+                    "west": 0.2659562431696475,
+                    "stay": 0.6908226949618269
                 },
                 "room_013": {
-                    "north": 0.027625291211814066,
-                    "east": 0.16245263615605632,
-                    "south": 0.02946621208000042,
+                    "north": 0.13164287037279507,
+                    "east": 0.17301843027390967,
+                    "south": 0.012023824062415828,
                     "west": 0.0,
-                    "stay": 0.7804558605521292
+                    "stay": 0.6833148752908794
                 },
                 "room_014": {
-                    "north": 0.02259045048767285,
-                    "east": 0.022284344750924855,
-                    "south": 0.01972222004170388,
-                    "west": 0.0004524430014738506,
-                    "stay": 0.9349505417182246
+                    "north": 0.04945471662703372,
+                    "east": 0.10080446043814605,
+                    "south": 0.0,
+                    "west": 0.010474804730444941,
+                    "stay": 0.8392660182043753
                 },
                 "room_015": {
-                    "north": 0.046801084499715734,
-                    "east": 0.027373784646404675,
-                    "south": 0.02062282016247772,
-                    "west": 0.04940637643447354,
-                    "stay": 0.8557959342569283
+                    "north": 0.037824457878015666,
+                    "east": 0.10957734379542715,
+                    "south": 0.012881545984817317,
+                    "west": 0.11578541042366976,
+                    "stay": 0.7239312419180701
                 },
                 "room_016": {
-                    "north": 0.05544577659485904,
-                    "east": 0.05892748145066367,
-                    "south": 0.030033507004116285,
-                    "west": 0.05367873629425846,
-                    "stay": 0.8019144986561025
+                    "north": 0.04514986888704923,
+                    "east": 0.01899648926647655,
+                    "south": 0.03567709351035097,
+                    "west": 0.0008713990233127691,
+                    "stay": 0.8993051493128105
                 },
                 "room_017": {
-                    "north": 0.10246449733871298,
-                    "east": 0.1014395394617523,
-                    "south": 0.0,
-                    "west": 0.0907843798194722,
-                    "stay": 0.7053115833800625
+                    "north": 0.017905194162471428,
+                    "east": 0.0,
+                    "south": 0.02921343160297414,
+                    "west": 0.0013980922082323906,
+                    "stay": 0.951483282026322
                 },
                 "room_018": {
-                    "north": 0.07454549883877269,
+                    "north": 0.23320062156250407,
                     "east": 0.0,
-                    "south": 0.05875242325736315,
-                    "west": 0.16910542062839395,
-                    "stay": 0.6975966572754703
+                    "south": 0.10289602734944062,
+                    "west": 0.0,
+                    "stay": 0.6639033510880553
                 },
                 "room_019": {
-                    "north": 0.0,
-                    "east": 0.10377020451044694,
-                    "south": 0.0,
+                    "north": 0.046153601074627244,
+                    "east": 0.00013864583378867383,
+                    "south": 0.00189167976215978,
                     "west": 0.0,
-                    "stay": 0.8962297954895531
+                    "stay": 0.9518160733294243
                 },
                 "room_020": {
-                    "north": 0.15806443101549242,
-                    "east": 0.045978927064291644,
-                    "south": 0.027296106136047785,
-                    "west": 0.1235935923508377,
-                    "stay": 0.6450669434333305
+                    "north": 0.03333945871841219,
+                    "east": 0.023839882728646972,
+                    "south": 0.1269820996079363,
+                    "west": 0.13779032125585794,
+                    "stay": 0.6780482376891466
                 },
                 "room_021": {
-                    "north": 0.08989331904979465,
-                    "east": 0.07912760686304152,
-                    "south": 0.06102530026852653,
-                    "west": 0.05587481251352271,
-                    "stay": 0.7140789613051146
+                    "north": 0.051893588089240876,
+                    "east": 0.0,
+                    "south": 0.19126140158622162,
+                    "west": 0.09129958453597238,
+                    "stay": 0.6655454257885651
                 },
                 "room_022": {
-                    "north": 0.018123774165772235,
-                    "east": 0.037844497050655915,
-                    "south": 0.007806292816236397,
-                    "west": 0.30709288504768545,
-                    "stay": 0.62913255091965
+                    "north": 0.12958218135521404,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.870417818644786
                 },
                 "room_023": {
-                    "north": 0.138769192476065,
-                    "east": 0.0,
-                    "south": 0.18461967482298275,
-                    "west": 0.006689581713518476,
-                    "stay": 0.6699215509874338
+                    "north": 0.02744954501517995,
+                    "east": 0.002020753641187437,
+                    "south": 0.03113032690479669,
+                    "west": 0.0,
+                    "stay": 0.9393993744388359
                 },
                 "room_024": {
-                    "north": 0.007260282121023945,
-                    "east": 0.0,
-                    "south": 0.014991772823784144,
-                    "west": 0.0,
-                    "stay": 0.9777479450551919
+                    "north": 0.0006250115633540718,
+                    "east": 0.000313233510222371,
+                    "south": 0.0,
+                    "west": 0.012545768443428902,
+                    "stay": 0.9865159864829947
                 },
                 "room_025": {
-                    "north": 0.07069468896415074,
-                    "east": 0.03067044126993949,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8986348697659098
+                    "north": 0.09340972041439086,
+                    "east": 0.11183440338239505,
+                    "south": 0.13393342697365127,
+                    "west": 0.012743949077695894,
+                    "stay": 0.648078500151867
                 },
                 "room_026": {
-                    "north": 0.05065908673529271,
-                    "east": 0.12606734366346653,
-                    "south": 0.0,
-                    "west": 0.12593592217955388,
-                    "stay": 0.6973376474216869
+                    "north": 0.0,
+                    "east": 0.2579165176422963,
+                    "south": 0.04688692336646173,
+                    "west": 0.026822065606563604,
+                    "stay": 0.6683744933846784
                 },
                 "room_027": {
-                    "north": 0.05115728604054999,
-                    "east": 0.032624424936208186,
-                    "south": 3.088832490319642e-05,
-                    "west": 0.04274276723532002,
-                    "stay": 0.8734446334630186
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.07348010034660786,
+                    "west": 0.1959924248819282,
+                    "stay": 0.730527474771464
                 },
                 "room_028": {
-                    "north": 0.07841945295952876,
+                    "north": 0.2680012842046534,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.059638868000338366,
-                    "stay": 0.8619416790401329
+                    "west": 0.0,
+                    "stay": 0.7319987157953466
                 },
                 "room_029": {
-                    "north": 0.05246953087419057,
-                    "east": 0.0,
-                    "south": 0.01183211583257595,
+                    "north": 0.02306681898708931,
+                    "east": 0.012286858577389183,
+                    "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.9356983532932335
+                    "stay": 0.9646463224355215
                 },
                 "room_030": {
-                    "north": 0.1845075527637422,
-                    "east": 0.0,
+                    "north": 0.07407205783191093,
+                    "east": 0.1387135640779557,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8154924472362578
+                    "west": 0.08078790393791965,
+                    "stay": 0.7064264741522137
                 },
                 "room_031": {
-                    "north": 0.14863793068616538,
+                    "north": 0.08704229914217962,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8513620693138346
+                    "west": 0.03945266079353363,
+                    "stay": 0.8735050400642868
                 }
             },
             "ind_001": {
                 "room_000": {
                     "north": 0.0,
-                    "east": 0.2831580264926784,
+                    "east": 0.17226304481690802,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.7168419735073216
+                    "stay": 0.827736955183092
                 },
                 "room_001": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.009099095788848412,
-                    "west": 0.00741918379491554,
-                    "stay": 0.983481720416236
+                    "south": 0.03942963089594493,
+                    "west": 0.057742720959800646,
+                    "stay": 0.9028276481442544
                 },
                 "room_002": {
-                    "north": 0.2562053849029325,
-                    "east": 0.02754694051126577,
-                    "south": 0.08173876052896412,
+                    "north": 0.0,
+                    "east": 0.005310515466553341,
+                    "south": 0.09223315909059583,
                     "west": 0.0,
-                    "stay": 0.6345089140568376
+                    "stay": 0.9024563254428508
                 },
                 "room_003": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.20433982089799335,
-                    "west": 0.13295528693391626,
-                    "stay": 0.6627048921680904
+                    "south": 0.10586321831286366,
+                    "west": 0.11874266914373761,
+                    "stay": 0.7753941125433987
                 },
                 "room_004": {
-                    "north": 0.0,
-                    "east": 0.20884109362113437,
-                    "south": 0.019843725677599698,
+                    "north": 0.06887180623668847,
+                    "east": 0.0,
+                    "south": 0.041884983634053755,
                     "west": 0.0,
-                    "stay": 0.7713151807012659
+                    "stay": 0.8892432101292578
                 },
                 "room_005": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.08025684470062654,
-                    "west": 0.06494937311551474,
-                    "stay": 0.8547937821838587
+                    "north": 0.051582306258872064,
+                    "east": 0.01816995283784134,
+                    "south": 0.13538697076749276,
+                    "west": 0.0,
+                    "stay": 0.7948607701357938
                 },
                 "room_006": {
-                    "north": 0.0,
-                    "east": 0.21499413424479974,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.7850058657552003
+                    "north": 0.09485777227475634,
+                    "east": 0.0,
+                    "south": 0.007526588186337811,
+                    "west": 0.12679406980091132,
+                    "stay": 0.7708215697379945
                 },
                 "room_007": {
                     "north": 0.0,
-                    "east": 0.04980953487612591,
-                    "south": 0.04339921896996426,
-                    "west": 0.03885150378074465,
-                    "stay": 0.8679397423731652
+                    "east": 0.16776844484492492,
+                    "south": 0.14327340407007058,
+                    "west": 0.0,
+                    "stay": 0.6889581510850045
                 },
                 "room_008": {
-                    "north": 0.1262872395587933,
-                    "east": 0.03474142772012159,
-                    "south": 0.13265973576211845,
-                    "west": 0.059452291791145584,
-                    "stay": 0.6468593051678211
+                    "north": 0.0,
+                    "east": 0.024338282636918555,
+                    "south": 0.0006148316947897132,
+                    "west": 0.13807272186645975,
+                    "stay": 0.836974163801832
                 },
                 "room_009": {
-                    "north": 0.00031962688824444966,
-                    "east": 0.00032182441345938724,
-                    "south": 0.00013933576270573609,
-                    "west": 0.0002565378647340841,
-                    "stay": 0.9989626750708563
+                    "north": 0.0049989245613790145,
+                    "east": 0.08108997458571104,
+                    "south": 0.07497383979096604,
+                    "west": 0.14293482194529641,
+                    "stay": 0.6960024391166475
                 },
                 "room_010": {
                     "north": 0.0,
-                    "east": 0.18775930758350742,
-                    "south": 0.08514888862601808,
-                    "west": 0.006545185139050926,
-                    "stay": 0.7205466186514236
+                    "east": 0.10272303210330534,
+                    "south": 0.09769791691405741,
+                    "west": 0.06256481052884866,
+                    "stay": 0.7370142404537886
                 },
                 "room_011": {
-                    "north": 0.0005828429270842175,
-                    "east": 0.08167015986298445,
-                    "south": 0.02058102291384965,
-                    "west": 0.08108527829095134,
-                    "stay": 0.8160806960051303
+                    "north": 0.1540104345476887,
+                    "east": 0.00014389699929026693,
+                    "south": 0.09583300814587573,
+                    "west": 0.05301223631202391,
+                    "stay": 0.6970004239951214
                 },
                 "room_012": {
-                    "north": 0.0073786909999219545,
+                    "north": 0.09915323870647157,
                     "east": 0.0,
-                    "south": 0.004155976741525216,
-                    "west": 0.025736259305323535,
-                    "stay": 0.9627290729532293
+                    "south": 0.0,
+                    "west": 0.20895085344853864,
+                    "stay": 0.6918959078449898
                 },
                 "room_013": {
-                    "north": 0.06724609596861511,
-                    "east": 0.05204337194589825,
-                    "south": 0.061468989573978595,
+                    "north": 0.12746318863382275,
+                    "east": 0.13323611439260413,
+                    "south": 0.13457075643282362,
                     "west": 0.0,
-                    "stay": 0.819241542511508
+                    "stay": 0.6047299405407495
                 },
                 "room_014": {
-                    "north": 0.017967185897472586,
-                    "east": 0.025362431424907635,
-                    "south": 0.02696970965394354,
-                    "west": 0.03642159852072537,
-                    "stay": 0.8932790745029509
+                    "north": 0.10090302341909556,
+                    "east": 0.11999124290801381,
+                    "south": 0.0,
+                    "west": 0.1398079145337512,
+                    "stay": 0.6392978191391394
                 },
                 "room_015": {
-                    "north": 0.10345864641325445,
-                    "east": 0.09649322405445458,
-                    "south": 0.007294670043005555,
-                    "west": 0.1036833266443906,
-                    "stay": 0.6890701328448948
+                    "north": 0.003928393665729976,
+                    "east": 0.00015377000430798787,
+                    "south": 0.0048444712147713825,
+                    "west": 0.0018435406762269747,
+                    "stay": 0.9892298244389637
                 },
                 "room_016": {
-                    "north": 0.07188461076233157,
-                    "east": 0.1796480973956406,
-                    "south": 0.00031849813086125907,
-                    "west": 0.14301156403824794,
-                    "stay": 0.6051372296729186
+                    "north": 0.05291299797915632,
+                    "east": 0.13629622662243998,
+                    "south": 0.10344144339968032,
+                    "west": 0.010999979559135306,
+                    "stay": 0.6963493524395881
                 },
                 "room_017": {
-                    "north": 0.033512421610691845,
-                    "east": 0.012195417842700488,
-                    "south": 0.0,
-                    "west": 0.03585409643219768,
-                    "stay": 0.91843806411441
+                    "north": 0.03828512772450059,
+                    "east": 0.0,
+                    "south": 0.017741387197744537,
+                    "west": 0.024458453766137277,
+                    "stay": 0.9195150313116176
                 },
                 "room_018": {
-                    "north": 0.08967574224742708,
+                    "north": 0.0007155088791273522,
                     "east": 0.0,
-                    "south": 0.01585143223060129,
-                    "west": 0.05784668649619533,
-                    "stay": 0.8366261390257763
+                    "south": 0.2783466375486951,
+                    "west": 0.0,
+                    "stay": 0.7209378535721775
                 },
                 "room_019": {
-                    "north": 0.0,
-                    "east": 0.20308778360883448,
-                    "south": 0.0,
+                    "north": 0.0011466501479081234,
+                    "east": 0.0013529859550470867,
+                    "south": 0.0006953646159699907,
                     "west": 0.0,
-                    "stay": 0.7969122163911655
+                    "stay": 0.9968049992810748
                 },
                 "room_020": {
-                    "north": 0.05675794514245715,
-                    "east": 0.07496270907694647,
-                    "south": 0.06887654208805387,
-                    "west": 0.02111017676348085,
-                    "stay": 0.7782926269290616
+                    "north": 0.00152158129538817,
+                    "east": 0.04805869136425815,
+                    "south": 0.07184382244761878,
+                    "west": 0.043379075016056125,
+                    "stay": 0.8351968298766788
                 },
                 "room_021": {
-                    "north": 0.068447585604901,
-                    "east": 0.09066846055019542,
-                    "south": 0.07986030619640452,
-                    "west": 0.00018496570256042787,
-                    "stay": 0.7608386819459386
+                    "north": 0.08868259052569148,
+                    "east": 0.0,
+                    "south": 0.1653235586332661,
+                    "west": 0.1397825627451445,
+                    "stay": 0.606211288095898
                 },
                 "room_022": {
-                    "north": 0.10153969386762934,
-                    "east": 0.03170381229201115,
-                    "south": 0.05658192118939867,
-                    "west": 0.0027133249391767564,
-                    "stay": 0.8074612477117841
+                    "north": 0.2678107428665035,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7321892571334965
                 },
                 "room_023": {
-                    "north": 0.058505111291611636,
-                    "east": 0.0,
-                    "south": 0.019004723273825033,
-                    "west": 0.23321945760365195,
-                    "stay": 0.6892707078309114
+                    "north": 0.16891514659171872,
+                    "east": 0.156392008076261,
+                    "south": 4.279270947755914e-06,
+                    "west": 0.0,
+                    "stay": 0.6746885660610725
                 },
                 "room_024": {
-                    "north": 0.03896841411600264,
-                    "east": 0.0,
-                    "south": 0.21337797881023698,
-                    "west": 0.0,
-                    "stay": 0.7476536070737604
+                    "north": 0.05479281878415133,
+                    "east": 0.07584505010854807,
+                    "south": 0.0,
+                    "west": 0.13412251362795544,
+                    "stay": 0.7352396174793452
                 },
                 "room_025": {
-                    "north": 0.2754200560312171,
-                    "east": 0.10597417617237134,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.6186057677964115
+                    "north": 0.0119195190746372,
+                    "east": 0.06682742916985031,
+                    "south": 0.001704711891672725,
+                    "west": 0.10491303043243227,
+                    "stay": 0.8146353094314075
                 },
                 "room_026": {
-                    "north": 0.14726140196421442,
-                    "east": 0.013475387297632096,
-                    "south": 0.0,
-                    "west": 0.13663301607795011,
-                    "stay": 0.7026301946602034
+                    "north": 0.0,
+                    "east": 0.0009061055738348905,
+                    "south": 0.11722635846318007,
+                    "west": 0.11801235177757165,
+                    "stay": 0.7638551841854134
                 },
                 "room_027": {
-                    "north": 0.013898687206040265,
-                    "east": 0.1302409122862742,
-                    "south": 0.2213558096051378,
-                    "west": 0.009380932880707295,
-                    "stay": 0.6251236580218404
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.10268725361724737,
+                    "west": 0.048668091782950104,
+                    "stay": 0.8486446545998025
                 },
                 "room_028": {
-                    "north": 0.13830877454053545,
+                    "north": 0.09319752887231936,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.050522283845672054,
-                    "stay": 0.8111689416137925
+                    "west": 0.0,
+                    "stay": 0.9068024711276806
                 },
                 "room_029": {
-                    "north": 0.17586948575370234,
-                    "east": 0.0,
-                    "south": 0.221290320616157,
+                    "north": 0.06409661542507257,
+                    "east": 0.01608956051697946,
+                    "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.6028401936301406
+                    "stay": 0.919813824057948
                 },
                 "room_030": {
-                    "north": 0.010349857106991989,
-                    "east": 0.0,
+                    "north": 0.016448390868692944,
+                    "east": 0.040203189457193235,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.989650142893008
+                    "west": 0.07752698055032876,
+                    "stay": 0.8658214391237851
                 },
                 "room_031": {
-                    "north": 0.34991228497752536,
+                    "north": 0.05565587118193706,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.6500877150224746
+                    "west": 0.0583214473814455,
+                    "stay": 0.8860226814366174
                 }
             },
             "ind_002": {
                 "room_000": {
                     "north": 0.0,
-                    "east": 0.3889821564758983,
+                    "east": 0.30707812430598314,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.6110178435241017
+                    "stay": 0.6929218756940169
                 },
                 "room_001": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.008880112139626969,
-                    "west": 0.05131632732991404,
-                    "stay": 0.939803560530459
+                    "south": 0.017687255543576825,
+                    "west": 0.3123841489334284,
+                    "stay": 0.6699285955229948
                 },
                 "room_002": {
-                    "north": 0.0016915185229534563,
-                    "east": 0.0004449082515471204,
-                    "south": 0.0005931231978578371,
+                    "north": 0.0,
+                    "east": 0.05909761337231476,
+                    "south": 0.11359034082259648,
                     "west": 0.0,
-                    "stay": 0.9972704500276416
+                    "stay": 0.8273120458050888
                 },
                 "room_003": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 4.3360643593926435e-08,
-                    "west": 0.04179493937717986,
-                    "stay": 0.9582050172621766
+                    "south": 0.02985370360147128,
+                    "west": 0.008956539513989717,
+                    "stay": 0.961189756884539
                 },
                 "room_004": {
-                    "north": 0.0,
-                    "east": 0.08631866418352484,
-                    "south": 0.07380925333881828,
+                    "north": 0.2668290264222995,
+                    "east": 0.0,
+                    "south": 0.04858952181904639,
                     "west": 0.0,
-                    "stay": 0.8398720824776569
+                    "stay": 0.6845814517586541
                 },
                 "room_005": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.10414020122854178,
-                    "west": 0.19639670500115142,
-                    "stay": 0.6994630937703068
+                    "north": 0.016659104318146378,
+                    "east": 0.2162862053843694,
+                    "south": 0.0007262563299938369,
+                    "west": 0.0,
+                    "stay": 0.7663284339674904
                 },
                 "room_006": {
-                    "north": 0.0,
-                    "east": 0.15950571589248663,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8404942841075134
+                    "north": 0.045888111957312225,
+                    "east": 0.0,
+                    "south": 0.04839908998101224,
+                    "west": 0.00012434682638378506,
+                    "stay": 0.9055884512352917
                 },
                 "room_007": {
                     "north": 0.0,
-                    "east": 0.001602372927369167,
-                    "south": 0.054368012869809024,
-                    "west": 0.08291352799786843,
-                    "stay": 0.8611160862049534
+                    "east": 0.038843487118213414,
+                    "south": 0.11907645377346819,
+                    "west": 0.0,
+                    "stay": 0.8420800591083184
                 },
                 "room_008": {
-                    "north": 0.08056115261874205,
-                    "east": 0.1391768494500025,
-                    "south": 0.12060940315279796,
-                    "west": 0.011489330652577208,
-                    "stay": 0.6481632641258802
+                    "north": 0.0,
+                    "east": 0.0992473035199129,
+                    "south": 0.08457370972939553,
+                    "west": 0.08951961550960177,
+                    "stay": 0.7266593712410898
                 },
                 "room_009": {
-                    "north": 0.021573088744982115,
-                    "east": 0.09247843225352316,
-                    "south": 0.0837777063724653,
-                    "west": 0.10005613067445425,
-                    "stay": 0.7021146419545752
+                    "north": 0.05875465991600551,
+                    "east": 3.4422609106649847e-05,
+                    "south": 0.10265609883074797,
+                    "west": 0.03174089091717484,
+                    "stay": 0.806813927726965
                 },
                 "room_010": {
                     "north": 0.0,
-                    "east": 0.17413975648737925,
-                    "south": 0.13336896492709596,
-                    "west": 0.05456124121164012,
-                    "stay": 0.6379300373738847
+                    "east": 0.12618907387017345,
+                    "south": 0.035406895184163255,
+                    "west": 0.11887615219227465,
+                    "stay": 0.7195278787533886
                 },
                 "room_011": {
-                    "north": 0.007943952662580802,
-                    "east": 0.12468181072873548,
-                    "south": 0.15971730140401172,
-                    "west": 0.005631366697219204,
-                    "stay": 0.7020255685074528
+                    "north": 0.02703227286034294,
+                    "east": 0.0016595988214839737,
+                    "south": 0.08629618789154063,
+                    "west": 0.011014592717286453,
+                    "stay": 0.873997347709346
                 },
                 "room_012": {
-                    "north": 0.014213833018453227,
+                    "north": 0.16265265815247898,
                     "east": 0.0,
-                    "south": 0.0015549703146231476,
-                    "west": 0.12489351916606675,
-                    "stay": 0.8593376775008569
+                    "south": 0.0,
+                    "west": 0.009193625425007144,
+                    "stay": 0.8281537164225139
                 },
                 "room_013": {
-                    "north": 0.14683629229540943,
-                    "east": 0.0006923285503964409,
-                    "south": 0.014017822335766412,
+                    "north": 0.03919306739576651,
+                    "east": 0.0005191705001948781,
+                    "south": 0.05105927089002556,
                     "west": 0.0,
-                    "stay": 0.8384535568184277
+                    "stay": 0.9092284912140131
                 },
                 "room_014": {
-                    "north": 0.1019048363055553,
-                    "east": 0.09819346279504537,
-                    "south": 0.08067924965957421,
-                    "west": 0.04463537971716175,
-                    "stay": 0.6745870715226634
+                    "north": 0.02980177405929648,
+                    "east": 0.1263983480573867,
+                    "south": 0.0,
+                    "west": 0.18138491178061103,
+                    "stay": 0.6624149661027058
                 },
                 "room_015": {
-                    "north": 0.04221229813071797,
-                    "east": 0.037509058908735585,
-                    "south": 0.10924070612857056,
-                    "west": 0.059961855282702016,
-                    "stay": 0.7510760815492739
+                    "north": 0.023254326910557947,
+                    "east": 0.10142023242762359,
+                    "south": 0.06413700652313778,
+                    "west": 0.09584532852681937,
+                    "stay": 0.7153431056118613
                 },
                 "room_016": {
-                    "north": 0.07344787609167702,
-                    "east": 0.0063071205888798896,
-                    "south": 0.17987719227406263,
-                    "west": 0.004530552330914101,
-                    "stay": 0.7358372587144664
+                    "north": 0.0011234514087996423,
+                    "east": 0.1104994376315663,
+                    "south": 0.01264905861070162,
+                    "west": 0.14207405053052544,
+                    "stay": 0.733654001818407
                 },
                 "room_017": {
-                    "north": 0.0915135289638249,
-                    "east": 0.09305259556258945,
-                    "south": 0.0,
-                    "west": 0.00018979434837655644,
-                    "stay": 0.8152440811252091
+                    "north": 0.0072401138682319545,
+                    "east": 0.0,
+                    "south": 0.0020675949033213195,
+                    "west": 0.0004684885598165328,
+                    "stay": 0.9902238026686302
                 },
                 "room_018": {
-                    "north": 0.07734311925762374,
+                    "north": 0.13756695349935166,
                     "east": 0.0,
-                    "south": 0.02272543662803898,
-                    "west": 0.08293911829761262,
-                    "stay": 0.8169923258167247
+                    "south": 0.10691358414387302,
+                    "west": 0.0,
+                    "stay": 0.7555194623567754
                 },
                 "room_019": {
-                    "north": 0.0,
-                    "east": 0.037586553151569224,
-                    "south": 0.0,
+                    "north": 0.0009939686852583943,
+                    "east": 0.1259801769455579,
+                    "south": 0.028507514074165654,
                     "west": 0.0,
-                    "stay": 0.9624134468484308
+                    "stay": 0.844518340295018
                 },
                 "room_020": {
-                    "north": 0.03655828551051662,
-                    "east": 0.08524491290396995,
-                    "south": 0.13023188404282604,
-                    "west": 0.08380246948818043,
-                    "stay": 0.664162448054507
+                    "north": 0.0013555321209536824,
+                    "east": 0.07290552855699772,
+                    "south": 0.007676670160278599,
+                    "west": 0.0647393545044913,
+                    "stay": 0.8533229146572787
                 },
                 "room_021": {
-                    "north": 0.0026596401745441903,
-                    "east": 0.010849992137690263,
-                    "south": 0.018811736256948944,
-                    "west": 0.014918192057915267,
-                    "stay": 0.9527604393729013
+                    "north": 0.06908479257132609,
+                    "east": 0.0,
+                    "south": 0.042892889795048954,
+                    "west": 0.02183600250272701,
+                    "stay": 0.8661863151308979
                 },
                 "room_022": {
-                    "north": 0.07891482600173146,
-                    "east": 0.012595155424483423,
-                    "south": 0.015624876947353206,
-                    "west": 0.16592654446280747,
-                    "stay": 0.7269385971636244
+                    "north": 0.11636349091331345,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.8836365090866866
                 },
                 "room_023": {
-                    "north": 0.1452745258916227,
-                    "east": 0.0,
-                    "south": 0.05253334855618645,
-                    "west": 0.14007490858763075,
-                    "stay": 0.66211721696456
+                    "north": 0.025743358194128683,
+                    "east": 0.0005789517061779247,
+                    "south": 0.11666058256103283,
+                    "west": 0.0,
+                    "stay": 0.8570171075386606
                 },
                 "room_024": {
-                    "north": 0.02011975238821524,
-                    "east": 0.0,
-                    "south": 0.06369609933286241,
-                    "west": 0.0,
-                    "stay": 0.9161841482789224
+                    "north": 0.16471578322734123,
+                    "east": 0.07787578738438988,
+                    "south": 0.0,
+                    "west": 0.088201233967197,
+                    "stay": 0.6692071954210719
                 },
                 "room_025": {
-                    "north": 0.18427003140123088,
-                    "east": 0.020060948733445647,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.7956690198653235
+                    "north": 0.06148018283033746,
+                    "east": 0.03082874913606461,
+                    "south": 0.053514597919743785,
+                    "west": 0.07125990251372043,
+                    "stay": 0.7829165676001337
                 },
                 "room_026": {
-                    "north": 0.039342698630344265,
-                    "east": 0.058950147252295214,
-                    "south": 0.0,
-                    "west": 0.09301495232337637,
-                    "stay": 0.8086922017939842
+                    "north": 0.0,
+                    "east": 0.009152510458780787,
+                    "south": 0.10432761146993372,
+                    "west": 0.08470427320332403,
+                    "stay": 0.8018156048679614
                 },
                 "room_027": {
-                    "north": 0.1040975561878719,
-                    "east": 0.009585584844853359,
-                    "south": 0.1032019638146363,
-                    "west": 0.023744003881944177,
-                    "stay": 0.7593708912706942
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.1153213133865039,
+                    "west": 0.21958433268743924,
+                    "stay": 0.6650943539260569
                 },
                 "room_028": {
-                    "north": 0.28738562795754913,
+                    "north": 0.30840572397057897,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.001429115669193861,
-                    "stay": 0.711185256373257
+                    "west": 0.0,
+                    "stay": 0.691594276029421
                 },
                 "room_029": {
-                    "north": 0.15717024934187387,
-                    "east": 0.0,
-                    "south": 0.1507103363438079,
+                    "north": 0.19595749991051134,
+                    "east": 0.18184366770981455,
+                    "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.6921194143143182
+                    "stay": 0.6221988323796741
                 },
                 "room_030": {
-                    "north": 0.046131147862633164,
-                    "east": 0.0,
+                    "north": 0.01449752675018537,
+                    "east": 0.10450513829231227,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.9538688521373668
+                    "west": 0.03760835268624821,
+                    "stay": 0.8433889822712541
                 },
                 "room_031": {
-                    "north": 0.1082424640654136,
+                    "north": 0.1808393864489815,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8917575359345864
+                    "west": 0.18276939768218678,
+                    "stay": 0.6363912158688317
                 }
             },
             "ind_003": {
                 "room_000": {
                     "north": 0.0,
-                    "east": 0.3671892647370709,
+                    "east": 0.31253477622616743,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.6328107352629291
+                    "stay": 0.6874652237738326
                 },
                 "room_001": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.018746622766601023,
-                    "west": 0.05233857469472933,
-                    "stay": 0.9289148025386696
+                    "south": 0.009496166695189523,
+                    "west": 0.0632409751451399,
+                    "stay": 0.9272628581596706
                 },
                 "room_002": {
-                    "north": 0.006358550988496335,
-                    "east": 0.010643636035174405,
-                    "south": 0.05532345932567028,
+                    "north": 0.0,
+                    "east": 0.1458029234606397,
+                    "south": 0.06725844699987794,
                     "west": 0.0,
-                    "stay": 0.927674353650659
+                    "stay": 0.7869386295394823
                 },
                 "room_003": {
                     "north": 0.0,
                     "east": 0.0,
-                    "south": 0.09689446249718466,
-                    "west": 0.015077147080844093,
-                    "stay": 0.8880283904219712
+                    "south": 0.12879366775248038,
+                    "west": 0.0002369946236691926,
+                    "stay": 0.8709693376238504
                 },
                 "room_004": {
-                    "north": 0.0,
-                    "east": 0.037367476497788155,
-                    "south": 0.13155091733433377,
+                    "north": 0.007774014375707066,
+                    "east": 0.0,
+                    "south": 0.13857140156669706,
                     "west": 0.0,
-                    "stay": 0.8310816061678781
+                    "stay": 0.8536545840575959
                 },
                 "room_005": {
-                    "north": 0.0,
-                    "east": 0.0,
-                    "south": 0.07785341811866618,
-                    "west": 0.07887878193880539,
-                    "stay": 0.8432677999425284
+                    "north": 0.027782491020670323,
+                    "east": 0.018370147290963566,
+                    "south": 0.09316844326218872,
+                    "west": 0.0,
+                    "stay": 0.8606789184261774
                 },
                 "room_006": {
-                    "north": 0.0,
-                    "east": 0.1618350131679257,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.8381649868320743
+                    "north": 0.11408363369736278,
+                    "east": 0.0,
+                    "south": 0.10395242758642659,
+                    "west": 0.004024345346591274,
+                    "stay": 0.7779395933696194
                 },
                 "room_007": {
                     "north": 0.0,
-                    "east": 0.0017510816645067385,
-                    "south": 0.31179008213236076,
-                    "west": 0.0736268463428961,
-                    "stay": 0.6128319898602365
+                    "east": 0.10113141861173121,
+                    "south": 0.0022101672150611025,
+                    "west": 0.0,
+                    "stay": 0.8966584141732077
                 },
                 "room_008": {
-                    "north": 0.0009236633112748939,
-                    "east": 0.017874298724972402,
-                    "south": 0.00454054432690185,
-                    "west": 0.017781922653931543,
-                    "stay": 0.9588795709829193
+                    "north": 0.0,
+                    "east": 0.10003862430921559,
+                    "south": 0.08324551396735126,
+                    "west": 0.08608468329528998,
+                    "stay": 0.7306311784281432
                 },
                 "room_009": {
-                    "north": 0.011360889008746987,
-                    "east": 0.001737151160995065,
-                    "south": 0.03860157430199799,
-                    "west": 0.05072999856485255,
-                    "stay": 0.8975703869634074
+                    "north": 0.0022524715413623736,
+                    "east": 0.0024714075932596256,
+                    "south": 0.07306351769251758,
+                    "west": 0.0002893273602414176,
+                    "stay": 0.921923275812619
                 },
                 "room_010": {
                     "north": 0.0,
-                    "east": 0.0187938570888839,
-                    "south": 0.01167024812510125,
-                    "west": 0.018269541518450814,
-                    "stay": 0.951266353267564
+                    "east": 0.0008033996088002984,
+                    "south": 0.07294328756026766,
+                    "west": 0.06285360279596296,
+                    "stay": 0.8633997100349691
                 },
                 "room_011": {
-                    "north": 0.015982630949077533,
-                    "east": 0.027268581761067775,
-                    "south": 0.034087394204740135,
-                    "west": 0.09536819358517003,
-                    "stay": 0.8272931994999445
+                    "north": 0.0688085068788914,
+                    "east": 0.07225349319447158,
+                    "south": 0.07790334762134572,
+                    "west": 0.01610417795358006,
+                    "stay": 0.7649304743517112
                 },
                 "room_012": {
-                    "north": 0.11383753762230706,
+                    "north": 0.19044378162727238,
                     "east": 0.0,
-                    "south": 0.07592515863522721,
-                    "west": 0.10629423793564827,
-                    "stay": 0.7039430658068175
+                    "south": 0.0,
+                    "west": 0.00048416958105045174,
+                    "stay": 0.8090720487916772
                 },
                 "room_013": {
-                    "north": 0.03712869388619782,
-                    "east": 0.12474190228931313,
-                    "south": 0.12082170635693543,
+                    "north": 0.0025383362194470235,
+                    "east": 0.008461586408412823,
+                    "south": 0.0058849038713572315,
                     "west": 0.0,
-                    "stay": 0.7173076974675536
+                    "stay": 0.9831151735007829
                 },
                 "room_014": {
-                    "north": 0.01284239986671478,
-                    "east": 0.008705050777735302,
-                    "south": 0.012932995609508512,
-                    "west": 0.0008279410238650029,
-                    "stay": 0.9646916127221764
+                    "north": 2.8868717024264905e-05,
+                    "east": 0.025454361133600157,
+                    "south": 0.0,
+                    "west": 0.03269235612443715,
+                    "stay": 0.9418244140249384
                 },
                 "room_015": {
-                    "north": 0.14156142176570852,
-                    "east": 0.009759549931654154,
-                    "south": 0.0015191576533847301,
-                    "west": 0.009821115569588444,
-                    "stay": 0.8373387550796642
+                    "north": 0.01889428995543724,
+                    "east": 7.022878763364552e-06,
+                    "south": 0.08393221177348809,
+                    "west": 0.02829807132029912,
+                    "stay": 0.8688684040720122
                 },
                 "room_016": {
-                    "north": 0.007337958996915596,
-                    "east": 0.018354945709810097,
-                    "south": 0.062262583051969064,
-                    "west": 0.09273204214180164,
-                    "stay": 0.8193124700995036
+                    "north": 0.01572845288712532,
+                    "east": 0.09075700044802985,
+                    "south": 0.09279740621633403,
+                    "west": 3.9977508355687853e-07,
+                    "stay": 0.8007167406734272
                 },
                 "room_017": {
-                    "north": 0.026389964053098052,
-                    "east": 0.0007115021470165744,
-                    "south": 0.0,
-                    "west": 0.023963873497018937,
-                    "stay": 0.9489346603028664
+                    "north": 0.07819462369153782,
+                    "east": 0.0,
+                    "south": 0.032012536328882776,
+                    "west": 0.0523720784657174,
+                    "stay": 0.837420761513862
                 },
                 "room_018": {
-                    "north": 5.261953693397804e-05,
+                    "north": 0.07648234986628184,
                     "east": 0.0,
-                    "south": 0.08638616677264178,
-                    "west": 0.18335846839261885,
-                    "stay": 0.7302027452978054
+                    "south": 0.07798704520255867,
+                    "west": 0.0,
+                    "stay": 0.8455306049311595
                 },
                 "room_019": {
-                    "north": 0.0,
-                    "east": 0.11748157979874119,
-                    "south": 0.0,
+                    "north": 0.06946256448640228,
+                    "east": 0.16865052221217802,
+                    "south": 3.2712586703832775e-05,
                     "west": 0.0,
-                    "stay": 0.8825184202012588
+                    "stay": 0.7618542007147159
                 },
                 "room_020": {
-                    "north": 0.05340099228655443,
-                    "east": 8.197989073176709e-07,
-                    "south": 0.03563807437671917,
-                    "west": 0.06326846283551776,
-                    "stay": 0.8476916507023013
+                    "north": 0.06712920700704028,
+                    "east": 2.2061890456825013e-05,
+                    "south": 0.1241134491507886,
+                    "west": 0.14827613963885383,
+                    "stay": 0.6604591423128605
                 },
                 "room_021": {
-                    "north": 0.013621009783580036,
-                    "east": 0.023311387942813767,
-                    "south": 0.06424160296056267,
-                    "west": 0.004139211636937521,
-                    "stay": 0.894686787676106
+                    "north": 0.07484924301481997,
+                    "east": 0.0,
+                    "south": 0.11231446184819911,
+                    "west": 0.040398982867675584,
+                    "stay": 0.7724373122693053
                 },
                 "room_022": {
-                    "north": 0.008799440081610349,
-                    "east": 0.1669168592537651,
-                    "south": 0.06792162903403597,
-                    "west": 0.11587893282538105,
-                    "stay": 0.6404831388052076
+                    "north": 0.26299538861993244,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7370046113800676
                 },
                 "room_023": {
-                    "north": 0.06626599656948264,
-                    "east": 0.0,
-                    "south": 0.0016886042005506878,
-                    "west": 0.005148916633079053,
-                    "stay": 0.9268964825968876
+                    "north": 0.032396041411704275,
+                    "east": 0.045345642232936315,
+                    "south": 0.04602241129998309,
+                    "west": 0.0,
+                    "stay": 0.8762359050553763
                 },
                 "room_024": {
-                    "north": 0.01670189718234654,
-                    "east": 0.0,
-                    "south": 0.04545433915630565,
-                    "west": 0.0,
-                    "stay": 0.9378437636613478
+                    "north": 0.05889494633893904,
+                    "east": 0.0984376765139546,
+                    "south": 0.0,
+                    "west": 0.12403844608294054,
+                    "stay": 0.7186289310641658
                 },
                 "room_025": {
-                    "north": 0.016674120538249515,
-                    "east": 0.14493522999737443,
-                    "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.838390649464376
+                    "north": 0.04798713669700652,
+                    "east": 0.03253901476195979,
+                    "south": 0.03908572412952197,
+                    "west": 0.061679433514193895,
+                    "stay": 0.8187086908973178
                 },
                 "room_026": {
-                    "north": 0.06098571807083297,
-                    "east": 0.08658433760383169,
-                    "south": 0.0,
-                    "west": 0.08620425408140305,
-                    "stay": 0.7662256902439323
+                    "north": 0.0,
+                    "east": 0.06257858997556752,
+                    "south": 0.10356194320666026,
+                    "west": 0.08148836020626113,
+                    "stay": 0.7523711066115111
                 },
                 "room_027": {
-                    "north": 0.0015360525046941896,
-                    "east": 0.040471918786435274,
-                    "south": 0.023669098358737473,
-                    "west": 0.0427115755704836,
-                    "stay": 0.8916113547796495
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.24258102826877487,
+                    "west": 0.04571525639157952,
+                    "stay": 0.7117037153396456
                 },
                 "room_028": {
-                    "north": 0.2798088474787786,
+                    "north": 0.11684745876169321,
                     "east": 0.0,
                     "south": 0.0,
-                    "west": 0.06270488679874213,
-                    "stay": 0.6574862657224793
+                    "west": 0.0,
+                    "stay": 0.8831525412383068
                 },
                 "room_029": {
-                    "north": 0.015587113988724642,
-                    "east": 0.0,
-                    "south": 0.015754266380054338,
+                    "north": 0.13968494851922134,
+                    "east": 0.07039143427366018,
+                    "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.968658619631221
+                    "stay": 0.7899236172071185
                 },
                 "room_030": {
-                    "north": 0.35897308921097804,
-                    "east": 0.0,
+                    "north": 0.056221264909350754,
+                    "east": 0.22765550699765483,
                     "south": 0.0,
-                    "west": 0.0,
-                    "stay": 0.641026910789022
+                    "west": 0.06912179146307278,
+                    "stay": 0.6470014366299216
                 },
                 "room_031": {
-                    "north": 0.1792725586187981,
+                    "north": 0.14539845872379206,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.18662411841127444,
+                    "stay": 0.6679774228649336
+                }
+            },
+            "ind_004": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.057159609843084436,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9428403901569156
+                },
+                "room_001": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.2663398236233663,
+                    "west": 0.12208561256072735,
+                    "stay": 0.6115745638159064
+                },
+                "room_002": {
+                    "north": 0.0,
+                    "east": 0.006507984884807525,
+                    "south": 0.33257325430226314,
+                    "west": 0.0,
+                    "stay": 0.6609187608129293
+                },
+                "room_003": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.01242574674643735,
+                    "west": 0.006843977364823472,
+                    "stay": 0.9807302758887392
+                },
+                "room_004": {
+                    "north": 0.0511625944720129,
+                    "east": 0.0,
+                    "south": 0.05982316949402698,
+                    "west": 0.0,
+                    "stay": 0.8890142360339601
+                },
+                "room_005": {
+                    "north": 0.1046802635591333,
+                    "east": 0.12386721104586645,
+                    "south": 0.09862797310565165,
+                    "west": 0.0,
+                    "stay": 0.6728245522893486
+                },
+                "room_006": {
+                    "north": 0.1776416597866782,
+                    "east": 0.0,
+                    "south": 0.007049963784566354,
+                    "west": 0.1338947944118545,
+                    "stay": 0.6814135820169009
+                },
+                "room_007": {
+                    "north": 0.0,
+                    "east": 0.28424353817701137,
+                    "south": 0.03171753494725599,
+                    "west": 0.0,
+                    "stay": 0.6840389268757326
+                },
+                "room_008": {
+                    "north": 0.0,
+                    "east": 0.1586030140518792,
+                    "south": 0.16086123020640686,
+                    "west": 0.00018891820445460914,
+                    "stay": 0.6803468375372593
+                },
+                "room_009": {
+                    "north": 1.1354304722297975e-07,
+                    "east": 0.0038819142568219354,
+                    "south": 0.08179468770598979,
+                    "west": 0.07979513368340102,
+                    "stay": 0.83452815081074
+                },
+                "room_010": {
+                    "north": 0.0,
+                    "east": 0.07660318255023614,
+                    "south": 0.14889375470984043,
+                    "west": 0.1540048301730064,
+                    "stay": 0.620498232566917
+                },
+                "room_011": {
+                    "north": 0.044052822206041606,
+                    "east": 0.08178829102557492,
+                    "south": 0.08105210791613426,
+                    "west": 0.00329702934254149,
+                    "stay": 0.7898097495097077
+                },
+                "room_012": {
+                    "north": 0.25497683889111294,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.016141695350798044,
+                    "stay": 0.728881465758089
+                },
+                "room_013": {
+                    "north": 0.017998770540615456,
+                    "east": 7.275500154365861e-05,
+                    "south": 0.018831781003955727,
+                    "west": 0.0,
+                    "stay": 0.9630966934538852
+                },
+                "room_014": {
+                    "north": 0.01755893501034543,
+                    "east": 0.005664881151944765,
+                    "south": 0.0,
+                    "west": 0.0012912960103517112,
+                    "stay": 0.9754848878273581
+                },
+                "room_015": {
+                    "north": 0.027857944837265506,
+                    "east": 0.0819526445543473,
+                    "south": 0.06920087296873864,
+                    "west": 0.041483095021462434,
+                    "stay": 0.7795054426181861
+                },
+                "room_016": {
+                    "north": 0.02431038324011887,
+                    "east": 0.10402893466392527,
+                    "south": 0.09962629246554995,
+                    "west": 5.241386834963274e-05,
+                    "stay": 0.7719819757620563
+                },
+                "room_017": {
+                    "north": 0.021032073758024794,
+                    "east": 0.0,
+                    "south": 0.01741605721267018,
+                    "west": 0.028129332763706126,
+                    "stay": 0.9334225362655989
+                },
+                "room_018": {
+                    "north": 0.0011044803402713683,
+                    "east": 0.0,
+                    "south": 0.09672127326506194,
+                    "west": 0.0,
+                    "stay": 0.9021742463946667
+                },
+                "room_019": {
+                    "north": 0.010227389885016645,
+                    "east": 0.004332926104713381,
+                    "south": 0.0200951018319178,
+                    "west": 0.0,
+                    "stay": 0.9653445821783522
+                },
+                "room_020": {
+                    "north": 7.343377344747082e-05,
+                    "east": 0.12687997945263801,
+                    "south": 0.061035586910374626,
+                    "west": 0.09251487250313298,
+                    "stay": 0.7194961273604069
+                },
+                "room_021": {
+                    "north": 0.0012601262673170625,
+                    "east": 0.0,
+                    "south": 0.020366594145805286,
+                    "west": 0.03985746606868419,
+                    "stay": 0.9385158135181935
+                },
+                "room_022": {
+                    "north": 0.03040109198598318,
                     "east": 0.0,
                     "south": 0.0,
                     "west": 0.0,
-                    "stay": 0.8207274413812019
+                    "stay": 0.9695989080140168
+                },
+                "room_023": {
+                    "north": 0.014798498212133155,
+                    "east": 0.015142308342062247,
+                    "south": 4.616646065423235e-09,
+                    "west": 0.0,
+                    "stay": 0.9700591888291585
+                },
+                "room_024": {
+                    "north": 0.10334163695165748,
+                    "east": 0.010822011125882665,
+                    "south": 0.0,
+                    "west": 0.15904556393932498,
+                    "stay": 0.7267907879831349
+                },
+                "room_025": {
+                    "north": 0.10822179025309935,
+                    "east": 0.02767387336482968,
+                    "south": 0.02051654822630568,
+                    "west": 0.09940202752057617,
+                    "stay": 0.7441857606351892
+                },
+                "room_026": {
+                    "north": 0.0,
+                    "east": 0.03418344629895008,
+                    "south": 0.050120173221657925,
+                    "west": 0.022251883713941528,
+                    "stay": 0.8934444967654505
+                },
+                "room_027": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.04840478482472564,
+                    "west": 0.2670270065403376,
+                    "stay": 0.6845682086349367
+                },
+                "room_028": {
+                    "north": 0.2614319479017344,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7385680520982656
+                },
+                "room_029": {
+                    "north": 0.07143167410502169,
+                    "east": 0.23701609284308012,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.6915522330518982
+                },
+                "room_030": {
+                    "north": 0.12769045291256295,
+                    "east": 0.05567897100057954,
+                    "south": 0.0,
+                    "west": 0.003227126892839768,
+                    "stay": 0.8134034491940177
+                },
+                "room_031": {
+                    "north": 0.13408281253006873,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0349424084855364,
+                    "stay": 0.8309747789843949
+                }
+            },
+            "ind_005": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.20368116778329373,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7963188322167063
+                },
+                "room_001": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.06692411213023867,
+                    "west": 0.0010203334605513718,
+                    "stay": 0.93205555440921
+                },
+                "room_002": {
+                    "north": 0.0,
+                    "east": 0.11942666956385894,
+                    "south": 0.1783971199045311,
+                    "west": 0.0,
+                    "stay": 0.70217621053161
+                },
+                "room_003": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.18646102128086955,
+                    "west": 0.02897739856502731,
+                    "stay": 0.7845615801541032
+                },
+                "room_004": {
+                    "north": 0.027621126829490566,
+                    "east": 0.0,
+                    "south": 0.1455088777181548,
+                    "west": 0.0,
+                    "stay": 0.8268699954523546
+                },
+                "room_005": {
+                    "north": 0.14813396015789954,
+                    "east": 0.08055732830807985,
+                    "south": 0.14587125268604895,
+                    "west": 0.0,
+                    "stay": 0.6254374588479716
+                },
+                "room_006": {
+                    "north": 0.10523629066316807,
+                    "east": 0.0,
+                    "south": 0.053130429377025196,
+                    "west": 0.08324318714132524,
+                    "stay": 0.7583900928184815
+                },
+                "room_007": {
+                    "north": 0.0,
+                    "east": 0.14146853063867895,
+                    "south": 0.13034538340817442,
+                    "west": 0.0,
+                    "stay": 0.7281860859531466
+                },
+                "room_008": {
+                    "north": 0.0,
+                    "east": 0.05434265784818251,
+                    "south": 0.0018809712771851283,
+                    "west": 0.051197773609438176,
+                    "stay": 0.8925785972651942
+                },
+                "room_009": {
+                    "north": 0.2009575731329775,
+                    "east": 0.016821963379984765,
+                    "south": 0.000648321517329903,
+                    "west": 0.04033761761005041,
+                    "stay": 0.7412345243596574
+                },
+                "room_010": {
+                    "north": 0.0,
+                    "east": 0.023128979039900414,
+                    "south": 0.05428770271336365,
+                    "west": 0.09907998392638731,
+                    "stay": 0.8235033343203486
+                },
+                "room_011": {
+                    "north": 0.05398926508641262,
+                    "east": 0.06468247834343091,
+                    "south": 0.0509294014124122,
+                    "west": 0.07137175484389696,
+                    "stay": 0.7590271003138473
+                },
+                "room_012": {
+                    "north": 0.07996951291035204,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.20684568792435354,
+                    "stay": 0.7131847991652944
+                },
+                "room_013": {
+                    "north": 0.0003108522222635509,
+                    "east": 0.0029064173825604825,
+                    "south": 0.002963988491374927,
+                    "west": 0.0,
+                    "stay": 0.993818741903801
+                },
+                "room_014": {
+                    "north": 0.23677767448065215,
+                    "east": 0.000592945464548427,
+                    "south": 0.0,
+                    "west": 0.15434434532093105,
+                    "stay": 0.6082850347338684
+                },
+                "room_015": {
+                    "north": 0.04031596984922987,
+                    "east": 0.00869877205812875,
+                    "south": 0.07320412159672073,
+                    "west": 0.1266750380461186,
+                    "stay": 0.751106098449802
+                },
+                "room_016": {
+                    "north": 0.00017332724360708592,
+                    "east": 0.0001089145900943369,
+                    "south": 7.341051391140238e-05,
+                    "west": 1.8900277182751437e-05,
+                    "stay": 0.9996254473752044
+                },
+                "room_017": {
+                    "north": 0.09179829722211331,
+                    "east": 0.0,
+                    "south": 0.037350554484411186,
+                    "west": 0.0015443019939799974,
+                    "stay": 0.8693068462994955
+                },
+                "room_018": {
+                    "north": 0.057291149371985095,
+                    "east": 0.0,
+                    "south": 0.04409226189187033,
+                    "west": 0.0,
+                    "stay": 0.8986165887361446
+                },
+                "room_019": {
+                    "north": 0.05573654632401958,
+                    "east": 0.052944548921863434,
+                    "south": 0.28820295835105897,
+                    "west": 0.0,
+                    "stay": 0.603115946403058
+                },
+                "room_020": {
+                    "north": 0.15169393595925895,
+                    "east": 0.07537092731922423,
+                    "south": 0.00040867992379733443,
+                    "west": 0.0880211388494142,
+                    "stay": 0.6845053179483053
+                },
+                "room_021": {
+                    "north": 0.012707534140359043,
+                    "east": 0.0,
+                    "south": 0.007385528794527633,
+                    "west": 0.00033817425656844304,
+                    "stay": 0.9795687628085449
+                },
+                "room_022": {
+                    "north": 0.339987081017072,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.660012918982928
+                },
+                "room_023": {
+                    "north": 0.03566316981843465,
+                    "east": 0.028974773369148357,
+                    "south": 0.043798694656143805,
+                    "west": 0.0,
+                    "stay": 0.8915633621562732
+                },
+                "room_024": {
+                    "north": 0.027620511803649363,
+                    "east": 1.1678471436793053e-05,
+                    "south": 0.0,
+                    "west": 0.03162435947760874,
+                    "stay": 0.9407434502473051
+                },
+                "room_025": {
+                    "north": 0.07972747978875519,
+                    "east": 0.1160667322446257,
+                    "south": 0.02320680511396648,
+                    "west": 0.007221386849540483,
+                    "stay": 0.7737775960031121
+                },
+                "room_026": {
+                    "north": 0.0,
+                    "east": 0.011768773377040622,
+                    "south": 0.20338623188562552,
+                    "west": 0.13448699861609217,
+                    "stay": 0.6503579961212417
+                },
+                "room_027": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.08589697733557293,
+                    "west": 0.00028885923439832484,
+                    "stay": 0.9138141634300287
+                },
+                "room_028": {
+                    "north": 0.30216394958427273,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.6978360504157273
+                },
+                "room_029": {
+                    "north": 0.023243727785772033,
+                    "east": 0.18225627885660622,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7944999933576218
+                },
+                "room_030": {
+                    "north": 0.019800829548653667,
+                    "east": 0.08053860712597424,
+                    "south": 0.0,
+                    "west": 0.01549806793652802,
+                    "stay": 0.8841624953888441
+                },
+                "room_031": {
+                    "north": 0.045560680357182436,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.11066103279666825,
+                    "stay": 0.8437782868461493
+                }
+            },
+            "ind_006": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.3389511564571096,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.6610488435428904
+                },
+                "room_001": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.09342330882898131,
+                    "west": 0.06099311169195344,
+                    "stay": 0.8455835794790653
+                },
+                "room_002": {
+                    "north": 0.0,
+                    "east": 0.10907356140014045,
+                    "south": 0.07672154072380456,
+                    "west": 0.0,
+                    "stay": 0.814204897876055
+                },
+                "room_003": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.35923268848881157,
+                    "west": 0.005091123984312496,
+                    "stay": 0.6356761875268759
+                },
+                "room_004": {
+                    "north": 0.15905796247275847,
+                    "east": 0.0,
+                    "south": 0.15192117496990032,
+                    "west": 0.0,
+                    "stay": 0.6890208625573412
+                },
+                "room_005": {
+                    "north": 0.019779445519493635,
+                    "east": 0.0007419626305470929,
+                    "south": 0.006407501417594874,
+                    "west": 0.0,
+                    "stay": 0.9730710904323644
+                },
+                "room_006": {
+                    "north": 0.04452351764266054,
+                    "east": 0.0,
+                    "south": 0.0005369079329021762,
+                    "west": 0.03608558757606934,
+                    "stay": 0.9188539868483679
+                },
+                "room_007": {
+                    "north": 0.0,
+                    "east": 0.0038711959550369944,
+                    "south": 7.399107250576856e-05,
+                    "west": 0.0,
+                    "stay": 0.9960548129724572
+                },
+                "room_008": {
+                    "north": 0.0,
+                    "east": 0.14506922282534546,
+                    "south": 0.018145532016365554,
+                    "west": 0.06345983571598177,
+                    "stay": 0.7733254094423072
+                },
+                "room_009": {
+                    "north": 0.011453998668606915,
+                    "east": 0.01572516951343086,
+                    "south": 0.019695654302848076,
+                    "west": 0.1523157374826329,
+                    "stay": 0.8008094400324812
+                },
+                "room_010": {
+                    "north": 0.0,
+                    "east": 0.18335296879583787,
+                    "south": 9.97815586112688e-06,
+                    "west": 0.15077631534059271,
+                    "stay": 0.6658607377077083
+                },
+                "room_011": {
+                    "north": 0.06352885207107116,
+                    "east": 0.08704127918663229,
+                    "south": 0.04116962444152835,
+                    "west": 0.061467355149707734,
+                    "stay": 0.7467928891510605
+                },
+                "room_012": {
+                    "north": 0.09477574110190938,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.19037301107919305,
+                    "stay": 0.7148512478188975
+                },
+                "room_013": {
+                    "north": 0.0027667384611700877,
+                    "east": 0.0020719855770042943,
+                    "south": 0.0008675181142577126,
+                    "west": 0.0,
+                    "stay": 0.9942937578475679
+                },
+                "room_014": {
+                    "north": 0.02267901840156162,
+                    "east": 0.04112663777224137,
+                    "south": 0.0,
+                    "west": 0.14987126473069487,
+                    "stay": 0.7863230790955021
+                },
+                "room_015": {
+                    "north": 0.0043067930535009066,
+                    "east": 0.20479637250664226,
+                    "south": 0.05974243690468571,
+                    "west": 0.009604616939297532,
+                    "stay": 0.7215497805958736
+                },
+                "room_016": {
+                    "north": 7.203389718436633e-05,
+                    "east": 0.0004730788007310666,
+                    "south": 0.002643655094839134,
+                    "west": 0.23770535455420794,
+                    "stay": 0.7591058776530375
+                },
+                "room_017": {
+                    "north": 0.09374174896192995,
+                    "east": 0.0,
+                    "south": 0.019009316283090584,
+                    "west": 0.016058701834865477,
+                    "stay": 0.871190232920114
+                },
+                "room_018": {
+                    "north": 0.062434146870902346,
+                    "east": 0.0,
+                    "south": 0.20936311885427214,
+                    "west": 0.0,
+                    "stay": 0.7282027342748255
+                },
+                "room_019": {
+                    "north": 0.25042366091464463,
+                    "east": 0.02376178010896702,
+                    "south": 0.0024336220312245714,
+                    "west": 0.0,
+                    "stay": 0.7233809369451638
+                },
+                "room_020": {
+                    "north": 0.024757243763645975,
+                    "east": 0.035669917767392804,
+                    "south": 0.0005426584165006495,
+                    "west": 0.031303390586854656,
+                    "stay": 0.9077267894656059
+                },
+                "room_021": {
+                    "north": 0.10651941397683515,
+                    "east": 0.0,
+                    "south": 0.036232982157777,
+                    "west": 0.021488062569750964,
+                    "stay": 0.8357595412956369
+                },
+                "room_022": {
+                    "north": 0.35339646302372063,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.6466035369762794
+                },
+                "room_023": {
+                    "north": 0.1729052439983711,
+                    "east": 0.10741491574153998,
+                    "south": 0.026051605394615863,
+                    "west": 0.0,
+                    "stay": 0.6936282348654731
+                },
+                "room_024": {
+                    "north": 0.1072351025804932,
+                    "east": 0.0007340307779803703,
+                    "south": 0.0,
+                    "west": 0.029227871125882,
+                    "stay": 0.8628029955156444
+                },
+                "room_025": {
+                    "north": 0.057913801237797796,
+                    "east": 0.007136306881790247,
+                    "south": 0.08506580602750831,
+                    "west": 0.08886561426942317,
+                    "stay": 0.7610184715834805
+                },
+                "room_026": {
+                    "north": 0.0,
+                    "east": 0.23592696474113553,
+                    "south": 0.022459272627462928,
+                    "west": 0.04985140545966654,
+                    "stay": 0.691762357171735
+                },
+                "room_027": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.27155764521716313,
+                    "west": 0.11697853189256095,
+                    "stay": 0.6114638228902759
+                },
+                "room_028": {
+                    "north": 0.04985682335871645,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9501431766412836
+                },
+                "room_029": {
+                    "north": 0.08947028087723669,
+                    "east": 0.07915016754802179,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.8313795515747415
+                },
+                "room_030": {
+                    "north": 0.1409486417045254,
+                    "east": 0.0008214439928311991,
+                    "south": 0.0,
+                    "west": 0.1538421564044142,
+                    "stay": 0.7043877578982292
+                },
+                "room_031": {
+                    "north": 0.10999268631135534,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.1942662396340474,
+                    "stay": 0.6957410740545973
+                }
+            },
+            "ind_007": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.24504399157966272,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7549560084203373
+                },
+                "room_001": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.3877530023502038,
+                    "west": 0.00130313958557906,
+                    "stay": 0.6109438580642171
+                },
+                "room_002": {
+                    "north": 0.0,
+                    "east": 0.09216808152366861,
+                    "south": 0.13429669957888313,
+                    "west": 0.0,
+                    "stay": 0.7735352188974483
+                },
+                "room_003": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.2141697646906713,
+                    "west": 0.006372131058342423,
+                    "stay": 0.7794581042509863
+                },
+                "room_004": {
+                    "north": 0.03321647337424716,
+                    "east": 0.0,
+                    "south": 0.030650279214358922,
+                    "west": 0.0,
+                    "stay": 0.9361332474113939
+                },
+                "room_005": {
+                    "north": 0.0036787074814443937,
+                    "east": 0.014271119943372313,
+                    "south": 0.06603182237285815,
+                    "west": 0.0,
+                    "stay": 0.9160183502023251
+                },
+                "room_006": {
+                    "north": 0.0034577896200464644,
+                    "east": 0.0,
+                    "south": 0.13882119784272098,
+                    "west": 0.014192639624465396,
+                    "stay": 0.8435283729127672
+                },
+                "room_007": {
+                    "north": 0.0,
+                    "east": 0.2401459646340289,
+                    "south": 0.06152029939352758,
+                    "west": 0.0,
+                    "stay": 0.6983337359724435
+                },
+                "room_008": {
+                    "north": 0.0,
+                    "east": 0.0010383514086363737,
+                    "south": 0.011794909958802075,
+                    "west": 0.01174680455824729,
+                    "stay": 0.9754199340743143
+                },
+                "room_009": {
+                    "north": 0.2018842659131493,
+                    "east": 0.14519399488644508,
+                    "south": 0.0023647840177271977,
+                    "west": 0.03787466304366652,
+                    "stay": 0.6126822921390119
+                },
+                "room_010": {
+                    "north": 0.0,
+                    "east": 0.010193052770766466,
+                    "south": 0.024229971540334752,
+                    "west": 0.024742660873970257,
+                    "stay": 0.9408343148149285
+                },
+                "room_011": {
+                    "north": 0.09341392475799692,
+                    "east": 0.03861040581071763,
+                    "south": 0.024163596150402877,
+                    "west": 0.00396645209271649,
+                    "stay": 0.8398456211881661
+                },
+                "room_012": {
+                    "north": 0.19524726734695255,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.16018952787730711,
+                    "stay": 0.6445632047757404
+                },
+                "room_013": {
+                    "north": 0.14587279977370488,
+                    "east": 0.07535334303195125,
+                    "south": 0.06419659983571557,
+                    "west": 0.0,
+                    "stay": 0.7145772573586283
+                },
+                "room_014": {
+                    "north": 0.0011142180309484308,
+                    "east": 0.0005103166890932016,
+                    "south": 0.0,
+                    "west": 0.0005416545067078607,
+                    "stay": 0.9978338107732505
+                },
+                "room_015": {
+                    "north": 0.14225228628495581,
+                    "east": 0.02667123283758036,
+                    "south": 0.02940828918642661,
+                    "west": 0.0953643892412652,
+                    "stay": 0.7063038024497721
+                },
+                "room_016": {
+                    "north": 0.05081963377383654,
+                    "east": 0.051690430729119594,
+                    "south": 0.03727698109555825,
+                    "west": 0.003513098147964088,
+                    "stay": 0.8566998562535215
+                },
+                "room_017": {
+                    "north": 0.0038861885562618314,
+                    "east": 0.0,
+                    "south": 0.01627282761562993,
+                    "west": 0.0006330307666557686,
+                    "stay": 0.9792079530614525
+                },
+                "room_018": {
+                    "north": 0.15573545022864355,
+                    "east": 0.0,
+                    "south": 0.1432887400176829,
+                    "west": 0.0,
+                    "stay": 0.7009758097536736
+                },
+                "room_019": {
+                    "north": 0.0005784939990171467,
+                    "east": 0.04021162686741479,
+                    "south": 0.0535961774408217,
+                    "west": 0.0,
+                    "stay": 0.9056137016927464
+                },
+                "room_020": {
+                    "north": 7.595949814498966e-06,
+                    "east": 0.0848449895426118,
+                    "south": 0.047644773263666854,
+                    "west": 0.09098792673135203,
+                    "stay": 0.7765147145125548
+                },
+                "room_021": {
+                    "north": 0.20778486749031705,
+                    "east": 0.0,
+                    "south": 0.012399847076449337,
+                    "west": 0.0011826552721209084,
+                    "stay": 0.7786326301611127
+                },
+                "room_022": {
+                    "north": 0.3889523520350794,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.6110476479649206
+                },
+                "room_023": {
+                    "north": 0.006427423052484418,
+                    "east": 0.04223939444884659,
+                    "south": 0.03163386505447647,
+                    "west": 0.0,
+                    "stay": 0.9196993174441925
+                },
+                "room_024": {
+                    "north": 0.019408476019286868,
+                    "east": 0.0011483993281621314,
+                    "south": 0.0,
+                    "west": 0.010334322773387512,
+                    "stay": 0.9691088018791635
+                },
+                "room_025": {
+                    "north": 0.026021978815380868,
+                    "east": 0.03496536252877691,
+                    "south": 0.03754504256168828,
+                    "west": 0.03644744801727618,
+                    "stay": 0.8650201680768778
+                },
+                "room_026": {
+                    "north": 0.0,
+                    "east": 0.07174589524707702,
+                    "south": 0.1625749868423789,
+                    "west": 0.04343690300931811,
+                    "stay": 0.722242214901226
+                },
+                "room_027": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.09577127169026915,
+                    "west": 0.10846146556699827,
+                    "stay": 0.7957672627427326
+                },
+                "room_028": {
+                    "north": 0.2023226326537739,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.7976773673462261
+                },
+                "room_029": {
+                    "north": 0.007250391411754512,
+                    "east": 0.024667213585113618,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9680823950031319
+                },
+                "room_030": {
+                    "north": 0.1925472057715087,
+                    "east": 0.03146163817842545,
+                    "south": 0.0,
+                    "west": 0.1570902776354856,
+                    "stay": 0.6189008784145803
+                },
+                "room_031": {
+                    "north": 0.12398729807943432,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.19697445239590483,
+                    "stay": 0.6790382495246609
                 }
             }
         },
         "dependent": {
             "dep_000": {
-                "ind_000": 0.10366979549121424,
-                "ind_001": 0.5583825136813955,
-                "ind_002": 0.7812233727891017,
-                "ind_003": 0.0018223434907866127
+                "ind_000": 0.8634397833783154,
+                "ind_001": 0.7570261989193423,
+                "ind_002": 0.15778886593659183,
+                "ind_003": 0.9339974692242846,
+                "ind_004": 0.833070787624315,
+                "ind_005": 0.47338790155511273,
+                "ind_006": 0.9376295162228548,
+                "ind_007": 0.9386138465201427
             },
             "dep_001": {
-                "ind_000": 0.35091426303623635,
-                "ind_001": 0.8064648722874934,
-                "ind_002": 0.005819643078975406,
-                "ind_003": 0.34499393049984745
+                "ind_000": 0.10169278782052842,
+                "ind_001": 0.7201334172074583,
+                "ind_002": 0.059327960221440636,
+                "ind_003": 0.7147809451452275,
+                "ind_004": 0.4890451783874595,
+                "ind_005": 0.9847819444643297,
+                "ind_006": 0.8335271355666917,
+                "ind_007": 0.7532802539380649
             },
             "dep_002": {
-                "ind_000": 0.169505291397941,
-                "ind_001": 0.22578786369656445,
-                "ind_002": 0.24113041667569848,
-                "ind_003": 0.7506126932823362
+                "ind_000": 0.8493181330364273,
+                "ind_001": 0.3476579078767452,
+                "ind_002": 0.9947365506397292,
+                "ind_003": 0.21260100033985735,
+                "ind_004": 0.1580386529570318,
+                "ind_005": 0.3420561419405248,
+                "ind_006": 0.999484395364773,
+                "ind_007": 0.9838172280165629
             },
             "dep_003": {
-                "ind_000": 0.750552417531636,
-                "ind_001": 0.4329290638653652,
-                "ind_002": 0.0639033671982662,
-                "ind_003": 0.7403836006829815
+                "ind_000": 0.28254741577916087,
+                "ind_001": 0.3770666546885573,
+                "ind_002": 0.1552177036594073,
+                "ind_003": 0.8564788773239562,
+                "ind_004": 0.4897659136782435,
+                "ind_005": 0.9750828829431667,
+                "ind_006": 0.0023941257041906537,
+                "ind_007": 0.6382518278033107
+            },
+            "dep_004": {
+                "ind_000": 0.19026482875982803,
+                "ind_001": 0.995573085326699,
+                "ind_002": 0.39513460163656755,
+                "ind_003": 0.4400328493936636,
+                "ind_004": 0.9682554721832352,
+                "ind_005": 0.488262955619429,
+                "ind_006": 0.7847811576123075,
+                "ind_007": 0.9921529201428053
+            },
+            "dep_005": {
+                "ind_000": 0.025654251261200228,
+                "ind_001": 0.4409219442254312,
+                "ind_002": 0.7567802884350497,
+                "ind_003": 0.023674539142185005,
+                "ind_004": 0.5633280595434516,
+                "ind_005": 0.9386977194068374,
+                "ind_006": 0.11835459440029282,
+                "ind_007": 0.12997981032738717
+            },
+            "dep_006": {
+                "ind_000": 0.5936618513760653,
+                "ind_001": 0.9702981893225837,
+                "ind_002": 0.0034699336965954277,
+                "ind_003": 0.7248917670097004,
+                "ind_004": 0.5174404157935757,
+                "ind_005": 0.4875427405701829,
+                "ind_006": 0.7421527285612387,
+                "ind_007": 0.058035230499647296
+            },
+            "dep_007": {
+                "ind_000": 0.9915400828989163,
+                "ind_001": 0.3957071667235167,
+                "ind_002": 0.6392062743625212,
+                "ind_003": 0.9181132259386,
+                "ind_004": 0.11656007988030555,
+                "ind_005": 0.00014843750445328225,
+                "ind_006": 0.9961028652692923,
+                "ind_007": 0.8593783693476251
             }
         },
         "agent": {
@@ -1590,22 +2962,34 @@
     },
     "object_question_probs": {
         "static": {
-            "sta_000": 0.004828272376367937,
-            "sta_001": 0.1590604881782193,
-            "sta_002": 0.012591578315202684,
-            "sta_003": 0.167834006733692
+            "sta_000": 0.0033394813710483384,
+            "sta_001": 0.03834581705574367,
+            "sta_002": 0.04674321509284692,
+            "sta_003": 0.002587299549681935,
+            "sta_004": 0.03214634035471116,
+            "sta_005": 0.08954904429051222,
+            "sta_006": 0.07215184201313082,
+            "sta_007": 0.056942203383322836
         },
         "independent": {
-            "ind_000": 0.14296874771919751,
-            "ind_001": 0.035210977864263034,
-            "ind_002": 0.07057405824324153,
-            "ind_003": 0.1301021045992352
+            "ind_000": 0.012727603626771637,
+            "ind_001": 0.07447008647105027,
+            "ind_002": 0.03607881956257715,
+            "ind_003": 0.07636425821364862,
+            "ind_004": 0.09940502314725334,
+            "ind_005": 0.014631442224346276,
+            "ind_006": 0.06473372844228621,
+            "ind_007": 0.07342083052749099
         },
         "dependent": {
-            "dep_000": 0.008341196641979647,
-            "dep_001": 0.005042941297524708,
-            "dep_002": 0.09903576056603595,
-            "dep_003": 0.16440986746504058
+            "dep_000": 0.015362596260210977,
+            "dep_001": 0.014776466282346933,
+            "dep_002": 0.023445601340987523,
+            "dep_003": 0.0016345886499845059,
+            "dep_004": 0.003571560719997937,
+            "dep_005": 0.04026265876214573,
+            "dep_006": 0.10199626471363166,
+            "dep_007": 0.005313227944272331
         },
         "agent": {
             "agent": 0.0
@@ -1617,18 +3001,18 @@
             1,
             1,
             0,
-            0,
-            0,
+            1,
+            1,
             0
         ],
         [
             0,
             0,
             1,
-            1,
             0,
             1,
-            1
+            1,
+            0
         ],
         [
             1,
@@ -1637,16 +3021,7 @@
             1,
             1,
             1,
-            1
-        ],
-        [
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
+            0
         ],
         [
             1,
@@ -1655,24 +3030,33 @@
             1,
             1,
             0,
+            0
+        ],
+        [
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+        ],
+        [
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
             1
         ],
         [
             0,
-            1,
-            1,
-            1,
-            1,
-            0,
-            1
-        ],
-        [
-            0,
-            0,
             0,
             1,
             0,
-            0,
+            1,
+            1,
             1
         ]
     ],
@@ -1686,20 +3070,24 @@
             2
         ],
         [
+            0,
+            4
+        ],
+        [
+            0,
+            5
+        ],
+        [
             1,
             2
         ],
         [
             1,
-            3
+            4
         ],
         [
             1,
             5
-        ],
-        [
-            1,
-            6
         ],
         [
             2,
@@ -1726,8 +3114,8 @@
             5
         ],
         [
-            2,
-            6
+            3,
+            0
         ],
         [
             3,
@@ -1744,14 +3132,6 @@
         [
             3,
             4
-        ],
-        [
-            3,
-            5
-        ],
-        [
-            3,
-            6
         ],
         [
             4,
@@ -1759,10 +3139,6 @@
         ],
         [
             4,
-            1
-        ],
-        [
-            4,
             2
         ],
         [
@@ -1774,12 +3150,8 @@
             4
         ],
         [
-            4,
-            6
-        ],
-        [
             5,
-            1
+            0
         ],
         [
             5,
@@ -1792,6 +3164,10 @@
         [
             5,
             4
+        ],
+        [
+            5,
+            5
         ],
         [
             5,
@@ -1799,7 +3175,15 @@
         ],
         [
             6,
-            3
+            2
+        ],
+        [
+            6,
+            4
+        ],
+        [
+            6,
+            5
         ],
         [
             6,
@@ -1845,19 +3229,31 @@
             "sta_000",
             "sta_001",
             "sta_002",
-            "sta_003"
+            "sta_003",
+            "sta_004",
+            "sta_005",
+            "sta_006",
+            "sta_007"
         ],
         "independent_objects": [
             "ind_000",
             "ind_001",
             "ind_002",
-            "ind_003"
+            "ind_003",
+            "ind_004",
+            "ind_005",
+            "ind_006",
+            "ind_007"
         ],
         "dependent_objects": [
             "dep_000",
             "dep_001",
             "dep_002",
-            "dep_003"
+            "dep_003",
+            "dep_004",
+            "dep_005",
+            "dep_006",
+            "dep_007"
         ]
     }
 }

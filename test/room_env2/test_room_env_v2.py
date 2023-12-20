@@ -45,7 +45,7 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                 "question_prob": 1.0,
                 "seed": random.randint(0, 100000),
                 "terminates_at": 9,
-                "randomize_observations": False,
+                "randomize_observations": "none",
                 "room_size": room_size,
                 "make_everything_static": False,
                 "rewards": {"correct": 1, "wrong": -1, "partial": 0},
@@ -242,7 +242,7 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 "question_prob": 1.0,
                 "seed": random.randint(0, 100000),
                 "terminates_at": 99,
-                "randomize_observations": False,
+                "randomize_observations": "none",
                 "room_size": room_size,
             }
             self.env = gym.make("room_env:RoomEnv-v2", **config)
@@ -275,10 +275,10 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["officeroom", "east", "livingroom", 0],
                     ["officeroom", "south", "wall", 0],
                     ["officeroom", "west", "wall", 0],
+                    ["agent", "atlocation", "officeroom", 0],
                     ["desk", "atlocation", "officeroom", 0],
                     ["tae", "atlocation", "officeroom", 0],
                     ["laptop", "atlocation", "officeroom", 0],
-                    ["agent", "atlocation", "officeroom", 0],
                 ],
             )
 
@@ -322,9 +322,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["livingroom", "east", "wall", 1],
                     ["livingroom", "south", "wall", 1],
                     ["livingroom", "west", "officeroom", 1],
+                    ["agent", "atlocation", "livingroom", 1],
                     ["tae", "atlocation", "livingroom", 1],
                     ["laptop", "atlocation", "livingroom", 1],
-                    ["agent", "atlocation", "livingroom", 1],
                 ],
             )
             self.assertIn(
@@ -402,10 +402,10 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["officeroom", "east", "livingroom", 2],
                     ["officeroom", "south", "wall", 2],
                     ["officeroom", "west", "wall", 2],
+                    ["agent", "atlocation", "officeroom", 2],
                     ["desk", "atlocation", "officeroom", 2],
                     ["tae", "atlocation", "officeroom", 2],
                     ["laptop", "atlocation", "officeroom", 2],
-                    ["agent", "atlocation", "officeroom", 2],
                 ],
             )
 
@@ -447,13 +447,14 @@ class RoomEnv2xxlTest(unittest.TestCase):
         self.env = gym.make(
             "room_env:RoomEnv-v2",
             room_size="l",
-            randomize_observations=False,
+            randomize_observations="none",
+            include_walls_in_observations=True
         )
 
     def test_all(self) -> None:
         observations, info = self.env.reset()
-        self.assertEqual(observations["room"][-1][0], "agent")
-        for obs in observations["room"][:-1]:
+        self.assertEqual(observations["room"][4][0], "agent")
+        for obs in observations["room"][5:]:
             self.assertNotEqual(obs[0], "agent")
         while True:
             actions_qa = [random.choice(observations["questions"][0])]
@@ -464,6 +465,6 @@ class RoomEnv2xxlTest(unittest.TestCase):
             if done:
                 break
 
-            self.assertEqual(observations["room"][-1][0], "agent")
-            for obs in observations["room"][:-1]:
+            self.assertEqual(observations["room"][4][0], "agent")
+            for obs in observations["room"][5:]:
                 self.assertNotEqual(obs[0], "agent")
