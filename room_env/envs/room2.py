@@ -416,10 +416,10 @@ class RoomEnv2(gym.Env):
         randomize_observations: Literal[
             "all", "objects", "none", "objects_middle"
         ] = "objects",
-        room_size: str = "dev",
-        rewards: dict = {"correct": 1, "wrong": -1, "partial": 0},
+        room_size: str = "l",
+        rewards: dict = {"correct": 1, "wrong": 0, "partial": 0},
         make_everything_static: bool = False,
-        num_total_questions: int = 100,
+        num_total_questions: int = 1000,
         question_interval: int = 1,
         include_walls_in_observations: bool = True,
     ) -> None:
@@ -499,6 +499,7 @@ class RoomEnv2(gym.Env):
         self._create_rooms()
         self._compute_room_map()
         self._create_objects()
+        self._create_relations_and_objects_for_nn()
 
         # Our state / action spaces are not tensors. Here we just make a dummy spaces
         # to bypass the gymnasium sanity check.
@@ -511,14 +512,6 @@ class RoomEnv2(gym.Env):
             rewards["partial"],
         )
         self.make_everything_static = make_everything_static
-
-        self.relations = ["north", "east", "south", "west", "atlocation"]
-
-        self.entities = (
-            [obj.name for _, objs in self.objects.items() for obj in objs]
-            + [room_name for room_name in self.rooms]
-            + ["wall"]
-        )
 
         self.hidden_global_states_all = []
         self.observations_all = []
@@ -588,6 +581,25 @@ class RoomEnv2(gym.Env):
             f"The sum of the question probabilities must be <= 1. but it's "
             f"{sum(question_probs)}"
         )
+
+    def _create_relations_and_objects_for_nn(self) -> None:
+        """Create relations and objects for neural network embeddings."""
+        self.relations = ["north", "east", "south", "west", "atlocation"]
+
+        self.entities = {
+            "static": [],
+            "independent": [],
+            "dependent": [],
+            "agent": [],
+            "room": [],
+            "others": ["wall"],
+        }
+        for obj_type, objects in self.objects.items():
+            for obj in objects:
+                self.entities[obj_type].append(obj.name)
+
+        for room_name in self.rooms:
+            self.entities["room"].append(room_name)
 
     def _compute_room_map(self) -> None:
         """Get the room layout for semantic knowledge."""
@@ -878,7 +890,7 @@ class RoomEnv2(gym.Env):
 
     def render(
         self,
-        render_mode: str = "console",
+        render_mode: Literal["console", "image"] = "console",
         figsize: tuple[int, int] = (15, 15),
         cell_text_size: int = 10,
         save_fig_dir: str = None,

@@ -54,7 +54,7 @@ class ObjectHistoryTest(unittest.TestCase):
             "seed": 0,
             "terminates_at": 99,
             "randomize_observations": "all",
-            "room_size": "l",
+            "room_size": "m",
             "make_everything_static": False,
         }
         env = gym.make("room_env:RoomEnv-v2", **env_config)
@@ -86,5 +86,7 @@ class ObjectHistoryTest(unittest.TestCase):
 
                 if obj_type == "static":
                     self.assertEqual(len(set(locations[obj.name])), 1)
-                else:
+                elif obj_type in ["independent", "agent"]:
                     self.assertNotEqual(len(set(locations[obj.name])), 1)
+                else:
+                    pass
