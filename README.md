@@ -19,6 +19,10 @@ RoomEnv-v1 was featured in the paper ["A Machine with Short-Term, Episodic, and 
 
 Work in progress!
 
+## pdoc documentation
+
+https://tae898.github.io/room-env-private/
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
