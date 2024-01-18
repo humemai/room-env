@@ -36,14 +36,17 @@ jobs:
           python-version: '3.10'
       - name: Upgrade pip and build dependencies
         run: |
-          python3 -m pip install --upgrade pip setuptools wheel pdoc
+          python3 -m pip install --upgrade pip setuptools wheel
+      - name: Install package
+        run: |
+          python -m pip install pdoc
       - name: Create output dir
         run: |
           rm -rf _docs 
           mkdir _docs
       - name: Build documentation
         run: |
-          python3 -m pdoc -d google -o _docs/ room_env
+          python -m pdoc -d google -o _docs/ room_env
       - uses: actions/upload-pages-artifact@v2
         with:
           path: "./_docs/"
