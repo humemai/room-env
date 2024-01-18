@@ -43,7 +43,7 @@ jobs:
           mkdir _docs
       - name: Build documentation
         run: |
-          python -m pdoc -d google -o _docs/ room_env
+          python3 -m pdoc -d google -o _docs/ room_env
       - uses: actions/upload-pages-artifact@v2
         with:
           path: "./_docs/"
