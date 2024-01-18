@@ -56,6 +56,7 @@ class ObjectHistoryTest(unittest.TestCase):
             "randomize_observations": "all",
             "room_size": "m",
             "make_everything_static": False,
+            "num_total_questions": 100,
         }
         env = gym.make("room_env:RoomEnv-v2", **env_config)
         observations, info = env.reset()

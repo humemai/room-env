@@ -244,6 +244,8 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 "terminates_at": 99,
                 "randomize_observations": "none",
                 "room_size": room_size,
+                "num_total_questions": 100,
+                "rewards": {"correct": 1, "wrong": -1, "partial": 0},
             }
             self.env = gym.make("room_env:RoomEnv-v2", **config)
 
@@ -448,7 +450,8 @@ class RoomEnv2xxlTest(unittest.TestCase):
             "room_env:RoomEnv-v2",
             room_size="l",
             randomize_observations="none",
-            include_walls_in_observations=True
+            include_walls_in_observations=True,
+            num_total_questions=100,
         )
 
     def test_all(self) -> None:

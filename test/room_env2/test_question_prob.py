@@ -145,6 +145,7 @@ class QuestionProbTest(unittest.TestCase):
             "room_size": self.room_size,
             "rewards": {"correct": 1, "wrong": -1, "partial": 0},
             "make_everything_static": False,
+            "num_total_questions": 100,
         }
 
         questions = []
