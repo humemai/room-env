@@ -9,7 +9,7 @@ memory systems. See the [paper](https://arxiv.org/abs/2212.02098) for more infor
 ## Prerequisites
 
 1. A unix or unix-like x86 machine
-1. python 3.8 or higher.
+1. python 3.10 or higher.
 1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly recommended so that you don't mess up with the system python.
 1. This env is added to the PyPI server. Just run: `pip install room-env`
 

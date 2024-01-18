@@ -133,3 +133,6 @@ dmypy.json
 
 # debug files images
 DEBUG/
+
+# pdoc
+_docs/

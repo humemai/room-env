@@ -1,4 +1,4 @@
-# The Room environment - v1
+# The Room environment - v2
 
 [![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
@@ -8,147 +8,53 @@ environment.
 ## Prerequisites
 
 1. A unix or unix-like x86 machine
-1. python 3.8 or higher.
+1. python 3.10 or higher.
 1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly recommended so that you don't mess up with the system python.
 1. This env is added to the PyPI server. Just run: `pip install room-env`
 
-## RoomEnv-v2
+## Creating a RoomEnv-v2
+
+```python
+import random
+from room_env.create_room2 import RoomCreator
+
+room_creator = RoomCreator(
+    filename="dev",
+    grid_length=7,
+    num_rooms=32,
+    num_static_objects=8,
+    num_independent_objects=8,
+    num_dependent_objects=8,
+    room_prob=0.5,
+    minimum_transition_stay_prob=0.6,
+    static_object_in_every_room=False,
+    give_fake_names=False,
+)
+room_creator.run()
+```
+
+[`./room-env-v2.ipynb`](./room-env-v2.ipynb) has some good examples.
+
+## Running a RoomEnv-v2
 
 ```python
 import gymnasium as gym
 import random
 
-room_config = {
-    "officeroom": {
-        "north": "wall",
-        "east": "livingroom",
-        "south": "wall",
-        "west": "wall",
-    },
-    "livingroom": {
-        "north": "wall",
-        "east": "wall",
-        "south": "bedroom",
-        "west": "officeroom",
-    },
-    "bedroom": {
-        "north": "livingroom",
-        "east": "wall",
-        "south": "wall",
-        "west": "wall",
-    },
-}
-
-
-object_transition_config = {
-    "static": {"bed": None, "desk": None, "table": None},
-    "independent": {
-        "tae": {
-            "officeroom": {"north": 0, "east": 0.1, "south": 0, "west": 0, "stay": 0.9},
-            "livingroom": {
-                "north": 0,
-                "east": 0,
-                "south": 0,
-                "west": 0.1,
-                "stay": 0.9,
-            },
-            "bedroom": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
-        },
-        "michael": {
-            "officeroom": {
-                "north": 0,
-                "east": 0,
-                "south": 0,
-                "west": 0,
-                "stay": 0,
-            },
-            "livingroom": {
-                "north": 0,
-                "east": 0,
-                "south": 0.9,
-                "west": 0,
-                "stay": 0.1,
-            },
-            "bedroom": {"north": 0.1, "east": 0, "south": 0, "west": 0, "stay": 0.9},
-        },
-        "vincent": {
-            "officeroom": {
-                "north": 0,
-                "east": 0.5,
-                "south": 0,
-                "west": 0,
-                "stay": 0.5,
-            },
-            "livingroom": {
-                "north": 0,
-                "east": 0,
-                "south": 0.333,
-                "west": 0.333,
-                "stay": 0.333,
-            },
-            "bedroom": {
-                "north": 0.5,
-                "east": 0,
-                "south": 0,
-                "west": 0,
-                "stay": 0.5,
-            },
-        },
-    },
-    "dependent": {
-        "laptop": {"tae": 0.7, "michael": 0.4, "vincent": 0.1},
-        "phone": {"tae": 0.1, "michael": 0.7, "vincent": 0.4},
-        "headset": {"tae": 0.4, "michael": 0.1, "vincent": 0.9},
-    },
-    "agent": {
-        "agent": {"officeroom": None, "livingroom": None, "bedroom": None},
-    },
-}
-
-object_init_config = {
-    "static": {
-        "bed": {"officeroom": 0, "livingroom": 0, "bedroom": 1},
-        "desk": {"officeroom": 1, "livingroom": 0, "bedroom": 0},
-        "table": {"officeroom": 0, "livingroom": 1, "bedroom": 0},
-    },
-    "independent": {
-        "tae": {"officeroom": 0.5, "livingroom": 0.5, "bedroom": 0},
-        "michael": {"officeroom": 0, "livingroom": 0.5, "bedroom": 0.5},
-        "vincent": {"officeroom": 0.333, "livingroom": 0.333, "bedroom": 0.333},
-    },
-    "dependent": {
-        "laptop": {"officeroom": 0.333, "livingroom": 0.333, "bedroom": 0.333},
-        "phone": {"officeroom": 0.333, "livingroom": 0.333, "bedroom": 0.333},
-        "headset": {"officeroom": 0.333, "livingroom": 0.333, "bedroom": 0.333},
-    },
-    "agent": {
-        "agent": {"officeroom": 0.333, "livingroom": 0.333, "bedroom": 0.333},
-    },
-}
-
-config = {
-    "room_config": room_config,
-    "object_transition_config": object_transition_config,
-    "object_init_config": object_init_config,
-    "question_prob": 1.0,
-    "seed": 42,
-    "terminates_at": 99,
-}
-
-
-env = gym.make("room_env:RoomEnv-v2", **config)
-(observation, question), info = env.reset()
+env = gym.make("room_env:RoomEnv-v2", room_size="l")
+observations, info = env.reset()
 rewards = 0
 
 while True:
-    actions_qa = question[0]
-    action_explore = random.choice(["north", "east", "south", "west", "stay"])
-    (obs, question), reward, done, truncated, info = env.step(("wall", action_explore))
+    observations, reward, done, truncated, info = env.step(
+        (
+            ["random answer"] * len(observations["questions"]),
+            random.choice(["north", "east", "south", "west", "stay"]),
+        )
+    )
     rewards += reward
-    if done:
+    if done or truncated:
         break
-
-
 ```
 
 Take a look at [this repo](https://github.com/tae898/explicit-memory) for an actual

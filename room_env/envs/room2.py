@@ -8,7 +8,7 @@ import os
 import random
 from copy import deepcopy
 from pprint import pprint
-from typing import Any
+from typing import Any, Literal
 
 import gymnasium as gym
 import matplotlib.pyplot as plt
@@ -17,7 +17,6 @@ from IPython.display import clear_output
 from ..utils import is_running_notebook
 from ..utils import read_json_prod as read_json
 from ..utils import sample_max_value_key, seed_everything
-from typing import Literal
 
 logging.basicConfig(
     level=os.environ.get("LOGLEVEL", "INFO").upper(),
