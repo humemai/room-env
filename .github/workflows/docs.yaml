@@ -34,9 +34,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Install pdoc
+      - name: Upgrade pip and build dependencies
         run: |
-          python -m pip install pdoc
+          python3 -m pip install --upgrade pip setuptools wheel pdoc
       - name: Create output dir
         run: |
           rm -rf _docs 
