@@ -1,10 +1,8 @@
 # TODOs
 
-## Tests
+## Remaining
 
-### Remaining
-
-### Done
+## Done
 
 1. make_everything_static
 1. randomize_observations
