@@ -1,10 +1,10 @@
 # The Room environment - v0
 
-[![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/abs/2204.01611)
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. The best strategy for this environment is to have both episodic and semantic
-memory systems. See the [paper](https://arxiv.org/abs/2204.01611) for more information.
+memory systems. See the paper for more information.
 
 ## Prerequisites
 
@@ -136,10 +136,6 @@ inspire, and create. Any contributions you make are **greatly appreciated**.
   copyright = {Creative Commons Attribution 4.0 International}
 }
 ```
-
-## Cite our code
-
-[![DOI](https://zenodo.org/badge/477781069.svg)](https://zenodo.org/badge/latestdoi/477781069)
 
 ## Authors
 
