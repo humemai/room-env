@@ -1,8 +1,9 @@
 # The Room environments (compatible with gymnasium)
 
+[![DOI](https://zenodo.org/badge/477781069.svg)](https://zenodo.org/badge/latestdoi/477781069)
 [![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
-At the moment, there are two Room environments. Click on the links below to see their
+At the moment, there are three Room environments. Click on the links below to see their
 documentations.
 
 [Training agents for these environments are in a separate repo](https://github.com/tae898/explicit-memory).
@@ -17,7 +18,7 @@ RoomEnv-v1 was featured in the paper ["A Machine with Short-Term, Episodic, and 
 
 ## [Click here for the documentation of RoomEnv-v2](./README-v2.md)
 
-Work in progress!
+RoomEnv-v2 was featured in the paper ["Capturing Dynamic Knowledge Graphs with Human-like Memory Systems by Reinforcement Learning"]().
 
 ## pdoc documentation
 

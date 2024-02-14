@@ -1,9 +1,9 @@
 # The Room environment - v2
 
-[![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)]()
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
-environment.
+environment. See the paper for more information.
 
 ## Prerequisites
 
