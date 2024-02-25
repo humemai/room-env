@@ -1,4 +1,5 @@
 """Only run this in Juputer notebook."""
+
 import random
 from copy import deepcopy
 from pprint import pprint
@@ -93,7 +94,7 @@ class RoomCreator:
             if sum(sum(row) for row in self.grid) == 0:
                 continue
 
-            self.connected_components = find_connected_nodes(deepcopy(self.grid))
+            self.connected_components = find_connected_nodes(self.grid)
 
             self.previous_grid = deepcopy(self.grid)
 
@@ -295,13 +296,16 @@ class RoomCreator:
 
         self.room_config_str = {}
         for room_num in range(self.num_rooms):
-            self.room_config_str[self.names["room"][room_num]] = deepcopy(
-                self.room_config[room_num]
-            )
+            self.room_config_str[self.names["room"][room_num]] = self.room_config[
+                room_num
+            ]
+
             self.room_config_str[self.names["room"][room_num]] = {
-                direction: self.names["room"][room_num_or_wall]
-                if room_num_or_wall != "wall"
-                else room_num_or_wall
+                direction: (
+                    self.names["room"][room_num_or_wall]
+                    if room_num_or_wall != "wall"
+                    else room_num_or_wall
+                )
                 for direction, room_num_or_wall in self.room_config_str[
                     self.names["room"][room_num]
                 ].items()

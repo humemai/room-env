@@ -1,15 +1,14 @@
 """RoomEnv0 environment compatible with gym."""
-import json
+
 import logging
 import os
 import random
-from copy import deepcopy
 from itertools import cycle
 
 import gymnasium as gym
 
 from ..utils import read_json_prod as read_json
-from ..utils import read_lines, remove_posession, split_by_possessive
+from ..utils import read_lines, split_by_possessive
 
 CORRECT = 1
 WRONG = 0
@@ -173,12 +172,11 @@ class RoomEnv0(gym.Env):
 
         Returns:
             observations: e.g., ["tae's laptop, "atlocation", "tae's desk", 10]
-
-            The last element in the list accounts for the timestamp.
+                The last element in the list accounts for the timestamp.
 
         """
         observations = {
-            i: deepcopy([*self.room[next(navigate_)], self.current_time])
+            i: [*self.room[next(navigate_)], self.current_time]
             for i, navigate_ in enumerate(self.navigate)
         }
 
@@ -267,11 +265,7 @@ class RoomEnv0(gym.Env):
                             break
 
             room.append(
-                [
-                    f"{name1}'s {deepcopy(head)}",
-                    deepcopy(relation),
-                    f"{deepcopy(tail)}",
-                ],
+                [f"{name1}'s {head}", relation, f"{tail}"],
             )
 
         if random.random() < self.probs["switch_person"]:

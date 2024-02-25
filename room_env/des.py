@@ -1,6 +1,4 @@
 """Discrete Event Simlator (RoomDes) for the Room."""
-import json
-import os
 from copy import deepcopy
 from pprint import pprint
 

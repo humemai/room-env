@@ -1,4 +1,5 @@
 """Utility functions"""
+
 import json
 import logging
 import os
@@ -485,7 +486,7 @@ def run_all_des_configs(
         "allow_random_question": allow_random_question,
         "question_prob": question_prob,
     }
-    return deepcopy(results)
+    return results
 
 
 def get_handcrafted(
@@ -601,7 +602,9 @@ def get_handcrafted(
     return handcrafted_results
 
 
-def find_connected_nodes(graph):
+def find_connected_nodes(graph_):
+    graph = deepcopy(graph_)
+
     def dfs(node, row, col):
         if (
             row < 0

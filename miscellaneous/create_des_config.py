@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import random
-from copy import deepcopy
 
 import yaml
 
@@ -24,21 +23,19 @@ def get_objects_and_locations(
 ) -> list:
     """Get objects and their locations for one human.
 
-    Args
-    ----
-    total_objects: total possible objects.
-    maximum_num_objects_per_human: maximum number of objects per human
-    maxiumum_days_period: maximum number of days per period.
-    maximum_num_locations_per_object: maximum number of locations per object.
-    commonsense_prob: the probability of an object being located at a commonsense
-        location.
-    possible_object_locations: possible object locations,
-    semantic_knowledge: commonsense knowledge,
+    Args:
+        total_objects: total possible objects.
+        maximum_num_objects_per_human: maximum number of objects per human
+        maxiumum_days_period: maximum number of days per period.
+        maximum_num_locations_per_object: maximum number of locations per object.
+        commonsense_prob: the probability of an object being located at a commonsense
+            location.
+        possible_object_locations: possible object locations,
+        semantic_knowledge: commonsense knowledge,
 
-    Returns
-    -------
-    objects and their locations (e.g., [["laptop", "desk"], ["laptop", "desk"],
-        ["laptop", "table"], ["laptop", "desk"]])
+    Returns:
+        objects and their locations (e.g., [["laptop", "desk"], ["laptop", "desk"],
+            ["laptop", "table"], ["laptop", "desk"]])
 
     """
     logging.debug("Getting objects and their locations for one human ...")
@@ -92,18 +89,17 @@ def main(
 ) -> None:
     """Run!
 
-    Args
-    ----
-    semantic_knowledge_path: e.g., "./room_env/data/semantic-knowledge.json"
-    human_names_path:  e.g., "./room_env/data/human-names"
-    save_path: e.g., "./room_env/data/des-config-m.json"
-    num_humans: e.g., 8
-    num_total_objects: e.g., 8
-    maximum_num_locations_per_object: maximum number of locations per object (e.g., 8)
-    commonsense_prob: commonsense probability (e.g., 0.8)
-    maxiumum_days_period: maximum number of days per period.
-    last_timestep: the last day when the DES stops (e.g., 1000).
-    seed: random seed
+    Args:
+        semantic_knowledge_path: e.g., "./room_env/data/semantic-knowledge.json"
+        human_names_path:  e.g., "./room_env/data/human-names"
+        save_path: e.g., "./room_env/data/des-config-m.json"
+        num_humans: e.g., 8
+        num_total_objects: e.g., 8
+        maximum_num_locations_per_object: maximum number of locations per object (e.g., 8)
+        commonsense_prob: commonsense probability (e.g., 0.8)
+        maxiumum_days_period: maximum number of days per period.
+        last_timestep: the last day when the DES stops (e.g., 1000).
+        seed: random seed
 
     """
     assert num_total_objects >= maximum_num_objects_per_human
@@ -128,7 +124,7 @@ def main(
     )
     unique_locations = []
 
-    for key, val in deepcopy(semantic_knowledge).items():
+    for key, val in semantic_knowledge.copy().items():
         if "_" in key:
             del semantic_knowledge[key]
             continue

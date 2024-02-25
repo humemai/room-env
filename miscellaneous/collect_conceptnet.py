@@ -27,14 +27,13 @@ class DataCollector:
     ):
         """Data (conceptnet) collector class.
 
-        Args
-        ----
-        relation: See https://github.com/commonsense/conceptnet5/wiki/Relations for
-            all relations.
-        conceptnet_data_path: Where to save raw queried conceptnet data path
-        conceptnet_data_refresh: Whether to download the conceptnet data again or not.
-        semantic_knowledge_path: Where to save pre-trained semantic (factual) knowledge
-        api_url: e.g., http://api.conceptnet.io/, http://127.0.0.1:8084/, etc.
+        Args:
+            relation: See https://github.com/commonsense/conceptnet5/wiki/Relations for
+                all relations.
+            conceptnet_data_path: Where to save raw queried conceptnet data path
+            conceptnet_data_refresh: Whether to download the conceptnet data again or not.
+            semantic_knowledge_path: Where to save pre-trained semantic (factual) knowledge
+            api_url: e.g., http://api.conceptnet.io/, http://127.0.0.1:8084/, etc.
 
         """
         self.relation = relation
@@ -54,9 +53,8 @@ class DataCollector:
     def read_mscoco(self, path: str = "./room_env/data/ms-coco-80-categories") -> None:
         """Return ms coco 80 object categories.
 
-        Args
-        ----
-        path: The path to the mscoco object category list.
+        Args:
+            path: The path to the mscoco object category list.
 
         """
         logging.debug(f"Reading {path} ...")

@@ -2,6 +2,7 @@
 
 This is the most complicated room environment so far. It has multiple rooms.
 """
+
 import json
 import logging
 import os
@@ -618,10 +619,13 @@ class RoomEnv2(gym.Env):
         Returns:
             room_layout:
         """
-        room_layout = [deepcopy(triple) for triple in self.room_layout]
-
-        if exclude_walls:
-            room_layout = [triple for triple in room_layout if triple[2] != "wall"]
+        room_layout = []
+        for triple in self.room_layout:
+            if exclude_walls:
+                if triple[2] != "wall":
+                    room_layout.append(triple)
+            else:
+                room_layout.append(triple)
 
         return room_layout
 
@@ -761,10 +765,9 @@ class RoomEnv2(gym.Env):
 
                     self.answers.append(answer)
 
-        observations = {
-            "room": deepcopy(self.observations_room),
-            "questions": deepcopy(self.questions),
-        }
+        observations = deepcopy(
+            {"room": self.observations_room, "questions": self.questions}
+        )
         self.observations_all.append(observations)
         self.answers_all.append(self.answers)
 
@@ -793,7 +796,7 @@ class RoomEnv2(gym.Env):
         else:
             return self.get_observations_and_question(generate_questions=False), info
 
-    def step(self, actions: tuple[list[str], str]) -> tuple[tuple, int, bool, dict]:
+    def step(self, actions: tuple[list[str], str]) -> tuple[dict, int, bool, dict]:
         """An agent takes a set of actions.
 
         Args:

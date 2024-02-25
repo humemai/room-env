@@ -3,10 +3,10 @@
 This env uses the RoomDes (room_env/envs/des.py).
 This is a more generalized version than RoomEnv0.
 """
+
 import logging
 import os
 import random
-from copy import deepcopy
 
 import gymnasium as gym
 
@@ -206,7 +206,7 @@ class RoomEnv1(gym.Env):
             increment_des=False
         )
 
-        return deepcopy((self.obs, self.question)), info
+        return (self.obs, self.question), info
 
     def step(self, action: str) -> tuple[tuple, int, bool, bool, dict]:
         """An agent takes an action.
@@ -237,7 +237,7 @@ class RoomEnv1(gym.Env):
         else:
             done = False
 
-        return deepcopy((self.obs, self.question)), reward, done, truncated, info
+        return (self.obs, self.question), reward, done, truncated, info
 
     def render(self, mode="console") -> None:
         if mode != "console":
