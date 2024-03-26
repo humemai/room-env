@@ -104,7 +104,7 @@ such as `env.step("This is my answer!")`, but a better strategy is to keep the
 observations in memory systems and take advantage of the current observation and the
 history of them in the memory systems.
 
-Take a look at [this repo](https://github.com/tae898/humemai) for an actual
+Take a look at [this repo](https://github.com/humemai/humemai) for an actual
 interaction with this environment to learn a policy.
 
 ## Contributing
