@@ -1,36 +1,42 @@
 # The Room environments (compatible with gymnasium)
 
-[![DOI](https://zenodo.org/badge/477781069.svg)](https://zenodo.org/badge/latestdoi/477781069)
-[![PyPI version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
+[![DOI](https://zenodo.org/badge/614376641.svg)](https://zenodo.org/doi/10.5281/zenodo.10876436)
+[![PyPI
+version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
-At the moment, there are three Room environments. Click on the links below to see their
-documentations.
+At the moment, there are three versions of the Room environments.
 
-[Training agents for these environments are in a separate repo](https://github.com/tae898/explicit-memory).
+[Training agents for these environments are in a separate
+repo](https://github.com/humemai/humemai).
 
-## [Click here for the documentation of RoomEnv-v0](./README-v0.md)
+## README for each version
 
-RoomEnv-v0 was featured in the paper ["A Machine With Human-Like Memory Systems"](https://arxiv.org/abs/2204.01611).
+- [RoomEnv-v0](./README-v0.md)
+- [RoomEnv-v1](./README-v1.md)
+- [RoomEnv-v2](./README-v2.md)
 
-## [Click here for the documentation of RoomEnv-v1](./README-v1.md)
+## List of academic papers that use the Rooms environments
 
-RoomEnv-v1 was featured in the paper ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://doi.org/10.1609/aaai.v37i1.25075).
-
-## [Click here for the documentation of RoomEnv-v2](./README-v2.md)
-
-RoomEnv-v2 was featured in the paper ["Capturing Dynamic Knowledge Graphs with Human-like Memory Systems by Reinforcement Learning"]().
+- ["A Machine With Human-Like Memory Systems"](https://arxiv.org/abs/2204.01611).
+- ["A Machine with Short-Term, Episodic, and Semantic Memory
+  Systems"](https://doi.org/10.1609/aaai.v37i1.25075).
+- ["Capturing Dynamic Knowledge Graphs with Human-like Memory Systems by Reinforcement
+  Learning"]().
 
 ## pdoc documentation
 
-https://tae898.github.io/room-env-private/
+Click on [this link](https://humemai.github.io/humemai) to see the HTML rendered
+docstrings
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn,
+inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-1. Run `make test && make style && make quality` in the root repo directory, to ensure code quality.
+1. Run `make test && make style && make quality` in the root repo directory, to ensure
+   code quality.
 1. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 1. Push to the Branch (`git push origin feature/AmazingFeature`)
 1. Open a Pull Request

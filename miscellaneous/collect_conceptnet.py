@@ -1,4 +1,5 @@
 """Collect data from ConceptNet."""
+
 import json
 import logging
 import os

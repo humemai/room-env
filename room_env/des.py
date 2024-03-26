@@ -1,4 +1,5 @@
 """Discrete Event Simlator (RoomDes) for the Room."""
+
 from copy import deepcopy
 from pprint import pprint
 
@@ -44,7 +45,6 @@ def fill_des_resources(des_size: str) -> None:
 
 
 class RoomDes:
-
     """RoomDes Class.
 
     This class is very simple at the moment. When it's initialized, it places N_{humans}

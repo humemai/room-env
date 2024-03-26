@@ -1,6 +1,6 @@
 # The Room environment - v2
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)]()
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](<>)
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. See the paper for more information.
@@ -57,7 +57,7 @@ while True:
         break
 ```
 
-Take a look at [this repo](https://github.com/tae898/explicit-memory) for an actual
+Take a look at [this repo](https://github.com/tae898/humemai) for an actual
 interaction with this environment to learn a policy.
 
 ## Contributing
