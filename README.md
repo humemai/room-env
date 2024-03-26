@@ -25,7 +25,7 @@ repo](https://github.com/humemai/humemai).
 
 ## pdoc documentation
 
-Click on [this link](https://humemai.github.io/humemai) to see the HTML rendered
+Click on [this link](https://humemai.github.io/room-env) to see the HTML rendered
 docstrings
 
 ## Contributing
