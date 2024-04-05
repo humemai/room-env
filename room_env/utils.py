@@ -20,9 +20,22 @@ logging.basicConfig(
 )
 
 
-def sample_max_value_key(prob_dict: dict[Any, float]) -> Any:
-    """Sample the key with the maximum value."""
+def sample_max_value_key(
+    prob_dict: dict[Any, float], keys_to_exclude: list = None
+) -> Any:
+    """Sample the key with the maximum value.
+
+    Args:
+        prob_dict: dict of probabilities
+        keys_to_exclude: keys to exclude
+
+    """
+    if keys_to_exclude is not None:
+        prob_dict = {k: v for k, v in prob_dict.items() if k not in keys_to_exclude}
+    else:
+        prob_dict = prob_dict
     max_key = max(prob_dict, key=prob_dict.get)
+
     return max_key
 
 

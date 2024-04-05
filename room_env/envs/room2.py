@@ -36,6 +36,7 @@ class Object:
         init_probs: dict,
         transition_probs: dict,
         question_prob: float,
+        deterministic: bool,
     ) -> None:
         """The simplest object class. One should inherit this class to make a more
         complex object.
@@ -47,6 +48,8 @@ class Object:
             transition_probs: transition probabilities of moving to another room
             question_prob: the probability of a question being asked at every
                 observation
+            deterministic: whether the object is deterministic. If True, the object is
+                deterministic. If False, the object is Markovian (stochastic).
 
         """
         self.name = name
@@ -61,17 +64,24 @@ class Object:
             )
         self.transition_probs = transition_probs
         self.question_prob = question_prob
+        self.deterministic = deterministic
 
         assert (
             self.question_prob >= 0 and self.question_prob <= 1
         ), f"question_prob must be between 0 and 1, but it's {self.question_prob}"
 
         # place an object in one of the rooms when it is created.
-        self.location = random.choices(
-            list(self.init_probs.keys()),
-            weights=list(self.init_probs.values()),
-            k=1,
-        )[0]
+        if self.deterministic:
+            self.location = sample_max_value_key(
+                self.init_probs, keys_to_exclude=["stay"]
+            )
+
+        else:
+            self.location = random.choices(
+                list(self.init_probs.keys()),
+                weights=list(self.init_probs.values()),
+                k=1,
+            )[0]
 
     def __repr__(self) -> str:
         return f"{self.type.title()}Object(name: {self.name}, location: {self.location}"
@@ -158,6 +168,7 @@ class StaticObject(Object):
             init_probs,
             transition_probs,
             question_prob,
+            deterministic=True,
         )
         assert self.transition_probs is None, "Static objects do not move."
 
@@ -173,6 +184,7 @@ class IndepdentObject(Object):
         transition_probs: dict,
         rooms: dict,
         question_prob: float,
+        deterministic: bool,
     ) -> None:
         """Independent object moves to another room with the attached dependent objects.
 
@@ -183,6 +195,8 @@ class IndepdentObject(Object):
             rooms: rooms
             question_prob: the probability of a question being asked at every
                 observation
+            deterministic: whether the object is deterministic. If True, the object is
+                deterministic. If False, the object is Markovian (stochastic).
 
         """
         super().__init__(
@@ -191,6 +205,7 @@ class IndepdentObject(Object):
             init_probs,
             transition_probs,
             question_prob,
+            deterministic,
         )
         for key, val in self.transition_probs.items():
             if abs(sum(val.values()) - 1) >= EPSILON:
@@ -202,12 +217,18 @@ class IndepdentObject(Object):
         self.rooms = rooms
 
     def move(self) -> None:
-        """Indendent object moves to another room with the attached dependent objects."""
-        action = random.choices(
-            list(self.transition_probs[self.location].keys()),
-            weights=list(self.transition_probs[self.location].values()),
-            k=1,
-        )[0]
+        """Indendent object moves to another room with attached dependent objects."""
+
+        if self.deterministic:
+            action = sample_max_value_key(
+                self.transition_probs[self.location], keys_to_exclude=["stay"]
+            )
+        else:
+            action = random.choices(
+                list(self.transition_probs[self.location].keys()),
+                weights=list(self.transition_probs[self.location].values()),
+                k=1,
+            )[0]
 
         self.location = self.move_with_action(action, self.rooms, self.location)
 
@@ -244,6 +265,7 @@ class DependentObject(Object):
         transition_probs: dict,
         independent_objects: list,
         question_prob: float,
+        deterministic: bool,
     ) -> None:
         """Dependent object attaches to an independent object.
 
@@ -256,6 +278,8 @@ class DependentObject(Object):
             independent_objects: independent objects in the environment.
             question_prob: the probability of a question being asked at every
                 observation.
+            deterministic: whether the object is deterministic. If True, the object is
+                deterministic. If False, the object is Markovian (stochastic).
 
         """
         super().__init__(
@@ -264,6 +288,7 @@ class DependentObject(Object):
             init_probs,
             transition_probs,
             question_prob,
+            deterministic,
         )
         for key, val in self.transition_probs.items():
             if val >= 1 + EPSILON:
@@ -282,11 +307,17 @@ class DependentObject(Object):
             if io.location == self.location:
                 for io_name, prob in self.transition_probs.items():
                     if io.name == io_name:
-                        if random.random() < prob:
+                        if self.deterministic:
                             possible_attachments.append(io)
+                        else:
+                            if random.random() < prob:
+                                possible_attachments.append(io)
 
         if len(possible_attachments) > 0:
-            io = random.choice(possible_attachments)
+            if self.deterministic:
+                io = possible_attachments[0]
+            else:
+                io = random.choice(possible_attachments)
             self.attached = io
             if self.name not in [do.name for do in io.attached]:
                 io.attached.append(self)
@@ -338,6 +369,7 @@ class Agent(Object):
             init_probs,
             transition_probs,
             question_prob,
+            deterministic=False,
         )
         assert self.transition_probs is None, "Agent objects do not move by itself."
         self.rooms = rooms
@@ -422,10 +454,12 @@ class RoomEnv2(gym.Env):
         num_total_questions: int = 1000,
         question_interval: int = 1,
         include_walls_in_observations: bool = True,
+        deterministic_objects: bool = False,
     ) -> None:
         """
         Args:
-            question_prob: The probability of a question being asked at every observation.
+            question_prob: The probability of a question being asked at every
+                observation.
             seed: random seed number
             terminates_at: the environment terminates at this time step.
             randomize_observations: whether to randomize observations. If "all", all
@@ -433,8 +467,8 @@ class RoomEnv2(gym.Env):
                 If "objects_middle", only objects in the middle of the observation list
                 are randomized. If "none", no observations are randomized.
             room_size: The room configuration to use. Choose one of "dev", "xxs", "xs",
-                "s", "m", or "l". You can also pass this argument as a dictionary, if you
-                have your pre-configured room configuration.
+                "s", "m", or "l". You can also pass this argument as a dictionary, if
+                you have your pre-configured room configuration.
             rewards: rewards for correct, wrong, and partial answers. A partial answer
                 is when the agent answers with a previous answer (location).
             make_everything_static: If True, all objects are static. This is useful for
@@ -443,6 +477,9 @@ class RoomEnv2(gym.Env):
             question_interval: The interval between questions. If 1, a question is asked
                 at every time step. If 2, a question is asked every other time step.
             include_walls_in_observations: whether to include walls in the observations.
+            deterministic_objects: whether to make the objects deterministic. If True,
+                the movement of the objects are deterministic. If False, they are
+                Markovian (stochastic).
 
         """
         super().__init__()
@@ -478,6 +515,7 @@ class RoomEnv2(gym.Env):
         self.num_total_questions = num_total_questions
         self.question_interval = question_interval
         self.include_walls_in_observations = include_walls_in_observations
+        self.deterministic_objects = deterministic_objects
 
         assert self.num_total_questions % (self.terminates_at + 1) == 0, (
             f"The total number of questions must be a multiple of "
@@ -546,6 +584,7 @@ class RoomEnv2(gym.Env):
                     self.object_transition_config["independent"][name],
                     self.rooms,
                     self.object_question_probs["independent"][name],
+                    self.deterministic_objects,
                 )
             )
 
@@ -557,6 +596,7 @@ class RoomEnv2(gym.Env):
                     self.object_transition_config["dependent"][name],
                     self.objects["independent"],
                     self.object_question_probs["dependent"][name],
+                    self.deterministic_objects,
                 )
             )
 
