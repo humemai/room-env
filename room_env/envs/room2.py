@@ -72,9 +72,7 @@ class Object:
 
         # place an object in one of the rooms when it is created.
         if self.deterministic:
-            self.location = sample_max_value_key(
-                self.init_probs, keys_to_exclude=["stay"]
-            )
+            self.location = sample_max_value_key(self.init_probs)
 
         else:
             self.location = random.choices(
@@ -150,6 +148,7 @@ class StaticObject(Object):
         init_probs: dict,
         transition_probs: dict,
         question_prob: float,
+        deterministic: bool,
     ) -> None:
         """Static object does not move. Once they are initialized, they stay forever.
 
@@ -160,6 +159,7 @@ class StaticObject(Object):
             transition_probs: just a place holder. It's not gonna be used anyway.
             question_prob: the probability of a question being asked at every
                 observation
+            deterministic: whether the object is deterministic.
 
         """
         super().__init__(
@@ -168,7 +168,7 @@ class StaticObject(Object):
             init_probs,
             transition_probs,
             question_prob,
-            deterministic=True,
+            deterministic=deterministic,
         )
         assert self.transition_probs is None, "Static objects do not move."
 
@@ -573,6 +573,7 @@ class RoomEnv2(gym.Env):
                     init_probs,
                     self.object_transition_config["static"][name],
                     self.object_question_probs["static"][name],
+                    self.deterministic_objects,
                 )
             )
 

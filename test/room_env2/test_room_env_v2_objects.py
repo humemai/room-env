@@ -178,6 +178,7 @@ class StaticObjectTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 question_prob=0.5,
+                deterministic=True,
             )
         with self.assertRaises(AssertionError):
             foo = StaticObject(
@@ -188,18 +189,21 @@ class StaticObjectTest(unittest.TestCase):
                     "room1": {"north": 0, "east": 0, "south": 0, "west": 0, "stay": 0},
                 },
                 question_prob=0.5,
+                deterministic=True,
             )
         foo = StaticObject(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             question_prob=0.5,
+                deterministic=True,
         )
         bar = StaticObject(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             question_prob=0.5,
+                deterministic=True,
         )
         self.assertEqual(foo, bar)
 
