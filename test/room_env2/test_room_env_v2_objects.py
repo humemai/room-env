@@ -196,14 +196,14 @@ class StaticObjectTest(unittest.TestCase):
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             question_prob=0.5,
-                deterministic=True,
+            deterministic=True,
         )
         bar = StaticObject(
             name="foo",
             init_probs={"room0": 1.0, "room1": 0},
             transition_probs=None,
             question_prob=0.5,
-                deterministic=True,
+            deterministic=True,
         )
         self.assertEqual(foo, bar)
 
