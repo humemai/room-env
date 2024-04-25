@@ -245,9 +245,6 @@ class RoomEnv0(gym.Env):
         room = []
         for head, relation, tail in self.room:
             name1, head = split_by_possessive(head)
-            # name2, tail = split_by_possessive(tail)
-
-            # assert name1 == name2, "we don't do name mixing at this moment."
 
             if random.random() < self.probs["new_object"]:
                 while True:

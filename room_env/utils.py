@@ -157,19 +157,6 @@ def argmax(iterable) -> int:
     return max(enumerate(iterable), key=lambda x: x[1])[0]
 
 
-def remove_posession(entity: str) -> str:
-    """Remove name from the entity.
-
-    Args:
-        entity: e.g., bob's laptop
-
-    Returns:
-        e.g., laptop
-
-    """
-    return entity.split("'s ")[-1]
-
-
 def split_by_possessive(name_entity: str) -> tuple[str, str]:
     """Separate name and entity from the given string.
 
