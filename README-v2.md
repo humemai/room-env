@@ -16,7 +16,7 @@ environment. See the paper for more information.
 
 ```python
 import random
-from room_env.create_room2 import RoomCreator
+from room_env.create_room_v2 import RoomCreator
 
 room_creator = RoomCreator(
     filename="dev",
