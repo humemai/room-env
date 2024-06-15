@@ -1,4 +1,3 @@
-import logging
 import random
 import unittest
 from copy import deepcopy
@@ -6,9 +5,6 @@ from copy import deepcopy
 import gymnasium as gym
 
 from room_env.envs.room2 import *
-
-logger = logging.getLogger()
-logger.disabled = True
 
 
 def all_elements_same(parent_list: list):

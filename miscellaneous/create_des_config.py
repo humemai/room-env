@@ -1,15 +1,8 @@
 import json
-import logging
 import os
 import random
 
 import yaml
-
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "DEBUG").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 
 def get_objects_and_locations(
@@ -38,7 +31,6 @@ def get_objects_and_locations(
             ["laptop", "table"], ["laptop", "desk"]])
 
     """
-    logging.debug("Getting objects and their locations for one human ...")
 
     random.shuffle(total_objects)
     num_objects = random.randint(1, maximum_num_objects_per_human)
@@ -118,10 +110,6 @@ def main(
 
     assert num_humans <= len(human_names)
 
-    logging.debug(
-        f"There were {len(semantic_knowledge)} objects before removing the duplicate "
-        "object locations."
-    )
     unique_locations = []
 
     for key, val in semantic_knowledge.copy().items():
@@ -140,11 +128,6 @@ def main(
             continue
 
         unique_locations.append(val["atlocation"][0]["tail"])
-
-    logging.info(
-        f"There are now {len(semantic_knowledge)} objects before after the duplicate "
-        "object locations."
-    )
 
     semantic_knowledge = {
         key: val["atlocation"][0]["tail"] for key, val in semantic_knowledge.items()
@@ -197,8 +180,6 @@ def main(
     )
     with open(save_path, "w") as stream:
         json.dump(config, stream, indent=4, sort_keys=False)
-
-    logging.info(f"DES config done! they are saved at {save_path}")
 
 
 if __name__ == "__main__":

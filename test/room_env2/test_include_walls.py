@@ -1,13 +1,9 @@
-import logging
 import random
 import unittest
 
 import gymnasium as gym
 
 from room_env.envs.room2 import *
-
-logger = logging.getLogger()
-logger.disabled = True
 
 
 class IncludeWallsTest(unittest.TestCase):

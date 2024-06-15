@@ -1,7 +1,6 @@
 """Utility functions"""
 
 import json
-import logging
 import os
 import random
 import subprocess
@@ -12,12 +11,6 @@ import gymnasium as gym
 import numpy as np
 import torch
 import yaml
-
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "INFO").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 
 def sample_max_value_key(
@@ -62,7 +55,6 @@ def read_lines(fname: str) -> list:
     else:
         fullpath = os.path.join(os.path.dirname(__file__), fname)
 
-    logging.debug(f"Reading {fullpath} ...")
     with open(fullpath, "r") as stream:
         names = stream.readlines()
     names = [line.strip() for line in names]
@@ -72,14 +64,12 @@ def read_lines(fname: str) -> list:
 
 def read_json(fname: str) -> None:
     """Read json"""
-    logging.debug(f"reading json {fname} ...")
     with open(fname, "r") as stream:
         return json.load(stream)
 
 
 def write_json(content: dict, fname: str) -> None:
     """Write json"""
-    logging.debug(f"writing json {fname} ...")
     with open(fname, "w") as stream:
         json.dump(content, stream, indent=4, sort_keys=False)
 
@@ -121,14 +111,12 @@ def read_yaml(fname: str) -> None:
         fullpath = fname
     else:
         fullpath = os.path.join(os.path.dirname(__file__), fname)
-    logging.debug(f"reading yaml {fullpath} ...")
     with open(fullpath, "r") as stream:
         return yaml.safe_load(stream)
 
 
 def write_yaml(content: dict, fname: str) -> None:
     """write yaml."""
-    logging.debug(f"writing yaml {fname} ...")
     with open(fname, "w") as stream:
         yaml.dump(content, stream, indent=2, sort_keys=False)
 
@@ -145,9 +133,7 @@ def read_data(data_path: str) -> dict:
             'test': list of test obs}
 
     """
-    logging.debug(f"reading data from {data_path} ...")
     data = read_json(data_path)
-    logging.info(f"Succesfully read data {data_path}")
 
     return data
 
@@ -168,7 +154,6 @@ def split_by_possessive(name_entity: str) -> tuple[str, str]:
         entity: e.g., laptop
 
     """
-    logging.debug(f"spliting name and entity from {name_entity}")
     if "'s " in name_entity:
         name, entity = name_entity.split("'s ")
     else:
@@ -189,7 +174,6 @@ def get_duplicate_dicts(search: dict, target: list) -> list:
 
     """
     assert isinstance(search, dict)
-    logging.debug("finding if duplicate dicts exist ...")
     duplicates = []
 
     for candidate in target:
@@ -197,8 +181,6 @@ def get_duplicate_dicts(search: dict, target: list) -> list:
         if set(search).issubset(set(candidate)):
             if all([val == candidate[key] for key, val in search.items()]):
                 duplicates.append(candidate)
-
-    logging.info(f"{len(duplicates)} duplicates were found!")
 
     return duplicates
 

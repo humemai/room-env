@@ -1,18 +1,11 @@
 """Collect data from ConceptNet."""
 
 import json
-import logging
 import os
 
 import requests
 import yaml
 from tqdm import tqdm
-
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "INFO").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 
 class DataCollector:
@@ -49,8 +42,6 @@ class DataCollector:
         self.read_mscoco()
         os.makedirs("./room_env/data", exist_ok=True)
 
-        logging.info("DataCollector object successfully instantiated!")
-
     def read_mscoco(self, path: str = "./room_env/data/ms-coco-80-categories") -> None:
         """Return ms coco 80 object categories.
 
@@ -58,19 +49,13 @@ class DataCollector:
             path: The path to the mscoco object category list.
 
         """
-        logging.debug(f"Reading {path} ...")
         with open(path, "r") as stream:
             self.mscoco = stream.readlines()
         self.mscoco = [line.strip() for line in self.mscoco]
         self.mscoco = ["_".join(foo.split()) for foo in self.mscoco]
-        logging.info(
-            f"Reading {path} complete! There are {len(self.mscoco)} object categories "
-            "in total."
-        )
 
     def get_from_conceptnet(self) -> None:
         """Get data from ConceptNet API by HTTP get query."""
-        logging.debug("retrieving data from conceptnet ...")
 
         if self.conceptnet_data_refresh:
             self.raw_data = {}
@@ -79,13 +64,8 @@ class DataCollector:
                     f"{self.api_url}"
                     f"query?start=/c/en/{object_category}&rel={self.relation}"
                 )
-                logging.debug(f"making an HTTP get request with query {query}")
                 response = requests.get(query).json()
 
-                logging.info(
-                    f"{len(response['edges'])} tails (entities) found for "
-                    f"{object_category}!"
-                )
                 if len(response["edges"]) == 0:
                     continue
 
@@ -103,24 +83,10 @@ class DataCollector:
 
             with open(self.conceptnet_data_path, "w") as stream:
                 json.dump(self.raw_data, stream, indent=4, sort_keys=False)
-            logging.info(
-                f"conceptconceptnet_data_path data retrieval done and saved at "
-                f"{self.conceptnet_data_path}"
-            )
         else:
-            logging.debug(
-                f"Loading the existing conceptnet data from "
-                f"{self.conceptnet_data_path}..."
-            )
             with open(self.conceptnet_data_path, "r") as stream:
                 self.raw_data = json.load(stream)
-            logging.info(
-                f"Conceptnet data successfully loaded from {self.conceptnet_data_path}"
-            )
 
-        logging.debug(
-            f"Creating semantic knowledge at {self.semantic_knowledge_path} ..."
-        )
         self.semantic_knowledge = {}
 
         for key, val in self.raw_data.items():
@@ -147,7 +113,6 @@ class DataCollector:
 
         with open(self.semantic_knowledge_path, "w") as stream:
             json.dump(self.semantic_knowledge, stream, indent=4, sort_keys=False)
-        logging.info(f"semantic knowledge saved at {self.semantic_knowledge_path} ...")
 
 
 def main(**kwargs) -> None:

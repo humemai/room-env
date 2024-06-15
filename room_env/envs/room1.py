@@ -4,20 +4,12 @@ This env uses the RoomDes (room_env/envs/des.py).
 This is a more generalized version than RoomEnv0.
 """
 
-import logging
-import os
 import random
 
 import gymnasium as gym
 
 from ..des import RoomDes
 from ..utils import seed_everything
-
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "INFO").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 
 class RoomEnv1(gym.Env):

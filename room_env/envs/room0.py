@@ -1,7 +1,5 @@
 """RoomEnv0 environment compatible with gym."""
 
-import logging
-import os
 import random
 from itertools import cycle
 
@@ -12,12 +10,6 @@ from ..utils import read_lines, split_by_possessive
 
 CORRECT = 1
 WRONG = 0
-
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "INFO").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 
 class RoomEnv0(gym.Env):
@@ -90,11 +82,7 @@ class RoomEnv0(gym.Env):
             semantic_knowledge_path = "./data/semantic-knowledge.json"
             names_path = "./data/top-human-names"
 
-        logging.debug("Creating an Observation-Question-Answer generator object ...")
         self.limits = limits
-
-        if set(list(self.limits.values())) != {None}:
-            logging.warning(f"The obserations will be limited by {self.limits}")
 
         (
             self.semantic_knowledge,
@@ -210,10 +198,8 @@ class RoomEnv0(gym.Env):
         assert len(relevant_tails) == 1
 
         if random.random() < self.probs["commonsense"]:
-            logging.debug(f"Generating a common location for {head} ...")
             tail = relevant_tails[0]
         else:
-            logging.debug(f"Generating a NON common location for {head} ...")
             while True:
                 tail = random.choice(self.tails)
 
@@ -295,15 +281,9 @@ class RoomEnv0(gym.Env):
 
         """
         if str(action).lower() == self.answer.lower():
-            logging.info(
-                f"The prediction ({action}) matches the answer ({self.answer})!"
-            )
             reward = CORRECT
 
         else:
-            logging.info(
-                f"The prediction ({action}) does NOT match the answer ({self.answer})!"
-            )
             reward = WRONG
 
         self.current_time += 1
@@ -358,11 +338,8 @@ class RoomEnv0(gym.Env):
             names = [name for name in names if len(name.split("_")) == 1]
 
         if limit_names:
-            logging.warning(f"The number of names will be limited to {limit_names}")
             names = sorted(names, key=len)
             names = names[:limit_names]
-
-        logging.info(f"Reading {path} complete! There are {len(names)} names in total")
 
         return names
 
@@ -392,12 +369,10 @@ class RoomEnv0(gym.Env):
             tails
 
         """
-        logging.debug(f"loading the semantic knowledge from {path}...")
         semantic_knowledge = read_json(path)
 
         heads = sorted(list(set(semantic_knowledge.keys())))
         if disjoint_entities:
-            logging.warning("Tails that are heads will be removed.")
             semantic_knowledge = {
                 key: {
                     key_: [tail for tail in val_ if tail["tail"] not in heads]
@@ -417,7 +392,6 @@ class RoomEnv0(gym.Env):
         semantic_knowledge = {
             key: val for key, val in semantic_knowledge.items() if len(val) > 0
         }
-        logging.info("empty entities are removed")
 
         # sort the semantic knowledge by its highest weight to be sure.
         semantic_knowledge = {
@@ -439,7 +413,6 @@ class RoomEnv0(gym.Env):
             }
 
         if limit_heads:
-            logging.warning(f"Limiting the number of heads to {limit_heads} ...")
             semantic_knowledge = {
                 key: val
                 for idx, (key, val) in enumerate(semantic_knowledge.items())
@@ -447,9 +420,6 @@ class RoomEnv0(gym.Env):
             }
 
         if limit_tails:
-            logging.warning(
-                f"Limiting the number of tails per head to {limit_tails} ..."
-            )
             semantic_knowledge = {
                 key: {key_: val_[:limit_tails] for key_, val_ in val.items()}
                 for key, val in semantic_knowledge.items()
@@ -479,7 +449,6 @@ class RoomEnv0(gym.Env):
                 )
             )
         )
-        logging.info(f"semantic knowledge successfully loaded from {path}!")
 
         semantic_knowledge_list = []
         for key, val in semantic_knowledge.items():

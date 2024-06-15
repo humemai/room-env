@@ -3,13 +3,11 @@
 This is the most complicated room environment so far. It has multiple rooms.
 """
 
-import json
-import logging
 import os
 import random
 from copy import deepcopy
 from pprint import pprint
-from typing import Any, Literal
+from typing import Literal
 
 import gymnasium as gym
 import matplotlib.pyplot as plt
@@ -19,11 +17,6 @@ from ..utils import is_running_notebook
 from ..utils import read_json_prod as read_json
 from ..utils import sample_max_value_key, seed_everything
 
-logging.basicConfig(
-    level=os.environ.get("LOGLEVEL", "INFO").upper(),
-    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 
 EPSILON = 1e-3
 

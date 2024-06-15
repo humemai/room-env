@@ -1,10 +1,6 @@
-import logging
 import unittest
 
 import gymnasium as gym
-
-logger = logging.getLogger()
-logger.disabled = True
 
 
 class RoomEnv1Test(unittest.TestCase):
