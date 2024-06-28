@@ -467,3 +467,38 @@ class RoomEnv2xxlTest(unittest.TestCase):
             self.assertEqual(observations["room"][4][0], "agent")
             for obs in observations["room"][5:]:
                 self.assertNotEqual(obs[0], "agent")
+
+
+class RoomEnv2LayoutTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.env = gym.make(
+            "room_env:RoomEnv-v2",
+            room_size="l",
+            randomize_observations="none",
+            include_walls_in_observations=True,
+            num_total_questions=100,
+        )
+
+    def test_room_layout(self) -> None:
+        observations, info = self.env.reset()
+
+        room_layout = self.env.unwrapped.return_room_layout(exclude_walls=True)
+
+        heads = [triple[0] for triple in room_layout]
+        sorted_heads = sorted(heads)
+        self.assertEqual(sorted_heads, heads)
+
+        tails = [triple[2] for triple in room_layout]
+        num_walls = tails.count("wall")
+        self.assertEqual(num_walls, 0)
+
+        room_layout = self.env.unwrapped.return_room_layout(exclude_walls=False)
+        heads = [triple[0] for triple in room_layout]
+        sorted_heads = sorted(heads)
+        self.assertEqual(sorted_heads, heads)
+
+        tails_ = [triple[2] for triple in room_layout]
+        num_walls_ = tails_.count("wall")
+        self.assertNotEqual(num_walls_, 0)
+
+        self.assertGreater(num_walls_, num_walls)

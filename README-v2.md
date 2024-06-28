@@ -55,6 +55,9 @@ while True:
     rewards += reward
     if done or truncated:
         break
+
+# You can also get the map of the rooms
+room_layout = env.unwrapped.return_room_layout(exclude_walls=True)
 ```
 
 Take a look at [this repo](https://github.com/humemai/humemai) for an actual
