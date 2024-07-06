@@ -27,6 +27,7 @@ class RoomCreator:
         give_fake_names: bool = False,
         static_object_in_every_room: bool = True,
         filename: str = "dev",
+        same_question_probs: bool = True,
     ) -> None:
         """Create rooms with objects.
 
@@ -43,6 +44,8 @@ class RoomCreator:
             static_object_in_every_room: If True, every room has at least one static
                 object.
             filename: filename to save the config.
+            same_question_probs: If True, all objects have the same probability of
+                being asked.
 
         """
         self.filename = filename
@@ -59,6 +62,7 @@ class RoomCreator:
         self.give_fake_names = give_fake_names
         self.minimum_transition_stay_prob = minimum_transition_stay_prob
         self.static_object_in_every_room = static_object_in_every_room
+        self.same_question_probs = same_question_probs
 
     def run(self):
         self._create_grid_world()
@@ -388,12 +392,23 @@ class RoomCreator:
 
         """
         self.question_probs = {}
+        num_objects_except_agent = (
+            self.num_static_objects
+            + self.num_independent_objects
+            + self.num_dependent_objects
+        )
 
         for object_type in ["static", "independent", "dependent"]:
-            self.question_probs[object_type] = {
-                object_name: np.random.beta(0.5, 0.5, 1).item()
-                for object_name in self.names[f"{object_type}_objects"]
-            }
+            if self.same_question_probs:
+                self.question_probs[object_type] = {
+                    object_name: 1 / num_objects_except_agent
+                    for object_name in self.names[f"{object_type}_objects"]
+                }
+            else:
+                self.question_probs[object_type] = {
+                    object_name: np.random.beta(0.5, 0.5, 1).item()
+                    for object_name in self.names[f"{object_type}_objects"]
+                }
 
         # we don't want to ask a question about the agent.
         self.question_probs["agent"] = {"agent": 0}
