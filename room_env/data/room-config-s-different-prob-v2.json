@@ -1,0 +1,182 @@
+{
+    "room_config": {
+        "room_000": {
+            "north": "wall",
+            "east": "wall",
+            "south": "room_001",
+            "west": "wall"
+        },
+        "room_001": {
+            "north": "room_000",
+            "east": "room_002",
+            "south": "room_003",
+            "west": "wall"
+        },
+        "room_002": {
+            "north": "wall",
+            "east": "wall",
+            "south": "wall",
+            "west": "room_001"
+        },
+        "room_003": {
+            "north": "room_001",
+            "east": "wall",
+            "south": "wall",
+            "west": "wall"
+        }
+    },
+    "object_init_config": {
+        "static": {
+            "sta_000": {
+                "room_000": 0,
+                "room_001": 0,
+                "room_002": 1,
+                "room_003": 0
+            }
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": 0,
+                "room_001": 1,
+                "room_002": 0,
+                "room_003": 0
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "room_000": 1,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0
+            }
+        },
+        "agent": {
+            "agent": {
+                "room_000": 1,
+                "room_001": 0,
+                "room_002": 0,
+                "room_003": 0
+            }
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.003357544043239513,
+                    "west": 0.0,
+                    "stay": 0.9966424559567605
+                },
+                "room_001": {
+                    "north": 0.00013847112111008372,
+                    "east": 0.021829361910337776,
+                    "south": 0.133775268494478,
+                    "west": 0.0,
+                    "stay": 0.8442568984740741
+                },
+                "room_002": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.09369435742346877,
+                    "stay": 0.9063056425765312
+                },
+                "room_003": {
+                    "north": 0.03797672276169506,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9620232772383049
+                }
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "ind_000": 0.7214351585521511
+            }
+        },
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_question_probs": {
+        "static": {
+            "sta_000": 0.05201267354948349
+        },
+        "independent": {
+            "ind_000": 0.9470073783817513
+        },
+        "dependent": {
+            "dep_000": 0.0009799480687652175
+        },
+        "agent": {
+            "agent": 0.0
+        }
+    },
+    "grid": [
+        [
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            1,
+            0
+        ],
+        [
+            0,
+            0,
+            1,
+            1
+        ],
+        [
+            0,
+            0,
+            1,
+            0
+        ]
+    ],
+    "room_indexes": [
+        [
+            1,
+            2
+        ],
+        [
+            2,
+            2
+        ],
+        [
+            2,
+            3
+        ],
+        [
+            3,
+            2
+        ]
+    ],
+    "names": {
+        "room": [
+            "room_000",
+            "room_001",
+            "room_002",
+            "room_003"
+        ],
+        "static_objects": [
+            "sta_000"
+        ],
+        "independent_objects": [
+            "ind_000"
+        ],
+        "dependent_objects": [
+            "dep_000"
+        ]
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "room_config": {
+        "room_000": {
+            "north": "wall",
+            "east": "wall",
+            "south": "room_001",
+            "west": "wall"
+        },
+        "room_001": {
+            "north": "room_000",
+            "east": "wall",
+            "south": "wall",
+            "west": "wall"
+        }
+    },
+    "object_init_config": {
+        "static": {
+            "sta_000": {
+                "room_000": 0,
+                "room_001": 1
+            }
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": 1,
+                "room_001": 0
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "room_000": 0,
+                "room_001": 1
+            }
+        },
+        "agent": {
+            "agent": {
+                "room_000": 1,
+                "room_001": 0
+            }
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null
+        },
+        "independent": {
+            "ind_000": {
+                "room_000": {
+                    "north": 0.0,
+                    "east": 0.0,
+                    "south": 0.06537958321496573,
+                    "west": 0.0,
+                    "stay": 0.9346204167850343
+                },
+                "room_001": {
+                    "north": 0.05660230350662432,
+                    "east": 0.0,
+                    "south": 0.0,
+                    "west": 0.0,
+                    "stay": 0.9433976964933757
+                }
+            }
+        },
+        "dependent": {
+            "dep_000": {
+                "ind_000": 0.6976032420564575
+            }
+        },
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_question_probs": {
+        "static": {
+            "sta_000": 0.035027983027710756
+        },
+        "independent": {
+            "ind_000": 0.23058343553629476
+        },
+        "dependent": {
+            "dep_000": 0.7343885814359946
+        },
+        "agent": {
+            "agent": 0.0
+        }
+    },
+    "grid": [
+        [
+            1,
+            0
+        ],
+        [
+            1,
+            0
+        ]
+    ],
+    "room_indexes": [
+        [
+            0,
+            0
+        ],
+        [
+            1,
+            0
+        ]
+    ],
+    "names": {
+        "room": [
+            "room_000",
+            "room_001"
+        ],
+        "static_objects": [
+            "sta_000"
+        ],
+        "independent_objects": [
+            "ind_000"
+        ],
+        "dependent_objects": [
+            "dep_000"
+        ]
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "room_config": {
+        "room_000": {
+            "north": "wall",
+            "east": "wall",
+            "south": "wall",
+            "west": "wall"
+        }
+    },
+    "object_init_config": {
+        "static": {
+            "sta_000": {
+                "room_000": 1
+            }
+        },
+        "independent": {},
+        "dependent": {},
+        "agent": {
+            "agent": {
+                "room_000": 1
+            }
+        }
+    },
+    "object_transition_config": {
+        "static": {
+            "sta_000": null
+        },
+        "independent": {},
+        "dependent": {},
+        "agent": {
+            "agent": null
+        }
+    },
+    "object_question_probs": {
+        "static": {
+            "sta_000": 1.0
+        },
+        "independent": {},
+        "dependent": {},
+        "agent": {
+            "agent": 0.0
+        }
+    },
+    "grid": [
+        [
+            1
+        ]
+    ],
+    "room_indexes": [
+        [
+            0,
+            0
+        ]
+    ],
+    "names": {
+        "room": [
+            "room_000"
+        ],
+        "static_objects": [
+            "sta_000"
+        ],
+        "independent_objects": [],
+        "dependent_objects": []
+    }
+}
