@@ -4,8 +4,7 @@
 [![PyPI
 version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
-![](figures/room-layout-xl.png)
-![](figures/room-layout-kg-xl.png)
+<img src="figures/room-layout-xl.png" alt="" style="width: 50%;"/><img src="figures/room-layout-kg-xl.png" alt="" style="width: 50%;"/>
 
 At the moment, there are three versions of the Room environments.
 

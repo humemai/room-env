@@ -1,13 +1,11 @@
 # The Room environment - v2
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](<>)
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)]()
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. See the paper for more information.
 
-![](figures/room-layout-xl.png)
-![](figures/room-layout-kg-xl.png)
-
+<img src="figures/room-layout-xl.png" alt="" style="width: 50%;"/><img src="figures/room-layout-kg-xl.png" alt="" style="width: 50%;"/>
 
 ## Prerequisites
 
