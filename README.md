@@ -4,6 +4,9 @@
 [![PyPI
 version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
+![](figures/room-layout-xl.png)
+![](figures/room-layout-kg-xl.png)
+
 At the moment, there are three versions of the Room environments.
 
 [Training agents for these environments are in a separate

@@ -5,6 +5,10 @@
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. See the paper for more information.
 
+![](figures/room-layout-xl.png)
+![](figures/room-layout-kg-xl.png)
+
+
 ## Prerequisites
 
 1. A unix or unix-like x86 machine
