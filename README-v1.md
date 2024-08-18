@@ -1,6 +1,6 @@
 # The Room environment - v1
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://doi.org/10.1609/aaai.v37i1.25075)
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/abs/2212.02098)
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. The best strategy for this environment is to have both episodic and semantic
@@ -112,7 +112,7 @@ inspire, and create. Any contributions you make are **greatly appreciated**.
 1. Push to the Branch (`git push origin feature/AmazingFeature`)
 1. Open a Pull Request
 
-## [Cite our paper](https://doi.org/10.1609/aaai.v37i1.25075)
+## [Cite our paper](https://arxiv.org/abs/2212.02098)
 
 ```bibtex
 @article{Kim_Cochez_Francois-Lavet_Neerincx_Vossen_2023,
