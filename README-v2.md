@@ -1,6 +1,6 @@
 # The Room environment - v2
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)]()
+[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/pdf/2408.05861)
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. See the paper for more information.
@@ -78,10 +78,18 @@ inspire, and create. Any contributions you make are **greatly appreciated**.
 1. Push to the Branch (`git push origin feature/AmazingFeature`)
 1. Open a Pull Request
 
-## [Cite our paper](WIP)
+## [Cite our paper](https://arxiv.org/abs/2408.05861)
 
 ```bibtex
-WIP
+@misc{kim2024leveragingknowledgegraphbasedhumanlike,
+      title={Leveraging Knowledge Graph-Based Human-Like Memory Systems to Solve Partially Observable Markov Decision Processes},
+      author={Taewoon Kim and Vincent François-Lavet and Michael Cochez},
+      year={2024},
+      eprint={2408.05861},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2408.05861},
+}
 ```
 
 ## Authors
