@@ -439,8 +439,8 @@ class RoomEnv2(gym.Env):
         terminates_at: int = 99,
         randomize_observations: Literal[
             "all", "objects", "none", "objects_middle"
-        ] = "objects",
-        room_size: str = "l",
+        ] = "all",
+        room_size: str = "xl-different-prob",
         rewards: dict = {"correct": 1, "wrong": 0, "partial": 0},
         make_everything_static: bool = False,
         num_total_questions: int = 1000,

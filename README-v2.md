@@ -43,7 +43,7 @@ room_creator.run()
 import gymnasium as gym
 import random
 
-env = gym.make("room_env:RoomEnv-v2", room_size="l")
+env = gym.make("room_env:RoomEnv-v2")
 observations, info = env.reset()
 rewards = 0
 
@@ -60,10 +60,20 @@ while True:
 
 # You can also get the map of the rooms
 room_layout = env.unwrapped.return_room_layout(exclude_walls=True)
+
+# Get the entities of the env
+entities = env.unwrapped.entities
+
+# Get the relations of the env
+relations = env.unwrapped.relations
+
+# See when the env terminates
+terminates_at = env.unwrapped.terminates_at
 ```
 
-Take a look at [this repo](https://github.com/humemai/humemai) for an actual
-interaction with this environment to learn a policy.
+Take a look at
+[https://github.com/humemai/agent-room-env-v2-gnn](https://github.com/humemai/agent-room-env-v2-gnn)
+for an actual interaction with this environment to learn a policy.
 
 ## Contributing
 
