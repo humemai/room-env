@@ -7,6 +7,9 @@ environment. See the paper for more information.
 
 <img src="figures/room-layout-xl.png" alt="" style="width: 50%;"/><img src="figures/room-layout-kg-xl.png" alt="" style="width: 50%;"/>
 
+Check out the leaderboard
+[https://paperswithcode.com/sota/roomenv-v2-on-roomenv-v2](https://paperswithcode.com/sota/roomenv-v2-on-roomenv-v2)
+
 ## Prerequisites
 
 1. A unix or unix-like x86 machine

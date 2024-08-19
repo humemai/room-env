@@ -6,6 +6,9 @@ We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatib
 environment. The best strategy for this environment is to have both episodic and semantic
 memory systems. See the paper for more information.
 
+Check out the leaderboard
+[https://paperswithcode.com/sota/roomenv-v1-on-roomenv-v1](https://paperswithcode.com/sota/roomenv-v1-on-roomenv-v1)
+
 ## Prerequisites
 
 1. A unix or unix-like x86 machine
