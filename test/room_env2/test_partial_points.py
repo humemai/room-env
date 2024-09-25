@@ -33,26 +33,26 @@ class PartialPointsTest(unittest.TestCase):
                 if break_:
                     break
             if len(set(obj.history)) == 1:
-                observations, reward, done, truncated, info = env.step(
+                observations, rewards, done, truncated, info = env.step(
                     (
                         [obj.location],
                         random.choice(["north", "south", "east", "west", "stay"]),
                     )
                 )
 
-                self.assertEqual(reward, 1)
+                self.assertEqual(rewards, [1])
             else:
                 for previous_location in obj.history[::-1]:
                     if previous_location != obj.location:
                         break
 
-                observations, reward, done, truncated, info = env.step(
+                observations, rewards, done, truncated, info = env.step(
                     (
                         [previous_location],
                         random.choice(["north", "south", "east", "west", "stay"]),
                     )
                 )
-                self.assertEqual(reward, 0)
+                self.assertEqual(rewards, [0])
 
             if done:
                 break

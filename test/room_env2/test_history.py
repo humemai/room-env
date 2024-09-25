@@ -45,7 +45,7 @@ class ObjectHistoryTest(unittest.TestCase):
                     locations[obj.name] = [obj.location]
 
         while True:
-            observations, reward, done, truncated, info = env.step((["foo"], "stay"))
+            observations, rewards, done, truncated, info = env.step((["foo"], "stay"))
             for obj_type, objs in env.objects.items():
                 for obj in objs:
                     locations[obj.name].append(obj.location)
@@ -80,7 +80,7 @@ class ObjectHistoryTest(unittest.TestCase):
                     locations[obj.name] = [obj.location]
 
         while True:
-            observations, reward, done, truncated, info = env.step(
+            observations, rewards, done, truncated, info = env.step(
                 (["foo"], random.choice(["north", "south", "east", "west"]))
             )
             for obj_type, objs in env.objects.items():
@@ -122,16 +122,16 @@ class ObjectHistoryTest(unittest.TestCase):
                 }
                 env = gym.make("room_env:RoomEnv-v2", **env_config)
                 observations, info = env.reset()
-                rewards = 0
+                rewards = []
 
                 while True:
-                    observations, reward, done, truncated, info = env.step(
+                    observations, rewards_, done, truncated, info = env.step(
                         (
                             ["random answer"] * len(observations["questions"]),
                             random.choice(["north", "east", "south", "west", "stay"]),
                         )
                     )
-                    rewards += reward
+                    rewards.append(rewards_)
                     if done or truncated:
                         break
 

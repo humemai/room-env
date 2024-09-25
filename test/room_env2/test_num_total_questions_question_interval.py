@@ -42,9 +42,9 @@ class NumTotalQuestionsTest(unittest.TestCase):
 
         self.assertEqual(observations["questions"], [])
         with self.assertRaises(AssertionError):
-            observations, reward, done, truncated, info = env.step(("foo", "stay"))
+            observations, rewards, done, truncated, info = env.step(("foo", "stay"))
         with self.assertRaises(AssertionError):
-            observations, reward, done, truncated, info = env.step((["foo"], "stay"))
+            observations, rewards, done, truncated, info = env.step((["foo"], "stay"))
 
     def test_correct_answers(self) -> None:
         env_config = {
@@ -64,8 +64,8 @@ class NumTotalQuestionsTest(unittest.TestCase):
         questions_all = []
         self.assertEqual(len(observations["questions"]), 0)
 
-        observations, reward, done, truncated, info = env.step(([], "stay"))
-        self.assertEqual(reward, 0)
+        observations, rewards, done, truncated, info = env.step(([], "stay"))
+        self.assertEqual(rewards, [])
 
         while True:
             flag = False
@@ -77,11 +77,13 @@ class NumTotalQuestionsTest(unittest.TestCase):
                 for q in observations["questions"]:
                     questions_all.append(q)
 
-            observations, reward, done, truncated, info = env.step((actions_qa, "stay"))
+            observations, rewards, done, truncated, info = env.step(
+                (actions_qa, "stay")
+            )
             if flag:
-                self.assertEqual(reward, -1 * env.num_questions_step)
+                self.assertEqual(rewards, [-1] * env.num_questions_step)
             else:
-                self.assertEqual(reward, 0)
+                self.assertEqual(rewards, [])
 
             if done:
                 break

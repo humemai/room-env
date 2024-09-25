@@ -88,11 +88,11 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
 
             question_previous = observations["questions"][0]
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (actions_qa, "east")
             )
-            rewards.append(reward)
-            self.assertEqual(reward, 1)
+            rewards.append(rewards_)
+            self.assertEqual(rewards_, [1])
             self.assertFalse(done)
             # if question_previous == ["?", "atlocation", "officeroom", 0]:
             #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 0})
@@ -131,11 +131,11 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                 raise ValueError
             question_previous = observations["questions"][0]
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (actions_qa, "stay")
             )
-            rewards.append(reward)
-            self.assertEqual(reward, 1)
+            rewards.append(rewards_)
+            self.assertEqual(rewards_, [1])
             self.assertFalse(done)
             # if question_previous == ["?", "atlocation", "officeroom", 1]:
             #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
@@ -151,20 +151,20 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                 raise ValueError
 
             for _ in range(7):
-                observations, reward, done, truncated, info = self.env.step(
+                observations, rewards_, done, truncated, info = self.env.step(
                     (["foo"], "stay")
                 )
-                rewards.append(reward)
+                rewards.append(rewards_)
 
-                self.assertEqual(reward, -1)
+                self.assertEqual(rewards_, [-1])
                 self.assertFalse(done)
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (["bar"], "stay")
             )
-            rewards.append(reward)
+            rewards.append(rewards_)
             self.assertEqual(len(rewards), 10)
-            self.assertEqual(reward, -1)
+            self.assertEqual(rewards_, [-1])
             self.assertTrue(done)
             # self.assertIsNone(self.env.observations_room)
             # self.assertIsNone(self.env.question)
@@ -296,10 +296,10 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 actions_qa = ["officeroom"]
             question_previous = observations["questions"]
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (actions_qa, "east")
             )
-            rewards.append(reward)
+            rewards.append(rewards_)
             # if question_previous[0] == "?":
             #     self.assertEqual(
             #         info, {"answers": ["desk", "tae", "laptop"], "timestamp": 0}
@@ -335,7 +335,7 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["?", "atlocation", "livingroom", 1],
                 ],
             )
-            self.assertEqual(reward, 1)
+            self.assertEqual(rewards_, [1])
             self.assertFalse(done)
 
             if observations["questions"][0] == ["desk", "atlocation", "?", 1]:
@@ -353,10 +353,10 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
 
             question_previous = observations["questions"][0]
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (actions_qa, "west")
             )
-            rewards.append(reward)
+            rewards.append(rewards_)
             if question_previous == ["desk", "atlocation", "?", 1]:
                 self.assertEqual(
                     info,
@@ -416,24 +416,24 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["?", "atlocation", "officeroom", 2],
                 ],
             )
-            self.assertEqual(reward, 1)
+            self.assertEqual(rewards_, [1])
             self.assertFalse(done)
 
             for _ in range(97):
-                observations, reward, done, truncated, info = self.env.step(
+                observations, rewards_, done, truncated, info = self.env.step(
                     (["foo"], "stay")
                 )
-                rewards.append(reward)
+                rewards.append(rewards_)
 
-                self.assertEqual(reward, -1)
+                self.assertEqual(rewards_, [-1])
                 self.assertFalse(done)
 
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (["bar"], "stay")
             )
-            rewards.append(reward)
+            rewards.append(rewards_)
             self.assertEqual(len(rewards), 100)
-            self.assertEqual(reward, -1)
+            self.assertEqual(rewards_, [-1])
             self.assertTrue(done)
             # self.assertIsNone(self.env.observations_room)
             # self.assertIsNone(self.env.question)
@@ -458,7 +458,7 @@ class RoomEnv2xxlTest(unittest.TestCase):
         while True:
             actions_qa = [random.choice(observations["questions"][0])]
             action_explore = random.choice(["north", "east", "south", "west", "stay"])
-            observations, reward, done, truncated, info = self.env.step(
+            observations, rewards_, done, truncated, info = self.env.step(
                 (actions_qa, action_explore)
             )
             if done:

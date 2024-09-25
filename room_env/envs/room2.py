@@ -839,7 +839,7 @@ class RoomEnv2(gym.Env):
                     north, east, south, west, or stay.
 
         Returns:
-            (observation, question), reward, truncated, done, info
+            (observation, question), rewards, truncated, done, info
 
         """
         actions_qa, action_explore = actions
@@ -849,20 +849,20 @@ class RoomEnv2(gym.Env):
 
         if len(self.answers) == 0:
             assert actions_qa == [], "You shouldn't answer any questions"
-            reward = 0
+            rewards = []
 
         else:
             assert len(actions_qa) == len(
                 self.answers
             ), "You should answer all the questions."
-            reward = 0
+            rewards = []
             for actions_qa, answer in zip(actions_qa, self.answers):
                 if actions_qa == answer["current"]:
-                    reward += self.CORRECT
+                    rewards.append(self.CORRECT)
                 elif actions_qa == answer["previous"]:
-                    reward += self.PARTIAL
+                    rewards.append(self.PARTIAL)
                 else:
-                    reward += self.WRONG
+                    rewards.append(self.WRONG)
 
         if not self.make_everything_static:
             for obj in self.objects["independent"]:
@@ -891,7 +891,7 @@ class RoomEnv2(gym.Env):
         if (self.current_time + 1) % self.question_interval == 0:
             return (
                 self.get_observations_and_question(generate_questions=True),
-                reward,
+                rewards,
                 done,
                 truncated,
                 info,
@@ -899,7 +899,7 @@ class RoomEnv2(gym.Env):
         else:
             return (
                 self.get_observations_and_question(generate_questions=False),
-                reward,
+                rewards,
                 done,
                 truncated,
                 info,

@@ -23,7 +23,6 @@ repo](https://github.com/humemai/humemai).
 - ["A Machine with Short-Term, Episodic, and Semantic Memory
   Systems"](https://arxiv.org/abs/2212.02098)
 - ["Leveraging Knowledge Graph-Based Human-Like Memory Systems to Solve Partially Observable Markov Decision Processes"](https://arxiv.org/abs/2408.05861)
-  
 
 ## pdoc documentation
 
