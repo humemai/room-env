@@ -45,3 +45,7 @@ inspire, and create. Any contributions you make are **greatly appreciated**.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Authors
+
+- [Taewoon Kim](https://taewoon.kim/)
