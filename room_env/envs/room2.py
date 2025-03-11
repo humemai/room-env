@@ -681,9 +681,6 @@ class RoomEnv2(gym.Env):
             for obj in self.objects[obj_type]:
                 self.hidden_global_state.append([obj.name, "atlocation", obj.location])
 
-        for triple in self.hidden_global_state:
-            triple.append(self.current_time)
-
         self.hidden_global_states_all.append(deepcopy(self.hidden_global_state))
 
     def _find_object_by_string(self, obj_str: str) -> Object:
@@ -712,8 +709,8 @@ class RoomEnv2(gym.Env):
                 None
 
         Returns:
-            observations_room: [head, relation, tail, current_time]
-            question: [head, relation, ?, current_time]
+            observations_room: [head, relation, tail]
+            question: [head, relation, ?]
 
         """
         agent_location = self.objects["agent"][0].location
@@ -786,9 +783,7 @@ class RoomEnv2(gym.Env):
                     self.answers.append(None)
                 else:
                     obj_chosen = objs_chosen[i]
-                    self.questions.append(
-                        [obj_chosen.name, "atlocation", "?", self.current_time]
-                    )
+                    self.questions.append([obj_chosen.name, "atlocation", "?"])
                     answer = {"current": obj_chosen.location, "previous": None}
 
                     for previous_location in obj_chosen.history[::-1]:
