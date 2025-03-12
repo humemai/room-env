@@ -12,8 +12,9 @@ from typing import Literal
 import gymnasium as gym
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
+from rdflib import Graph, URIRef
 
-from ..utils import is_running_notebook
+from ..utils import is_running_notebook, rdf_to_dict
 from ..utils import read_json_prod as read_json
 from ..utils import sample_max_value_key, seed_everything
 
@@ -117,6 +118,8 @@ class Object:
             next_location = rooms[current_location].west
         elif action == "stay":
             next_location = current_location
+        else:
+            raise ValueError("Unknown action.")
 
         if next_location != "wall":
             return next_location
@@ -488,6 +491,8 @@ class RoomEnv2(gym.Env):
             config_all = room_size
 
         self.room_config = config_all["room_config"]
+        if "mapping" in config_all:
+            self.mapping = config_all["mapping"]
         self.object_transition_config = config_all["object_transition_config"]
         self.object_init_config = config_all["object_init_config"]
         self.object_question_probs = config_all["object_question_probs"]
@@ -917,6 +922,21 @@ class RoomEnv2(gym.Env):
                     objects_in_room[obj_type].append(obj.name)
 
         return objects_in_room
+
+    def get_rdf_graph_from_observations(self) -> Graph:
+        """
+        Build an rdflib.Graph from the current observations.
+
+        Returns:
+            rdflib.Graph representing the current observations.
+        """
+        g = Graph()
+
+        # Add room observations
+        for s, p, o in self.observations_room:
+            g.add((URIRef(s), URIRef(p), URIRef(o)))
+
+        return g
 
     def render(
         self,

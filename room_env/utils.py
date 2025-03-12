@@ -7,6 +7,7 @@ import subprocess
 from copy import deepcopy
 from typing import Any
 
+from rdflib import Graph, URIRef
 import gymnasium as gym
 import numpy as np
 import torch
@@ -630,3 +631,58 @@ def is_running_notebook() -> bool:
             return False  # Other type (?)
     except NameError:
         return False  # Probably standard Python interpreter
+
+
+def rdf_to_dict(g: Graph) -> dict:
+    """Convert an rdflib Graph to a Python dictionary representation."""
+    graph_dict = {}
+    for s, p, o in g:
+        s_key = str(s)  # Convert subject to string
+        p_key = str(p)  # Convert predicate to string
+        o_value = str(o)  # Convert object to string
+
+        # Initialize subject entry if not present
+        if s_key not in graph_dict:
+            graph_dict[s_key] = {}
+
+        # If predicate exists, store as a list (for multiple values)
+        if p_key in graph_dict[s_key]:
+            if isinstance(graph_dict[s_key][p_key], list):
+                graph_dict[s_key][p_key].append(o_value)
+            else:
+                graph_dict[s_key][p_key] = [graph_dict[s_key][p_key], o_value]
+        else:
+            graph_dict[s_key][p_key] = o_value
+
+    return graph_dict
+
+
+def list_to_rdf(triples: list[list[str]]) -> Graph:
+    """Convert a list of triples (list of lists) into an RDFLib Graph object."""
+    g = Graph()
+    for s, p, o in triples:
+        s_ref, p_ref, o_ref = URIRef(s), URIRef(p), URIRef(o)
+        g.add((s_ref, p_ref, o_ref))
+    return g
+
+
+def list_to_dict(triples: list[list[str]]) -> dict:
+    """Convert a list of triples (list of lists) into a dictionary representation."""
+    graph_dict = {}
+    for s, p, o in triples:
+        if s not in graph_dict:
+            graph_dict[s] = {}
+        if p in graph_dict[s]:
+            if isinstance(graph_dict[s][p], list):
+                graph_dict[s][p].append(o)
+            else:
+                graph_dict[s][p] = [graph_dict[s][p], o]
+        else:
+            graph_dict[s][p] = o
+    return graph_dict
+
+
+def list_to_ttl(triples: list[list[str]]) -> str:
+    """Convert a list of triples (list of lists) into a TTL (Turtle) format string."""
+    g = list_to_rdf(triples)
+    return g.serialize(format="turtle")
