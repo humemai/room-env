@@ -118,5 +118,14 @@
         "dependent_objects": [
             "dep_000"
         ]
+    },
+    "mapping": {
+        "room_000": "Foyer",
+        "room_001": "Living",
+        "agent": "Agent",
+        "sta_000": "Bed",
+        "ind_000": "Alex",
+        "dep_000": "Keys",
+        "wall": "Wall"
     }
 }

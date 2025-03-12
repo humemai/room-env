@@ -1012,5 +1012,37 @@
             "dep_002",
             "dep_003"
         ]
+    },
+    "mapping": {
+        "room_000": "Foyer",
+        "room_001": "Living",
+        "room_002": "Den",
+        "room_003": "Office",
+        "room_004": "Kitchen",
+        "room_005": "Dining",
+        "room_006": "Study",
+        "room_007": "Library",
+        "room_008": "Sunroom",
+        "room_009": "Gym",
+        "room_010": "Bath",
+        "room_011": "Lounge",
+        "room_012": "Studio",
+        "room_013": "Pantry",
+        "room_014": "Laundry",
+        "room_015": "Game",
+        "agent": "Agent",
+        "sta_000": "Bed",
+        "sta_001": "Shelf",
+        "sta_002": "Couch",
+        "sta_003": "Table",
+        "ind_000": "Alex",
+        "ind_001": "Sam",
+        "ind_002": "Jamie",
+        "ind_003": "Taylor",
+        "dep_000": "Keys",
+        "dep_001": "Coat",
+        "dep_002": "Book",
+        "dep_003": "Toy",
+        "wall": "Wall"
     }
 }
