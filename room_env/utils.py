@@ -657,6 +657,19 @@ def rdf_to_dict(g: Graph) -> dict:
     return graph_dict
 
 
+def dict_to_rdf(graph_dict: dict) -> Graph:
+    """Convert a dictionary representation to an RDFLib Graph object."""
+    g = Graph()
+    for s, preds in graph_dict.items():
+        for p, objs in preds.items():
+            if isinstance(objs, list):
+                for o in objs:
+                    g.add((URIRef(s), URIRef(p), URIRef(o)))
+            else:
+                g.add((URIRef(s), URIRef(p), URIRef(objs)))
+    return g
+
+
 def list_to_rdf(triples: list[list[str]]) -> Graph:
     """Convert a list of triples (list of lists) into an RDFLib Graph object."""
     g = Graph()
@@ -664,6 +677,14 @@ def list_to_rdf(triples: list[list[str]]) -> Graph:
         s_ref, p_ref, o_ref = URIRef(s), URIRef(p), URIRef(o)
         g.add((s_ref, p_ref, o_ref))
     return g
+
+
+def rdf_to_list(g: Graph) -> list[list[str]]:
+    """Convert an rdflib Graph to a list of triples (list of lists)."""
+    triples = []
+    for s, p, o in g:
+        triples.append([str(s), str(p), str(o)])
+    return triples
 
 
 def list_to_dict(triples: list[list[str]]) -> dict:
@@ -682,7 +703,16 @@ def list_to_dict(triples: list[list[str]]) -> dict:
     return graph_dict
 
 
-def list_to_ttl(triples: list[list[str]]) -> str:
-    """Convert a list of triples (list of lists) into a TTL (Turtle) format string."""
-    g = list_to_rdf(triples)
-    return g.serialize(format="turtle")
+def dict_to_list(graph_dict: dict) -> list[list[str]]:
+    """
+    Convert a dictionary representation to a list of triples (list of lists).
+    """
+    triples = []
+    for s, preds in graph_dict.items():
+        for p, objs in preds.items():
+            if isinstance(objs, list):
+                for o in objs:
+                    triples.append([s, p, o])
+            else:
+                triples.append([s, p, objs])
+    return triples

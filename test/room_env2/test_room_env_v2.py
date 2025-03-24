@@ -64,8 +64,8 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
                     )
                 },
             )
-            self.assertIn(["agent", "atlocation", "officeroom"], observations["room"])
-            self.assertIn(["desk", "atlocation", "officeroom"], observations["room"])
+            self.assertIn(["agent", "at_location", "officeroom"], observations["room"])
+            self.assertIn(["desk", "at_location", "officeroom"], observations["room"])
             self.assertIn(["officeroom", "north", "wall"], observations["room"])
             self.assertIn(["officeroom", "east", "wall"], observations["room"])
             self.assertIn(["officeroom", "south", "wall"], observations["room"])
@@ -73,13 +73,13 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             self.assertIn(
                 observations["questions"][0],
                 [
-                    ["?", "atlocation", "officeroom"],
-                    ["desk", "atlocation", "?"],
+                    ["?", "at_location", "officeroom"],
+                    ["desk", "at_location", "?"],
                 ],
             )
-            if observations["questions"][0] == ["?", "atlocation", "officeroom"]:
+            if observations["questions"][0] == ["?", "at_location", "officeroom"]:
                 actions_qa = ["desk"]
-            elif observations["questions"][0] == ["desk", "atlocation", "?"]:
+            elif observations["questions"][0] == ["desk", "at_location", "?"]:
                 actions_qa = ["officeroom"]
             else:
                 raise ValueError(f"{observations['questions']}")
@@ -92,9 +92,9 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             rewards.append(rewards_)
             self.assertEqual(rewards_, [1])
             self.assertFalse(done)
-            # if question_previous == ["?", "atlocation", "officeroom"]:
+            # if question_previous == ["?", "at_location", "officeroom"]:
             #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 0})
-            if question_previous == ["desk", "atlocation", "?"]:
+            if question_previous == ["desk", "at_location", "?"]:
                 self.assertEqual(
                     info,
                     {
@@ -105,8 +105,8 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             else:
                 raise ValueError
 
-            self.assertIn(["agent", "atlocation", "officeroom"], observations["room"])
-            self.assertIn(["desk", "atlocation", "officeroom"], observations["room"])
+            self.assertIn(["agent", "at_location", "officeroom"], observations["room"])
+            self.assertIn(["desk", "at_location", "officeroom"], observations["room"])
             self.assertIn(["officeroom", "north", "wall"], observations["room"])
             self.assertIn(["officeroom", "east", "wall"], observations["room"])
             self.assertIn(["officeroom", "south", "wall"], observations["room"])
@@ -114,14 +114,14 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             self.assertIn(
                 observations["questions"][0],
                 [
-                    ["?", "atlocation", "officeroom"],
-                    ["desk", "atlocation", "?"],
+                    ["?", "at_location", "officeroom"],
+                    ["desk", "at_location", "?"],
                 ],
             )
 
-            if observations["questions"][0] == ["?", "atlocation", "officeroom"]:
+            if observations["questions"][0] == ["?", "at_location", "officeroom"]:
                 actions_qa = ["desk"]
-            elif observations["questions"][0] == ["desk", "atlocation", "?"]:
+            elif observations["questions"][0] == ["desk", "at_location", "?"]:
                 actions_qa = ["officeroom"]
             else:
                 raise ValueError
@@ -133,9 +133,9 @@ class RoomEnv2OneRoomTest(unittest.TestCase):
             rewards.append(rewards_)
             self.assertEqual(rewards_, [1])
             self.assertFalse(done)
-            # if question_previous == ["?", "atlocation", "officeroom"]:
+            # if question_previous == ["?", "at_location", "officeroom"]:
             #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
-            if question_previous == ["desk", "atlocation", "?"]:
+            if question_previous == ["desk", "at_location", "?"]:
                 self.assertEqual(
                     info,
                     {
@@ -269,20 +269,20 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["officeroom", "east", "livingroom"],
                     ["officeroom", "south", "wall"],
                     ["officeroom", "west", "wall"],
-                    ["agent", "atlocation", "officeroom"],
-                    ["desk", "atlocation", "officeroom"],
-                    ["tae", "atlocation", "officeroom"],
-                    ["laptop", "atlocation", "officeroom"],
+                    ["agent", "at_location", "officeroom"],
+                    ["desk", "at_location", "officeroom"],
+                    ["tae", "at_location", "officeroom"],
+                    ["laptop", "at_location", "officeroom"],
                 ],
             )
 
             self.assertIn(
                 observations["questions"][0],
                 [
-                    ["desk", "atlocation", "?"],
-                    ["tae", "atlocation", "?"],
-                    ["laptop", "atlocation", "?"],
-                    ["?", "atlocation", "officeroom"],
+                    ["desk", "at_location", "?"],
+                    ["tae", "at_location", "?"],
+                    ["laptop", "at_location", "?"],
+                    ["?", "at_location", "officeroom"],
                 ],
             )
 
@@ -300,7 +300,7 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
             #     self.assertEqual(
             #         info, {"answers": ["desk", "tae", "laptop"], "timestamp": 0}
             #     )
-            if question_previous == ["desk", "atlocation", "?"]:
+            if question_previous == ["desk", "at_location", "?"]:
                 self.assertEqual(
                     info,
                     {
@@ -316,33 +316,33 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["livingroom", "east", "wall"],
                     ["livingroom", "south", "wall"],
                     ["livingroom", "west", "officeroom"],
-                    ["agent", "atlocation", "livingroom"],
-                    ["tae", "atlocation", "livingroom"],
-                    ["laptop", "atlocation", "livingroom"],
+                    ["agent", "at_location", "livingroom"],
+                    ["tae", "at_location", "livingroom"],
+                    ["laptop", "at_location", "livingroom"],
                 ],
             )
             self.assertIn(
                 observations["questions"][0],
                 [
-                    ["desk", "atlocation", "?"],
-                    ["tae", "atlocation", "?"],
-                    ["laptop", "atlocation", "?"],
-                    ["?", "atlocation", "officeroom"],
-                    ["?", "atlocation", "livingroom"],
+                    ["desk", "at_location", "?"],
+                    ["tae", "at_location", "?"],
+                    ["laptop", "at_location", "?"],
+                    ["?", "at_location", "officeroom"],
+                    ["?", "at_location", "livingroom"],
                 ],
             )
             self.assertEqual(rewards_, [1])
             self.assertFalse(done)
 
-            if observations["questions"][0] == ["desk", "atlocation", "?"]:
+            if observations["questions"][0] == ["desk", "at_location", "?"]:
                 actions_qa = ["officeroom"]
-            elif observations["questions"][0] == ["tae", "atlocation", "?"]:
+            elif observations["questions"][0] == ["tae", "at_location", "?"]:
                 actions_qa = ["livingroom"]
-            elif observations["questions"][0] == ["laptop", "atlocation", "?"]:
+            elif observations["questions"][0] == ["laptop", "at_location", "?"]:
                 actions_qa = ["livingroom"]
-            elif observations["questions"][0] == ["?", "atlocation", "officeroom"]:
+            elif observations["questions"][0] == ["?", "at_location", "officeroom"]:
                 actions_qa = ["desk"]
-            elif observations["questions"][0] == ["?", "atlocation", "livingroom"]:
+            elif observations["questions"][0] == ["?", "at_location", "livingroom"]:
                 actions_qa = [random.choice(["tae", "laptop"])]
             else:
                 raise ValueError
@@ -353,7 +353,7 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 (actions_qa, "west")
             )
             rewards.append(rewards_)
-            if question_previous == ["desk", "atlocation", "?"]:
+            if question_previous == ["desk", "at_location", "?"]:
                 self.assertEqual(
                     info,
                     {
@@ -363,11 +363,11 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                 )
             elif question_previous == [
                 "tae",
-                "atlocation",
+                "at_location",
                 "?",
             ] or question_previous == [
                 "laptop",
-                "atlocation",
+                "at_location",
                 "?",
             ]:
                 self.assertEqual(
@@ -380,9 +380,9 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     },
                 )
 
-            # elif question_previous == ["?", "atlocation", "officeroom"]:
+            # elif question_previous == ["?", "at_location", "officeroom"]:
             #     self.assertEqual(info, {"answers": ["desk"], "timestamp": 1})
-            # elif question_previous == ["?", "atlocation", "livingroom"]:
+            # elif question_previous == ["?", "at_location", "livingroom"]:
             #     self.assertEqual(info, {"answers": ["tae", "laptop"], "timestamp": 1})
             else:
                 raise ValueError
@@ -394,20 +394,20 @@ class RoomEnv2TwoRoomsTest(unittest.TestCase):
                     ["officeroom", "east", "livingroom"],
                     ["officeroom", "south", "wall"],
                     ["officeroom", "west", "wall"],
-                    ["agent", "atlocation", "officeroom"],
-                    ["desk", "atlocation", "officeroom"],
-                    ["tae", "atlocation", "officeroom"],
-                    ["laptop", "atlocation", "officeroom"],
+                    ["agent", "at_location", "officeroom"],
+                    ["desk", "at_location", "officeroom"],
+                    ["tae", "at_location", "officeroom"],
+                    ["laptop", "at_location", "officeroom"],
                 ],
             )
 
             self.assertIn(
                 observations["questions"][0],
                 [
-                    ["desk", "atlocation", "?"],
-                    ["tae", "atlocation", "?"],
-                    ["laptop", "atlocation", "?"],
-                    ["?", "atlocation", "officeroom"],
+                    ["desk", "at_location", "?"],
+                    ["tae", "at_location", "?"],
+                    ["laptop", "at_location", "?"],
+                    ["?", "at_location", "officeroom"],
                 ],
             )
             self.assertEqual(rewards_, [1])

@@ -68,7 +68,7 @@ class RandomizeObservationsTest(unittest.TestCase):
                 break
 
         for obs in obs_objects:
-            self.assertEqual(obs[1], "atlocation")
+            self.assertEqual(obs[1], "at_location")
             self.assertIn(obs[0].split("_")[0], ["sta", "ind", "dep"])
 
     def test_randomize_observations_all(self) -> None:
@@ -167,7 +167,7 @@ class RandomizeObservationsTest(unittest.TestCase):
 
         obs_objects.append([obs[0].split("_")[0] for obs in observations["room"][5:]])
         for obs in observations["room"][5:]:
-            self.assertEqual(obs[1], "atlocation")
+            self.assertEqual(obs[1], "at_location")
             self.assertEqual(obs[2].split("_")[0], "room")
             self.assertIn(obs[0].split("_")[0], ["sta", "ind", "dep"])
 
@@ -194,7 +194,7 @@ class RandomizeObservationsTest(unittest.TestCase):
                 [obs[0].split("_")[0] for obs in observations["room"][5:]]
             )
             for obs in observations["room"][5:]:
-                self.assertEqual(obs[1], "atlocation")
+                self.assertEqual(obs[1], "at_location")
                 self.assertEqual(obs[2].split("_")[0], "room")
                 self.assertIn(obs[0].split("_")[0], ["sta", "ind", "dep"])
 
@@ -272,7 +272,7 @@ class RandomizeObservationsTest(unittest.TestCase):
 
         obs_objects.append([obs[0].split("_")[0] for obs in observations["room"][4:-1]])
         for obs in observations["room"][4:-1]:
-            self.assertEqual(obs[1], "atlocation")
+            self.assertEqual(obs[1], "at_location")
             self.assertEqual(obs[2].split("_")[0], "room")
             self.assertIn(obs[0].split("_")[0], ["sta", "ind", "dep"])
 
@@ -299,7 +299,7 @@ class RandomizeObservationsTest(unittest.TestCase):
                 [obs[0].split("_")[0] for obs in observations["room"][4:-1]]
             )
             for obs in observations["room"][4:-1]:
-                self.assertEqual(obs[1], "atlocation")
+                self.assertEqual(obs[1], "at_location")
                 self.assertEqual(obs[2].split("_")[0], "room")
                 self.assertIn(obs[0].split("_")[0], ["sta", "ind", "dep"])
 

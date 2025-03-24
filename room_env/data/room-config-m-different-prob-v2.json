@@ -377,5 +377,23 @@
             "dep_000",
             "dep_001"
         ]
+    },
+    "mapping": {
+        "room_000": "Foyer",
+        "room_001": "Living",
+        "room_002": "Den",
+        "room_003": "Office",
+        "room_004": "Kitchen",
+        "room_005": "Dining",
+        "room_006": "Study",
+        "room_007": "Library",
+        "agent": "Agent",
+        "sta_000": "Bed",
+        "sta_001": "Shelf",
+        "ind_000": "Alex",
+        "ind_001": "Sam",
+        "dep_000": "Keys",
+        "dep_001": "Coat",
+        "wall": "Wall"
     }
 }

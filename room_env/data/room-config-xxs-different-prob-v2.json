@@ -61,5 +61,13 @@
         ],
         "independent_objects": [],
         "dependent_objects": []
+    },
+    "mapping": {
+        "room_000": "Foyer",
+        "agent": "Agent",
+        "sta_000": "Bed",
+        "ind_000": "Alex",
+        "dep_000": "Keys",
+        "wall": "Wall"
     }
 }
