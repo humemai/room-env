@@ -691,6 +691,11 @@ class RoomEnv2(gym.Env):
         self.include_walls_in_observations = include_walls_in_observations
         self.deterministic_objects = deterministic_objects
 
+        if self.deterministic_objects:
+            assert (
+                self.randomize_observations == "none"
+            ), "Deterministic objects should not have randomized observations."
+
         assert self.num_total_questions % (self.terminates_at + 1) == 0, (
             f"The total number of questions must be a multiple of "
             f"{self.terminates_at + 1}, but it's {self.num_total_questions}"
@@ -723,6 +728,9 @@ class RoomEnv2(gym.Env):
         )
         self.make_everything_static = make_everything_static
 
+        self._init_lists()
+
+    def _init_lists(self) -> None:
         self.hidden_global_states_all = []
         self.observations_all = []
         self.answers_all = []
@@ -995,6 +1003,7 @@ class RoomEnv2(gym.Env):
         Returns:
             Tuple of (observations, info_dict).
         """
+        self._init_lists()
         info = {}
         self._create_rooms()
         self._create_objects()
