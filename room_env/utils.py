@@ -7,11 +7,11 @@ import subprocess
 from copy import deepcopy
 from typing import Any
 
-from rdflib import Graph, URIRef
 import gymnasium as gym
 import numpy as np
 import torch
 import yaml
+from rdflib import Graph, URIRef
 
 
 def sample_max_value_key(

@@ -14,3 +14,8 @@ register(
     id="RoomEnv-v2",
     entry_point="room_env.envs:RoomEnv2",
 )
+
+register(
+    id="RoomEnv-v3",
+    entry_point="room_env.envs:RoomEnv3",
+)

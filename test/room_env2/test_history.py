@@ -111,7 +111,7 @@ class ObjectHistoryTest(unittest.TestCase):
                     "question_prob": 1.0,
                     "seed": seed,
                     "terminates_at": 99,
-                    "randomize_observations": "objects",
+                    "randomize_observations": "none",
                     "room_size": "l",
                     "make_everything_static": False,
                     "rewards": {"correct": 1, "wrong": 0, "partial": 0},

@@ -1,0 +1,314 @@
+{
+    "grid_length": 3,
+    "room_names": [
+        "living",
+        "kitchen",
+        "bedroom",
+        "bathroom",
+        "office",
+        "den",
+        "study",
+        "garage",
+        "basement"
+    ],
+    "room_positions": {
+        "living": [
+            0,
+            0
+        ],
+        "kitchen": [
+            0,
+            1
+        ],
+        "bedroom": [
+            0,
+            2
+        ],
+        "bathroom": [
+            1,
+            0
+        ],
+        "office": [
+            1,
+            1
+        ],
+        "den": [
+            1,
+            2
+        ],
+        "study": [
+            2,
+            0
+        ],
+        "garage": [
+            2,
+            1
+        ],
+        "basement": [
+            2,
+            2
+        ]
+    },
+    "room_connections": {
+        "living": {
+            "north": "wall",
+            "east": "kitchen",
+            "south": "bathroom",
+            "west": "wall"
+        },
+        "kitchen": {
+            "north": "wall",
+            "east": "bedroom",
+            "south": "office",
+            "west": "living"
+        },
+        "bedroom": {
+            "north": "wall",
+            "east": "wall",
+            "south": "den",
+            "west": "kitchen"
+        },
+        "bathroom": {
+            "north": "living",
+            "east": "office",
+            "south": "study",
+            "west": "wall"
+        },
+        "office": {
+            "north": "kitchen",
+            "east": "den",
+            "south": "garage",
+            "west": "bathroom"
+        },
+        "den": {
+            "north": "bedroom",
+            "east": "wall",
+            "south": "basement",
+            "west": "office"
+        },
+        "study": {
+            "north": "bathroom",
+            "east": "garage",
+            "south": "wall",
+            "west": "wall"
+        },
+        "garage": {
+            "north": "office",
+            "east": "basement",
+            "south": "wall",
+            "west": "study"
+        },
+        "basement": {
+            "north": "den",
+            "east": "wall",
+            "south": "wall",
+            "west": "garage"
+        }
+    },
+    "static_names": [
+        "chair",
+        "table"
+    ],
+    "moving_names": [
+        "john",
+        "mary"
+    ],
+    "static_locations": {
+        "chair": "bathroom",
+        "table": "study"
+    },
+    "moving_locations": {
+        "john": "garage",
+        "mary": "basement"
+    },
+    "movement_preferences": {
+        "john": [
+            "north",
+            "south",
+            "west",
+            "east"
+        ],
+        "mary": [
+            "east",
+            "west",
+            "south",
+            "north"
+        ]
+    },
+    "agent_location": "office",
+    "selected_walls": [
+        [
+            "kitchen",
+            "bedroom",
+            "vertical"
+        ],
+        [
+            "office",
+            "garage",
+            "horizontal"
+        ],
+        [
+            "study",
+            "garage",
+            "vertical"
+        ],
+        [
+            "bathroom",
+            "office",
+            "vertical"
+        ]
+    ],
+    "wall_configs": {
+        "kitchen|bedroom|vertical": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "office|garage|horizontal": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        "study|garage|vertical": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        "bathroom|office|vertical": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ]
+    },
+    "question_objects": [
+        "mary",
+        "john",
+        "mary",
+        "table",
+        "mary",
+        "mary",
+        "table",
+        "john",
+        "table",
+        "john",
+        "table",
+        "john",
+        "john",
+        "table",
+        "table",
+        "chair",
+        "chair",
+        "mary",
+        "table",
+        "chair",
+        "chair",
+        "table",
+        "chair",
+        "mary",
+        "john",
+        "john",
+        "chair",
+        "mary",
+        "mary",
+        "john",
+        "table",
+        "table",
+        "john",
+        "mary",
+        "john",
+        "john",
+        "john",
+        "john",
+        "john",
+        "john",
+        "john",
+        "john",
+        "table",
+        "chair",
+        "table",
+        "john",
+        "table",
+        "john",
+        "mary",
+        "john",
+        "mary",
+        "table",
+        "mary",
+        "john",
+        "table",
+        "mary",
+        "chair",
+        "chair",
+        "mary",
+        "mary",
+        "john",
+        "chair",
+        "table",
+        "mary",
+        "mary",
+        "table",
+        "chair",
+        "john",
+        "table",
+        "chair",
+        "mary",
+        "chair",
+        "mary",
+        "mary",
+        "john",
+        "chair",
+        "john",
+        "john",
+        "john",
+        "mary",
+        "mary",
+        "john",
+        "chair",
+        "mary",
+        "table",
+        "john",
+        "table",
+        "chair",
+        "john",
+        "chair",
+        "chair",
+        "table",
+        "chair",
+        "table",
+        "john",
+        "mary",
+        "john",
+        "table",
+        "chair",
+        "chair"
+    ],
+    "seed": 3
+}
