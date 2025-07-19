@@ -1,0 +1,305 @@
+{
+    "grid_length": 3,
+    "room_names": [
+        "living",
+        "kitchen",
+        "bedroom",
+        "bathroom",
+        "office",
+        "den",
+        "study",
+        "garage",
+        "basement"
+    ],
+    "room_positions": {
+        "living": [
+            0,
+            0
+        ],
+        "kitchen": [
+            0,
+            1
+        ],
+        "bedroom": [
+            0,
+            2
+        ],
+        "bathroom": [
+            1,
+            0
+        ],
+        "office": [
+            1,
+            1
+        ],
+        "den": [
+            1,
+            2
+        ],
+        "study": [
+            2,
+            0
+        ],
+        "garage": [
+            2,
+            1
+        ],
+        "basement": [
+            2,
+            2
+        ]
+    },
+    "room_connections": {
+        "living": {
+            "north": "wall",
+            "east": "kitchen",
+            "south": "bathroom",
+            "west": "wall"
+        },
+        "kitchen": {
+            "north": "wall",
+            "east": "bedroom",
+            "south": "office",
+            "west": "living"
+        },
+        "bedroom": {
+            "north": "wall",
+            "east": "wall",
+            "south": "den",
+            "west": "kitchen"
+        },
+        "bathroom": {
+            "north": "living",
+            "east": "office",
+            "south": "study",
+            "west": "wall"
+        },
+        "office": {
+            "north": "kitchen",
+            "east": "den",
+            "south": "garage",
+            "west": "bathroom"
+        },
+        "den": {
+            "north": "bedroom",
+            "east": "wall",
+            "south": "basement",
+            "west": "office"
+        },
+        "study": {
+            "north": "bathroom",
+            "east": "garage",
+            "south": "wall",
+            "west": "wall"
+        },
+        "garage": {
+            "north": "office",
+            "east": "basement",
+            "south": "wall",
+            "west": "study"
+        },
+        "basement": {
+            "north": "den",
+            "east": "wall",
+            "south": "wall",
+            "west": "garage"
+        }
+    },
+    "static_names": [
+        "chair",
+        "table",
+        "bed"
+    ],
+    "moving_names": [
+        "john",
+        "mary",
+        "david"
+    ],
+    "static_locations": {
+        "chair": "garage",
+        "table": "basement",
+        "bed": "bathroom"
+    },
+    "moving_locations": {
+        "john": "living",
+        "mary": "study",
+        "david": "den"
+    },
+    "movement_preferences": {
+        "john": [
+            "north",
+            "east",
+            "west",
+            "south"
+        ],
+        "mary": [
+            "north",
+            "west",
+            "east",
+            "south"
+        ],
+        "david": [
+            "west",
+            "north",
+            "south",
+            "east"
+        ]
+    },
+    "agent_location": "office",
+    "selected_walls": [
+        [
+            "office",
+            "garage",
+            "horizontal"
+        ],
+        [
+            "bedroom",
+            "den",
+            "horizontal"
+        ],
+        [
+            "kitchen",
+            "office",
+            "horizontal"
+        ],
+        [
+            "garage",
+            "basement",
+            "vertical"
+        ]
+    ],
+    "wall_configs": {
+        "office|garage|horizontal": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "bedroom|den|horizontal": [
+            1,
+            1,
+            0,
+            0
+        ],
+        "kitchen|office|horizontal": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "garage|basement|vertical": [
+            1,
+            0,
+            0
+        ]
+    },
+    "question_objects": [
+        "mary",
+        "john",
+        "table",
+        "chair",
+        "table",
+        "mary",
+        "chair",
+        "john",
+        "table",
+        "bed",
+        "chair",
+        "david",
+        "john",
+        "david",
+        "david",
+        "bed",
+        "david",
+        "mary",
+        "table",
+        "chair",
+        "mary",
+        "john",
+        "bed",
+        "table",
+        "mary",
+        "table",
+        "chair",
+        "david",
+        "david",
+        "table",
+        "mary",
+        "chair",
+        "mary",
+        "david",
+        "mary",
+        "mary",
+        "john",
+        "john",
+        "bed",
+        "bed",
+        "bed",
+        "chair",
+        "john",
+        "david",
+        "bed",
+        "bed",
+        "mary",
+        "mary",
+        "mary",
+        "bed",
+        "bed",
+        "table",
+        "david",
+        "john",
+        "table",
+        "chair",
+        "mary",
+        "table",
+        "david",
+        "david",
+        "mary",
+        "john",
+        "bed",
+        "john",
+        "chair",
+        "mary",
+        "john",
+        "david",
+        "mary",
+        "table",
+        "chair",
+        "bed",
+        "mary",
+        "table",
+        "david",
+        "table",
+        "david",
+        "bed",
+        "david",
+        "david",
+        "john",
+        "chair",
+        "david",
+        "david",
+        "table",
+        "mary",
+        "table",
+        "bed",
+        "table",
+        "john",
+        "chair",
+        "mary",
+        "john",
+        "table",
+        "david",
+        "david",
+        "john",
+        "mary",
+        "david",
+        "chair"
+    ],
+    "seed": 0
+}

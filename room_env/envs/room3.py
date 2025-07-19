@@ -133,8 +133,9 @@ class RoomEnv3(gym.Env):
 
         # Apply inner walls based on their patterns
         for wall, pattern in self.wall_configs.items():
-            # Get pattern state at current step (period 10)
-            pattern_index = self.current_step % 10
+            # Get pattern state at current step using actual pattern length
+            pattern_length = len(pattern)
+            pattern_index = self.current_step % pattern_length
             is_wall_active = pattern[pattern_index] == 1
 
             if is_wall_active:
@@ -547,7 +548,8 @@ class RoomEnv3(gym.Env):
 
         # Draw active inner walls based on current patterns
         for wall, pattern in self.wall_configs.items():
-            pattern_index = self.current_step % 10
+            pattern_length = len(pattern)
+            pattern_index = self.current_step % pattern_length
             is_wall_active = pattern[pattern_index] == 1
 
             if is_wall_active:

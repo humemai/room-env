@@ -170,52 +170,33 @@
     ],
     "wall_configs": {
         "office|garage|horizontal": [
-            0,
-            0,
-            0,
-            0,
-            0,
             1,
             1,
-            1,
-            1,
+            0,
+            0,
             1
         ],
         "bedroom|den|horizontal": [
+            1,
+            1,
             0,
-            0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
+            0
         ],
         "kitchen|office|horizontal": [
+            1,
+            1,
+            1,
             0,
+            1,
             0,
             1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
+            0,
             1
         ],
         "garage|basement|vertical": [
+            1,
             0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
+            0
         ]
     },
     "question_objects": [

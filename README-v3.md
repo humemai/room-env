@@ -6,7 +6,7 @@ A simplified version of the Room Environment with deterministic object movement,
 
 - **Square Grid**: Always `grid_length²` rooms in a square layout
 - **Deterministic Movement**: Objects move in predetermined patterns
-- **Periodic Inner Walls**: Selected walls turn on/off in 10-step cycles
+- **Periodic Inner Walls**: Selected walls turn on/off in variable-period cycles
 - **Fixed 100 Questions**: Always exactly 100 questions, one per step
 - **Flexible Episodes**: Any episode length with cycling behavior
 
@@ -65,10 +65,9 @@ while True:
 - Questions cycle if episode length > 100
 
 ### Inner Walls
-- Selected walls follow 10-step on/off patterns
-- 8 possible patterns (consecutive ones/zeros)
-- Each wall assigned a random pattern
-- Patterns cycle every 10 steps
+- Selected walls follow variable-period on/off patterns
+- Each wall assigned a random pattern from the available set
+- Patterns cycle based on their individual lengths
 
 ### Object Movement
 - **Static objects**: Never move

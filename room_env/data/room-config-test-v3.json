@@ -1,0 +1,300 @@
+{
+    "grid_length": 3,
+    "room_names": [
+        "living",
+        "kitchen",
+        "bedroom",
+        "bathroom",
+        "office",
+        "den",
+        "study",
+        "garage",
+        "basement"
+    ],
+    "room_positions": {
+        "living": [
+            0,
+            0
+        ],
+        "kitchen": [
+            0,
+            1
+        ],
+        "bedroom": [
+            0,
+            2
+        ],
+        "bathroom": [
+            1,
+            0
+        ],
+        "office": [
+            1,
+            1
+        ],
+        "den": [
+            1,
+            2
+        ],
+        "study": [
+            2,
+            0
+        ],
+        "garage": [
+            2,
+            1
+        ],
+        "basement": [
+            2,
+            2
+        ]
+    },
+    "room_connections": {
+        "living": {
+            "north": "wall",
+            "east": "kitchen",
+            "south": "bathroom",
+            "west": "wall"
+        },
+        "kitchen": {
+            "north": "wall",
+            "east": "bedroom",
+            "south": "office",
+            "west": "living"
+        },
+        "bedroom": {
+            "north": "wall",
+            "east": "wall",
+            "south": "den",
+            "west": "kitchen"
+        },
+        "bathroom": {
+            "north": "living",
+            "east": "office",
+            "south": "study",
+            "west": "wall"
+        },
+        "office": {
+            "north": "kitchen",
+            "east": "den",
+            "south": "garage",
+            "west": "bathroom"
+        },
+        "den": {
+            "north": "bedroom",
+            "east": "wall",
+            "south": "basement",
+            "west": "office"
+        },
+        "study": {
+            "north": "bathroom",
+            "east": "garage",
+            "south": "wall",
+            "west": "wall"
+        },
+        "garage": {
+            "north": "office",
+            "east": "basement",
+            "south": "wall",
+            "west": "study"
+        },
+        "basement": {
+            "north": "den",
+            "east": "wall",
+            "south": "wall",
+            "west": "garage"
+        }
+    },
+    "static_names": [
+        "chair",
+        "table"
+    ],
+    "moving_names": [
+        "john",
+        "mary"
+    ],
+    "static_locations": {
+        "chair": "kitchen",
+        "table": "living"
+    },
+    "moving_locations": {
+        "john": "basement",
+        "mary": "bathroom"
+    },
+    "movement_preferences": {
+        "john": [
+            "east",
+            "west",
+            "north",
+            "south"
+        ],
+        "mary": [
+            "east",
+            "west",
+            "south",
+            "north"
+        ]
+    },
+    "agent_location": "office",
+    "selected_walls": [
+        [
+            "office",
+            "den",
+            "vertical"
+        ],
+        [
+            "living",
+            "kitchen",
+            "vertical"
+        ],
+        [
+            "kitchen",
+            "office",
+            "horizontal"
+        ],
+        [
+            "office",
+            "garage",
+            "horizontal"
+        ]
+    ],
+    "wall_configs": {
+        "office|den|vertical": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "living|kitchen|vertical": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+        ],
+        "kitchen|office|horizontal": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "office|garage|horizontal": [
+            1,
+            1,
+            1,
+            0,
+            1
+        ]
+    },
+    "question_objects": [
+        "table",
+        "mary",
+        "table",
+        "mary",
+        "john",
+        "chair",
+        "table",
+        "mary",
+        "john",
+        "john",
+        "table",
+        "table",
+        "john",
+        "chair",
+        "chair",
+        "mary",
+        "chair",
+        "john",
+        "john",
+        "john",
+        "chair",
+        "mary",
+        "chair",
+        "mary",
+        "chair",
+        "john",
+        "john",
+        "table",
+        "chair",
+        "chair",
+        "table",
+        "john",
+        "chair",
+        "table",
+        "chair",
+        "mary",
+        "john",
+        "mary",
+        "john",
+        "table",
+        "john",
+        "john",
+        "table",
+        "john",
+        "chair",
+        "table",
+        "table",
+        "table",
+        "mary",
+        "mary",
+        "john",
+        "table",
+        "john",
+        "chair",
+        "table",
+        "chair",
+        "john",
+        "mary",
+        "john",
+        "chair",
+        "table",
+        "john",
+        "table",
+        "mary",
+        "mary",
+        "mary",
+        "table",
+        "john",
+        "table",
+        "table",
+        "john",
+        "mary",
+        "mary",
+        "john",
+        "table",
+        "table",
+        "mary",
+        "chair",
+        "chair",
+        "chair",
+        "table",
+        "table",
+        "mary",
+        "chair",
+        "mary",
+        "mary",
+        "mary",
+        "john",
+        "chair",
+        "chair",
+        "john",
+        "john",
+        "chair",
+        "john",
+        "mary",
+        "table",
+        "mary",
+        "chair",
+        "john",
+        "table"
+    ],
+    "seed": 42
+}
