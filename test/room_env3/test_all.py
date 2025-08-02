@@ -1,7 +1,7 @@
+import math
 import os
 import sys
 import unittest
-import math
 
 # Add the parent directory to the path so we can import room_env
 sys.path.append(

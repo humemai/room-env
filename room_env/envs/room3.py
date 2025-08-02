@@ -402,6 +402,50 @@ class RoomEnv3(gym.Env):
 
             plt.show()
 
+    def separate_overlapping_nodes(self, pos, min_distance=0.1, max_iterations=50):
+        """Separate overlapping nodes by applying small adjustments to their positions."""
+        import random
+
+        import numpy as np
+
+        nodes = list(pos.keys())
+        adjusted_pos = pos.copy()
+
+        for iteration in range(max_iterations):
+            overlaps_found = False
+
+            for i in range(len(nodes)):
+                for j in range(i + 1, len(nodes)):
+                    node1, node2 = nodes[i], nodes[j]
+                    pos1 = np.array(adjusted_pos[node1])
+                    pos2 = np.array(adjusted_pos[node2])
+
+                    distance = np.linalg.norm(pos1 - pos2)
+
+                    if distance < min_distance:
+                        overlaps_found = True
+
+                        # Calculate separation vector
+                        if distance == 0:
+                            # If nodes are exactly on top of each other, use random direction
+                            angle = random.uniform(0, 2 * np.pi)
+                            separation = (
+                                np.array([np.cos(angle), np.sin(angle)]) * min_distance
+                            )
+                        else:
+                            # Move nodes apart along the line connecting them
+                            direction = (pos1 - pos2) / distance
+                            separation = direction * (min_distance - distance) / 2
+
+                        # Apply separation
+                        adjusted_pos[node1] = pos1 + separation
+                        adjusted_pos[node2] = pos2 - separation
+
+            if not overlaps_found:
+                break
+
+        return adjusted_pos
+
     def _render_graph(
         self,
         figsize: tuple[int, int] = (12, 12),
@@ -459,6 +503,11 @@ class RoomEnv3(gym.Env):
             pos = nx.kamada_kawai_layout(G)
         else:
             raise ValueError(f"Unknown layout: {layout}.")
+
+        # Separate overlapping nodes
+        pos = self.separate_overlapping_nodes(
+            pos, min_distance=0.15, max_iterations=100
+        )
 
         # Draw nodes with larger size for better visibility
         nx.draw_networkx_nodes(
