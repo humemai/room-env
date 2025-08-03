@@ -550,7 +550,7 @@ class RoomEnv3(gym.Env):
         )
 
         plt.title(
-            f"Graph View - Step {self.current_step}",
+            f"Knowledge Graph View - Step {self.current_step}",
             fontsize=16,
             fontweight="bold",
         )
