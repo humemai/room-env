@@ -1,5 +1,10 @@
 # Room Environment v3
 
+<p align="center">
+  <img src="figures/room_env_v3_step_000.png"  alt="layout" width="49%">
+  <img src="figures/room_env_v3_graph_step_000.png" alt="graph" width="49%">
+</p>
+
 A simplified version of the Room Environment with deterministic object movement, periodic inner walls, and fixed question count.
 
 ## Key Features
@@ -43,9 +48,9 @@ while True:
     # Single answer for single question
     question_answer = "room_name"  # Single string answer
     movement_action = "north"  # or "east", "south", "west", "stay"
-    
+
     observations, reward, done, truncated, info = env.step((question_answer, movement_action))
-    
+
     if done:
         break
 ```
@@ -60,16 +65,19 @@ while True:
 ## Periodic Behavior
 
 ### Questions
+
 - Always exactly 100 predefined questions
 - One question per step
 - Questions cycle if episode length > 100
 
 ### Inner Walls
+
 - Selected walls follow variable-period on/off patterns
 - Each wall assigned a random pattern from the available set
 - Patterns cycle based on their individual lengths
 
 ### Object Movement
+
 - **Static objects**: Never move
 - **Moving objects**: Follow predetermined direction preferences
 - **Agent**: Controlled by actions

@@ -4,19 +4,14 @@
 [![PyPI
 version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
-<img src="figures/room-layout-xl.png" alt="" style="width: 50%;"/><img src="figures/room-layout-kg-xl.png" alt="" style="width: 50%;"/>
-
-![alt text](figures/dash-graph.png)
 At the moment, there are three versions of the Room environments.
-
-[Training agents for these environments are in a separate
-repo](https://github.com/humemai/humemai).
 
 ## README for each version
 
 - [RoomEnv-v0](./README-v0.md)
 - [RoomEnv-v1](./README-v1.md)
 - [RoomEnv-v2](./README-v2.md)
+- [RoomEnv-v3](./README-v3.md)
 
 ## List of academic papers that use the Rooms environments
 

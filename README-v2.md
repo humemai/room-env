@@ -2,10 +2,13 @@
 
 [![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/pdf/2408.05861)
 
+<p align="center">
+  <img src="figures/room-layout-xl.png"  alt="layout" width="49%">
+  <img src="figures/v2-dash-graph.png" alt="graph" width="49%">
+</p>
+
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. See the paper for more information.
-
-<img src="figures/room-layout-xl.png" alt="" style="width: 50%;"/><img src="figures/room-layout-kg-xl.png" alt="" style="width: 50%;"/>
 
 Check out the leaderboard
 [https://paperswithcode.com/sota/roomenv-v2-on-roomenv-v2](https://paperswithcode.com/sota/roomenv-v2-on-roomenv-v2)

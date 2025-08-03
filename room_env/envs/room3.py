@@ -388,14 +388,12 @@ class RoomEnv3(gym.Env):
 
             plt.grid(True, alpha=0.3)
 
-            plt.title(f"Room Environment v3 - Step {self.current_step}")
+            plt.title(f"Bird Eye View - Step {self.current_step}")
 
             # Save figure
             if save_fig_dir is not None:
                 os.makedirs(save_fig_dir, exist_ok=True)
-                filename = (
-                    f"room_env_v3_step_{str(self.current_step).zfill(3)}.{image_format}"
-                )
+                filename = f"bird-eye-view_step_{str(self.current_step).zfill(3)}.{image_format}"
                 plt.savefig(
                     os.path.join(save_fig_dir, filename), dpi=150, bbox_inches="tight"
                 )
@@ -552,7 +550,7 @@ class RoomEnv3(gym.Env):
         )
 
         plt.title(
-            f"Room Environment v3 Graph - Step {self.current_step}",
+            f"Graph View - Step {self.current_step}",
             fontsize=16,
             fontweight="bold",
         )
@@ -562,7 +560,9 @@ class RoomEnv3(gym.Env):
         # Save figure
         if save_fig_dir is not None:
             os.makedirs(save_fig_dir, exist_ok=True)
-            filename = f"room_env_v3_graph_step_{str(self.current_step).zfill(3)}.{image_format}"
+            filename = (
+                f"graph-view_step_{str(self.current_step).zfill(3)}.{image_format}"
+            )
             plt.savefig(
                 os.path.join(save_fig_dir, filename), dpi=150, bbox_inches="tight"
             )
