@@ -1,0 +1,1303 @@
+{
+    "grid_length": 7,
+    "room_names": [
+        "living",
+        "kitchen",
+        "bedroom",
+        "bathroom",
+        "office",
+        "den",
+        "study",
+        "garage",
+        "basement",
+        "attic",
+        "dining",
+        "family",
+        "guest",
+        "master",
+        "laundry",
+        "pantry",
+        "closet",
+        "foyer",
+        "hallway",
+        "porch",
+        "deck",
+        "patio",
+        "balcony",
+        "sunroom",
+        "library",
+        "nursery",
+        "playroom",
+        "gameroom",
+        "studio",
+        "workshop",
+        "gym",
+        "spa",
+        "sauna",
+        "cellar",
+        "storage",
+        "utility",
+        "mudroom",
+        "powder",
+        "wardrobe",
+        "loft",
+        "cabin",
+        "lodge",
+        "cottage",
+        "suite",
+        "parlor",
+        "lounge",
+        "bar",
+        "cafe",
+        "nook"
+    ],
+    "room_positions": {
+        "living": [
+            0,
+            0
+        ],
+        "kitchen": [
+            0,
+            1
+        ],
+        "bedroom": [
+            0,
+            2
+        ],
+        "bathroom": [
+            0,
+            3
+        ],
+        "office": [
+            0,
+            4
+        ],
+        "den": [
+            0,
+            5
+        ],
+        "study": [
+            0,
+            6
+        ],
+        "garage": [
+            1,
+            0
+        ],
+        "basement": [
+            1,
+            1
+        ],
+        "attic": [
+            1,
+            2
+        ],
+        "dining": [
+            1,
+            3
+        ],
+        "family": [
+            1,
+            4
+        ],
+        "guest": [
+            1,
+            5
+        ],
+        "master": [
+            1,
+            6
+        ],
+        "laundry": [
+            2,
+            0
+        ],
+        "pantry": [
+            2,
+            1
+        ],
+        "closet": [
+            2,
+            2
+        ],
+        "foyer": [
+            2,
+            3
+        ],
+        "hallway": [
+            2,
+            4
+        ],
+        "porch": [
+            2,
+            5
+        ],
+        "deck": [
+            2,
+            6
+        ],
+        "patio": [
+            3,
+            0
+        ],
+        "balcony": [
+            3,
+            1
+        ],
+        "sunroom": [
+            3,
+            2
+        ],
+        "library": [
+            3,
+            3
+        ],
+        "nursery": [
+            3,
+            4
+        ],
+        "playroom": [
+            3,
+            5
+        ],
+        "gameroom": [
+            3,
+            6
+        ],
+        "studio": [
+            4,
+            0
+        ],
+        "workshop": [
+            4,
+            1
+        ],
+        "gym": [
+            4,
+            2
+        ],
+        "spa": [
+            4,
+            3
+        ],
+        "sauna": [
+            4,
+            4
+        ],
+        "cellar": [
+            4,
+            5
+        ],
+        "storage": [
+            4,
+            6
+        ],
+        "utility": [
+            5,
+            0
+        ],
+        "mudroom": [
+            5,
+            1
+        ],
+        "powder": [
+            5,
+            2
+        ],
+        "wardrobe": [
+            5,
+            3
+        ],
+        "loft": [
+            5,
+            4
+        ],
+        "cabin": [
+            5,
+            5
+        ],
+        "lodge": [
+            5,
+            6
+        ],
+        "cottage": [
+            6,
+            0
+        ],
+        "suite": [
+            6,
+            1
+        ],
+        "parlor": [
+            6,
+            2
+        ],
+        "lounge": [
+            6,
+            3
+        ],
+        "bar": [
+            6,
+            4
+        ],
+        "cafe": [
+            6,
+            5
+        ],
+        "nook": [
+            6,
+            6
+        ]
+    },
+    "room_connections": {
+        "living": {
+            "north": "wall",
+            "east": "kitchen",
+            "south": "garage",
+            "west": "wall"
+        },
+        "kitchen": {
+            "north": "wall",
+            "east": "bedroom",
+            "south": "basement",
+            "west": "living"
+        },
+        "bedroom": {
+            "north": "wall",
+            "east": "bathroom",
+            "south": "attic",
+            "west": "kitchen"
+        },
+        "bathroom": {
+            "north": "wall",
+            "east": "office",
+            "south": "dining",
+            "west": "bedroom"
+        },
+        "office": {
+            "north": "wall",
+            "east": "den",
+            "south": "family",
+            "west": "bathroom"
+        },
+        "den": {
+            "north": "wall",
+            "east": "study",
+            "south": "guest",
+            "west": "office"
+        },
+        "study": {
+            "north": "wall",
+            "east": "wall",
+            "south": "master",
+            "west": "den"
+        },
+        "garage": {
+            "north": "living",
+            "east": "basement",
+            "south": "laundry",
+            "west": "wall"
+        },
+        "basement": {
+            "north": "kitchen",
+            "east": "attic",
+            "south": "pantry",
+            "west": "garage"
+        },
+        "attic": {
+            "north": "bedroom",
+            "east": "dining",
+            "south": "closet",
+            "west": "basement"
+        },
+        "dining": {
+            "north": "bathroom",
+            "east": "family",
+            "south": "foyer",
+            "west": "attic"
+        },
+        "family": {
+            "north": "office",
+            "east": "guest",
+            "south": "hallway",
+            "west": "dining"
+        },
+        "guest": {
+            "north": "den",
+            "east": "master",
+            "south": "porch",
+            "west": "family"
+        },
+        "master": {
+            "north": "study",
+            "east": "wall",
+            "south": "deck",
+            "west": "guest"
+        },
+        "laundry": {
+            "north": "garage",
+            "east": "pantry",
+            "south": "patio",
+            "west": "wall"
+        },
+        "pantry": {
+            "north": "basement",
+            "east": "closet",
+            "south": "balcony",
+            "west": "laundry"
+        },
+        "closet": {
+            "north": "attic",
+            "east": "foyer",
+            "south": "sunroom",
+            "west": "pantry"
+        },
+        "foyer": {
+            "north": "dining",
+            "east": "hallway",
+            "south": "library",
+            "west": "closet"
+        },
+        "hallway": {
+            "north": "family",
+            "east": "porch",
+            "south": "nursery",
+            "west": "foyer"
+        },
+        "porch": {
+            "north": "guest",
+            "east": "deck",
+            "south": "playroom",
+            "west": "hallway"
+        },
+        "deck": {
+            "north": "master",
+            "east": "wall",
+            "south": "gameroom",
+            "west": "porch"
+        },
+        "patio": {
+            "north": "laundry",
+            "east": "balcony",
+            "south": "studio",
+            "west": "wall"
+        },
+        "balcony": {
+            "north": "pantry",
+            "east": "sunroom",
+            "south": "workshop",
+            "west": "patio"
+        },
+        "sunroom": {
+            "north": "closet",
+            "east": "library",
+            "south": "gym",
+            "west": "balcony"
+        },
+        "library": {
+            "north": "foyer",
+            "east": "nursery",
+            "south": "spa",
+            "west": "sunroom"
+        },
+        "nursery": {
+            "north": "hallway",
+            "east": "playroom",
+            "south": "sauna",
+            "west": "library"
+        },
+        "playroom": {
+            "north": "porch",
+            "east": "gameroom",
+            "south": "cellar",
+            "west": "nursery"
+        },
+        "gameroom": {
+            "north": "deck",
+            "east": "wall",
+            "south": "storage",
+            "west": "playroom"
+        },
+        "studio": {
+            "north": "patio",
+            "east": "workshop",
+            "south": "utility",
+            "west": "wall"
+        },
+        "workshop": {
+            "north": "balcony",
+            "east": "gym",
+            "south": "mudroom",
+            "west": "studio"
+        },
+        "gym": {
+            "north": "sunroom",
+            "east": "spa",
+            "south": "powder",
+            "west": "workshop"
+        },
+        "spa": {
+            "north": "library",
+            "east": "sauna",
+            "south": "wardrobe",
+            "west": "gym"
+        },
+        "sauna": {
+            "north": "nursery",
+            "east": "cellar",
+            "south": "loft",
+            "west": "spa"
+        },
+        "cellar": {
+            "north": "playroom",
+            "east": "storage",
+            "south": "cabin",
+            "west": "sauna"
+        },
+        "storage": {
+            "north": "gameroom",
+            "east": "wall",
+            "south": "lodge",
+            "west": "cellar"
+        },
+        "utility": {
+            "north": "studio",
+            "east": "mudroom",
+            "south": "cottage",
+            "west": "wall"
+        },
+        "mudroom": {
+            "north": "workshop",
+            "east": "powder",
+            "south": "suite",
+            "west": "utility"
+        },
+        "powder": {
+            "north": "gym",
+            "east": "wardrobe",
+            "south": "parlor",
+            "west": "mudroom"
+        },
+        "wardrobe": {
+            "north": "spa",
+            "east": "loft",
+            "south": "lounge",
+            "west": "powder"
+        },
+        "loft": {
+            "north": "sauna",
+            "east": "cabin",
+            "south": "bar",
+            "west": "wardrobe"
+        },
+        "cabin": {
+            "north": "cellar",
+            "east": "lodge",
+            "south": "cafe",
+            "west": "loft"
+        },
+        "lodge": {
+            "north": "storage",
+            "east": "wall",
+            "south": "nook",
+            "west": "cabin"
+        },
+        "cottage": {
+            "north": "utility",
+            "east": "suite",
+            "south": "wall",
+            "west": "wall"
+        },
+        "suite": {
+            "north": "mudroom",
+            "east": "parlor",
+            "south": "wall",
+            "west": "cottage"
+        },
+        "parlor": {
+            "north": "powder",
+            "east": "lounge",
+            "south": "wall",
+            "west": "suite"
+        },
+        "lounge": {
+            "north": "wardrobe",
+            "east": "bar",
+            "south": "wall",
+            "west": "parlor"
+        },
+        "bar": {
+            "north": "loft",
+            "east": "cafe",
+            "south": "wall",
+            "west": "lounge"
+        },
+        "cafe": {
+            "north": "cabin",
+            "east": "nook",
+            "south": "wall",
+            "west": "bar"
+        },
+        "nook": {
+            "north": "lodge",
+            "east": "wall",
+            "south": "wall",
+            "west": "cafe"
+        }
+    },
+    "static_names": [
+        "chair",
+        "table",
+        "bed",
+        "dresser",
+        "bookshelf",
+        "sofa",
+        "desk",
+        "wardrobe",
+        "nightstand",
+        "coffeetable",
+        "diningtable",
+        "armchair",
+        "cabinet",
+        "floorlamp",
+        "ceilingfan",
+        "window",
+        "door",
+        "wall"
+    ],
+    "moving_names": [
+        "john",
+        "mary",
+        "david",
+        "sarah",
+        "michael",
+        "lisa",
+        "robert",
+        "jennifer",
+        "william",
+        "amanda",
+        "james",
+        "jessica",
+        "christopher",
+        "ashley",
+        "daniel",
+        "emily",
+        "matthew",
+        "stephanie"
+    ],
+    "static_locations": {
+        "chair": "basement",
+        "table": "wardrobe",
+        "bed": "office",
+        "dresser": "hallway",
+        "bookshelf": "attic",
+        "sofa": "mudroom",
+        "desk": "cellar",
+        "wardrobe": "powder",
+        "nightstand": "workshop",
+        "coffeetable": "closet",
+        "diningtable": "garage",
+        "armchair": "suite",
+        "cabinet": "kitchen",
+        "floorlamp": "storage",
+        "ceilingfan": "lodge",
+        "window": "living",
+        "door": "lounge",
+        "wall": "laundry"
+    },
+    "moving_locations": {
+        "john": "loft",
+        "mary": "nook",
+        "david": "bedroom",
+        "sarah": "sunroom",
+        "michael": "bar",
+        "lisa": "patio",
+        "robert": "gameroom",
+        "jennifer": "sauna",
+        "william": "dining",
+        "amanda": "utility",
+        "james": "parlor",
+        "jessica": "cafe",
+        "christopher": "playroom",
+        "ashley": "nursery",
+        "daniel": "family",
+        "emily": "pantry",
+        "matthew": "deck",
+        "stephanie": "spa"
+    },
+    "movement_preferences": {
+        "john": [
+            "west",
+            "north",
+            "south",
+            "east"
+        ],
+        "mary": [
+            "east",
+            "west",
+            "north",
+            "south"
+        ],
+        "david": [
+            "south",
+            "west",
+            "east",
+            "north"
+        ],
+        "sarah": [
+            "east",
+            "west",
+            "south",
+            "north"
+        ],
+        "michael": [
+            "south",
+            "north",
+            "east",
+            "west"
+        ],
+        "lisa": [
+            "west",
+            "north",
+            "south",
+            "east"
+        ],
+        "robert": [
+            "west",
+            "east",
+            "north",
+            "south"
+        ],
+        "jennifer": [
+            "south",
+            "east",
+            "west",
+            "north"
+        ],
+        "william": [
+            "north",
+            "east",
+            "west",
+            "south"
+        ],
+        "amanda": [
+            "north",
+            "south",
+            "west",
+            "east"
+        ],
+        "james": [
+            "north",
+            "east",
+            "south",
+            "west"
+        ],
+        "jessica": [
+            "south",
+            "west",
+            "east",
+            "north"
+        ],
+        "christopher": [
+            "east",
+            "north",
+            "south",
+            "west"
+        ],
+        "ashley": [
+            "west",
+            "east",
+            "north",
+            "south"
+        ],
+        "daniel": [
+            "north",
+            "west",
+            "south",
+            "east"
+        ],
+        "emily": [
+            "east",
+            "north",
+            "south",
+            "west"
+        ],
+        "matthew": [
+            "west",
+            "south",
+            "east",
+            "north"
+        ],
+        "stephanie": [
+            "west",
+            "south",
+            "north",
+            "east"
+        ]
+    },
+    "agent_location": "library",
+    "selected_walls": [
+        [
+            "kitchen",
+            "basement",
+            "horizontal"
+        ],
+        [
+            "playroom",
+            "cellar",
+            "horizontal"
+        ],
+        [
+            "cellar",
+            "storage",
+            "vertical"
+        ],
+        [
+            "mudroom",
+            "powder",
+            "vertical"
+        ],
+        [
+            "spa",
+            "wardrobe",
+            "horizontal"
+        ],
+        [
+            "laundry",
+            "pantry",
+            "vertical"
+        ],
+        [
+            "spa",
+            "sauna",
+            "vertical"
+        ],
+        [
+            "den",
+            "study",
+            "vertical"
+        ],
+        [
+            "lounge",
+            "bar",
+            "vertical"
+        ],
+        [
+            "basement",
+            "attic",
+            "vertical"
+        ],
+        [
+            "nursery",
+            "playroom",
+            "vertical"
+        ],
+        [
+            "powder",
+            "parlor",
+            "horizontal"
+        ],
+        [
+            "bar",
+            "cafe",
+            "vertical"
+        ],
+        [
+            "living",
+            "garage",
+            "horizontal"
+        ],
+        [
+            "foyer",
+            "hallway",
+            "vertical"
+        ],
+        [
+            "cottage",
+            "suite",
+            "vertical"
+        ],
+        [
+            "hallway",
+            "nursery",
+            "horizontal"
+        ],
+        [
+            "cafe",
+            "nook",
+            "vertical"
+        ],
+        [
+            "gym",
+            "powder",
+            "horizontal"
+        ],
+        [
+            "studio",
+            "workshop",
+            "vertical"
+        ],
+        [
+            "attic",
+            "closet",
+            "horizontal"
+        ],
+        [
+            "wardrobe",
+            "lounge",
+            "horizontal"
+        ],
+        [
+            "utility",
+            "mudroom",
+            "vertical"
+        ],
+        [
+            "bathroom",
+            "office",
+            "vertical"
+        ],
+        [
+            "bedroom",
+            "bathroom",
+            "vertical"
+        ],
+        [
+            "pantry",
+            "balcony",
+            "horizontal"
+        ],
+        [
+            "storage",
+            "lodge",
+            "horizontal"
+        ],
+        [
+            "garage",
+            "basement",
+            "vertical"
+        ],
+        [
+            "closet",
+            "foyer",
+            "vertical"
+        ],
+        [
+            "hallway",
+            "porch",
+            "vertical"
+        ],
+        [
+            "porch",
+            "playroom",
+            "horizontal"
+        ],
+        [
+            "balcony",
+            "sunroom",
+            "vertical"
+        ],
+        [
+            "family",
+            "guest",
+            "vertical"
+        ],
+        [
+            "porch",
+            "deck",
+            "vertical"
+        ],
+        [
+            "sauna",
+            "cellar",
+            "vertical"
+        ],
+        [
+            "sunroom",
+            "gym",
+            "horizontal"
+        ]
+    ],
+    "wall_configs": {
+        "kitchen|basement|horizontal": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "playroom|cellar|horizontal": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "cellar|storage|vertical": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+        ],
+        "mudroom|powder|vertical": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "spa|wardrobe|horizontal": [
+            1,
+            0
+        ],
+        "laundry|pantry|vertical": [
+            1,
+            1,
+            0,
+            0
+        ],
+        "spa|sauna|vertical": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "den|study|vertical": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+        ],
+        "lounge|bar|vertical": [
+            1,
+            0
+        ],
+        "basement|attic|vertical": [
+            1,
+            0
+        ],
+        "nursery|playroom|vertical": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "powder|parlor|horizontal": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+        ],
+        "bar|cafe|vertical": [
+            1,
+            0
+        ],
+        "living|garage|horizontal": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "foyer|hallway|vertical": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "cottage|suite|vertical": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "hallway|nursery|horizontal": [
+            1,
+            1,
+            0,
+            0
+        ],
+        "cafe|nook|vertical": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "gym|powder|horizontal": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "studio|workshop|vertical": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+        ],
+        "attic|closet|horizontal": [
+            1,
+            1,
+            1,
+            0,
+            1
+        ],
+        "wardrobe|lounge|horizontal": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "utility|mudroom|vertical": [
+            1,
+            0,
+            0
+        ],
+        "bathroom|office|vertical": [
+            1,
+            1,
+            0,
+            0
+        ],
+        "bedroom|bathroom|vertical": [
+            1,
+            0,
+            0
+        ],
+        "pantry|balcony|horizontal": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "storage|lodge|horizontal": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "garage|basement|vertical": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+        ],
+        "closet|foyer|vertical": [
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "hallway|porch|vertical": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+        ],
+        "porch|playroom|horizontal": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "balcony|sunroom|vertical": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1
+        ],
+        "family|guest|vertical": [
+            1,
+            0,
+            0
+        ],
+        "porch|deck|vertical": [
+            1,
+            1,
+            1,
+            0,
+            1
+        ],
+        "sauna|cellar|vertical": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+        ],
+        "sunroom|gym|horizontal": [
+            1,
+            1,
+            1,
+            0,
+            1
+        ]
+    },
+    "question_objects": [
+        "jennifer",
+        "coffeetable",
+        "bed",
+        "diningtable",
+        "james",
+        "daniel",
+        "amanda",
+        "matthew",
+        "ceilingfan",
+        "emily",
+        "james",
+        "ceilingfan",
+        "emily",
+        "table",
+        "jennifer",
+        "david",
+        "amanda",
+        "dresser",
+        "mary",
+        "nightstand",
+        "floorlamp",
+        "dresser",
+        "mary",
+        "bookshelf",
+        "bookshelf",
+        "mary",
+        "mary",
+        "diningtable",
+        "william",
+        "door",
+        "nightstand",
+        "chair",
+        "stephanie",
+        "bed",
+        "floorlamp",
+        "jessica",
+        "diningtable",
+        "daniel",
+        "bed",
+        "robert",
+        "cabinet",
+        "michael",
+        "desk",
+        "floorlamp",
+        "amanda",
+        "cabinet",
+        "ashley",
+        "desk",
+        "robert",
+        "john",
+        "daniel",
+        "ashley",
+        "table",
+        "david",
+        "jennifer",
+        "john",
+        "table",
+        "diningtable",
+        "cabinet",
+        "david",
+        "nightstand",
+        "sarah",
+        "amanda",
+        "floorlamp",
+        "wall",
+        "desk",
+        "robert",
+        "stephanie",
+        "michael",
+        "matthew",
+        "ashley",
+        "matthew",
+        "window",
+        "bookshelf",
+        "bed",
+        "sofa",
+        "nightstand",
+        "diningtable",
+        "diningtable",
+        "matthew",
+        "floorlamp",
+        "wall",
+        "sarah",
+        "daniel",
+        "door",
+        "lisa",
+        "sarah",
+        "sarah",
+        "wardrobe",
+        "john",
+        "window",
+        "ashley",
+        "nightstand",
+        "stephanie",
+        "desk",
+        "david",
+        "bed",
+        "william",
+        "bookshelf",
+        "robert"
+    ],
+    "seed": 1
+}
