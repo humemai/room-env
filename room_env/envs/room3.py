@@ -6,6 +6,7 @@ import random
 import gymnasium as gym
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 from rdflib import Graph, URIRef
 
 from ..utils import is_running_notebook, rdf_to_list
@@ -247,7 +248,8 @@ class RoomEnv3(gym.Env):
             cell_text_size: Text size in cells
             save_fig_dir: Directory to save figures
             image_format: Format to save images in
-            graph_layout: Layout for graph rendering ('spring', 'circular', 'kamada_kawai')
+            graph_layout: Layout for graph rendering
+                ('spring', 'circular', 'kamada_kawai')
         """
         if render_mode == "console":
             print(f"Step {self.current_step}:")
@@ -393,18 +395,19 @@ class RoomEnv3(gym.Env):
             # Save figure
             if save_fig_dir is not None:
                 os.makedirs(save_fig_dir, exist_ok=True)
-                filename = f"bird-eye-view_step_{str(self.current_step).zfill(3)}.{image_format}"
+                filename = (
+                    f"bird-eye-view_step_{self.current_step:03d}.{image_format}"
+                )
                 plt.savefig(
                     os.path.join(save_fig_dir, filename), dpi=150, bbox_inches="tight"
                 )
 
             plt.show()
 
-    def separate_overlapping_nodes(self, pos, min_distance=0.1, max_iterations=50):
-        """Separate overlapping nodes by applying small adjustments to their positions."""
-        import random
-
-        import numpy as np
+    def separate_overlapping_nodes(
+        self, pos, min_distance=0.25, max_iterations=150
+    ) -> dict:
+        """Separate overlapping nodes by nudging their positions apart."""
 
         nodes = list(pos.keys())
         adjusted_pos = pos.copy()
@@ -425,7 +428,7 @@ class RoomEnv3(gym.Env):
 
                         # Calculate separation vector
                         if distance == 0:
-                            # If nodes are exactly on top of each other, use random direction
+                            # If nodes perfectly overlap, pick a random direction
                             angle = random.uniform(0, 2 * np.pi)
                             separation = (
                                 np.array([np.cos(angle), np.sin(angle)]) * min_distance
@@ -463,8 +466,8 @@ class RoomEnv3(gym.Env):
         for subject, predicate, obj in triples:
             G.add_edge(subject, obj, label=predicate)
 
-        # Create figure
-        plt.figure(figsize=figsize)
+        # Create figure/axes so we can control padding precisely
+        fig, ax = plt.subplots(figsize=figsize)
 
         # Define node colors based on type
         node_colors = []
@@ -494,17 +497,17 @@ class RoomEnv3(gym.Env):
 
         # Choose layout with better spacing
         if layout == "spring":
-            pos = nx.spring_layout(G)
+            pos = nx.spring_layout(G, k=0.45, iterations=200)
         elif layout == "circular":
-            pos = nx.circular_layout(G)
+            pos = nx.circular_layout(G, scale=1.25)
         elif layout == "kamada_kawai":
-            pos = nx.kamada_kawai_layout(G)
+            pos = nx.kamada_kawai_layout(G, scale=1.6)
         else:
             raise ValueError(f"Unknown layout: {layout}.")
 
         # Separate overlapping nodes
         pos = self.separate_overlapping_nodes(
-            pos, min_distance=0.15, max_iterations=100
+            pos, min_distance=0.25, max_iterations=150
         )
 
         # Draw nodes with larger size for better visibility
@@ -512,15 +515,21 @@ class RoomEnv3(gym.Env):
             G,
             pos,
             node_color=node_colors,
-            node_size=3000,
+            node_size=2600,
             alpha=0.9,
             edgecolors="black",
             linewidths=2,
+            ax=ax,
         )
 
         # Draw node labels with consistent styling
         nx.draw_networkx_labels(
-            G, pos, font_size=12, font_weight="bold", font_color="black"
+            G,
+            pos,
+            font_size=12,
+            font_weight="bold",
+            font_color="black",
+            ax=ax,
         )
 
         # Draw edges with better spacing
@@ -534,6 +543,7 @@ class RoomEnv3(gym.Env):
             alpha=0.7,
             width=2,
             connectionstyle="arc3,rad=0.1",  # Slight curve to avoid overlap
+            ax=ax,
         )
 
         # Draw edge labels with consistent black text and same font size
@@ -547,15 +557,29 @@ class RoomEnv3(gym.Env):
             font_weight="bold",
             alpha=1.0,
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", alpha=0.8),
+            ax=ax,
         )
 
-        plt.title(
+        ax.set_title(
             f"Knowledge Graph View - Step {self.current_step}",
             fontsize=16,
             fontweight="bold",
         )
-        plt.axis("off")
-        plt.tight_layout()
+        ax.axis("off")
+
+        if pos:
+            xs = np.fromiter((coord[0] for coord in pos.values()), dtype=float)
+            ys = np.fromiter((coord[1] for coord in pos.values()), dtype=float)
+            if xs.size and ys.size:
+                x_span = xs.max() - xs.min()
+                y_span = ys.max() - ys.min()
+                pad_x = max(x_span * 0.15, 0.2)
+                pad_y = max(y_span * 0.15, 0.2)
+                ax.set_xlim(xs.min() - pad_x, xs.max() + pad_x)
+                ax.set_ylim(ys.min() - pad_y, ys.max() + pad_y)
+
+        fig.subplots_adjust(left=0.02, right=0.98, bottom=0.02, top=0.94)
+        fig.tight_layout()
 
         # Save figure
         if save_fig_dir is not None:
@@ -563,7 +587,7 @@ class RoomEnv3(gym.Env):
             filename = (
                 f"graph-view_step_{str(self.current_step).zfill(3)}.{image_format}"
             )
-            plt.savefig(
+            fig.savefig(
                 os.path.join(save_fig_dir, filename), dpi=150, bbox_inches="tight"
             )
 

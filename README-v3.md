@@ -1,8 +1,8 @@
 # Room Environment v3
 
 <p align="center">
-  <img src="figures/room_env_v3_step_000.png"  alt="layout" width="49%">
-  <img src="figures/room_env_v3_graph_step_000.png" alt="graph" width="49%">
+  <img src="figures/bird-eye-view_step_000.png"  alt="layout" width="49%">
+  <img src="figures/graph-view_step_000.png" alt="graph" width="49%">
 </p>
 
 A simplified version of the Room Environment with deterministic object movement, periodic inner walls, and fixed question count.
