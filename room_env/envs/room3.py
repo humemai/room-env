@@ -482,16 +482,16 @@ class RoomEnv3(gym.Env):
         moving_color = "#90EE90"  # Light Green
 
         for node in G.nodes():
-            if node in self.room_names:
-                node_colors.append(room_color)
-            elif node in self.static_names:
-                node_colors.append(static_color)
-            elif node in self.moving_names:
-                node_colors.append(moving_color)
-            elif node == "agent":
+            if node == "agent":
                 node_colors.append(color_mapping["agent"])
             elif node == "wall":
                 node_colors.append(color_mapping["wall"])
+            elif node in self.room_names:
+                node_colors.append(room_color)
+            elif node in self.moving_names:
+                node_colors.append(moving_color)
+            elif node in self.static_names:
+                node_colors.append(static_color)
             else:
                 node_colors.append("#FFFFFF")  # White for unknown
 
