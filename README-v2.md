@@ -78,7 +78,7 @@ terminates_at = env.unwrapped.terminates_at
 ```
 
 Take a look at
-[https://github.com/humemai/agent-room-env-v2-gnn](https://github.com/humemai/agent-room-env-v2-gnn)
+[https://github.com/humemai/agent-room-env-v2](https://github.com/humemai/agent-room-env-v2)
 for an actual interaction with this environment to learn a policy.
 
 ## [Cite our paper](https://arxiv.org/abs/2408.05861)
