@@ -1,11 +1,14 @@
 # Room Environment v3
 
+This environment is also known as the RoomKG benchmark. The project page is [A
+Neurosymbolic Benchmark for Temporal Knowledge-Graph Memory in Partially Observable
+Environments](https://humem.ai/projects/roomkg-baselines).
+
 <p align="center">
   <img src="figures/bird-eye-view_step_000.png"  alt="layout" width="49%">
   <img src="figures/graph-view_step_000.png" alt="graph" width="49%">
 </p>
 
-A simplified version of the Room Environment with deterministic object movement, periodic inner walls, and fixed question count.
 
 ## Key Features
 

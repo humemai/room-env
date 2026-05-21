@@ -1,25 +1,35 @@
-# The Room environments (compatible with gymnasium)
+# The Room environments
 
 [![DOI](https://zenodo.org/badge/614376641.svg)](https://zenodo.org/doi/10.5281/zenodo.10876436)
 [![PyPI
 version](https://badge.fury.io/py/room-env.svg)](https://badge.fury.io/py/room-env)
 
-At the moment, there are three versions of the Room environments.
+The Room environments are Gymnasium-compatible partially observable environments
+where an agent observes object-location events and answers questions about the
+world state.
 
-## README for each version
+<p align="center">
+	<img src="figures/bird-eye-view_step_000.png" alt="Bird's-eye view of the Room Environment" width="40%">
+	<img src="figures/graph-view_step_000.png" alt="Graph view of the Room Environment" width="40%">
+</p>
+
+At the moment, there are three maintained versions of the Room environments.
+
+## Overview
+
+- [RoomEnv-v0](./README-v0.md): the original Room environment released with the Human-Like Memory Systems project.
+- [RoomEnv-v1](./README-v1.md): the Explicit Memory version with a richer configuration and DES-based setup.
+- [RoomEnv-v3](./README-v3.md): the RoomKG benchmark with deterministic object movement, periodic inner walls, and fixed question count.
+
+## Environment versions
 
 - [RoomEnv-v0](./README-v0.md)
 - [RoomEnv-v1](./README-v1.md)
-- [RoomEnv-v2](./README-v2.md)
-- [RoomEnv-v3](./README-v3.md)
+- [RoomEnv-v3 (also known as the RoomKG benchmark)](./README-v3.md)
 
-## List of academic papers that use the Rooms environments
+## Project pages for work that uses the Room environments
 
-- ["A Machine With Human-Like Memory Systems"](https://arxiv.org/abs/2204.01611)
-- ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://arxiv.org/abs/2212.02098)
-- ["Temporal Knowledge-Graph Memory in a Partially Observable Environment"](https://arxiv.org/abs/2408.05861)
-
-## pdoc documentation
-
-Click on [this link](https://humemai.github.io/room-env) to see the HTML rendered
-docstrings
+- ["A Machine With Human-Like Memory Systems"](https://humem.ai/projects/human-like-memory-systems)
+- ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://humem.ai/projects/explicit-memory)
+- ["A Neurosymbolic Benchmark for Temporal Knowledge-Graph Memory in Partially Observable Environments"](https://humem.ai/projects/roomkg-baselines)
+- ["Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial Observability "](https://humem.ai/projects/kg-memory-transfer)

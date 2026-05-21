@@ -1,19 +1,18 @@
 # The Room environment - v0
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/abs/2204.01611)
+This environment is part of [A Machine With Human-Like Memory
+Systems](https://humem.ai/projects/human-like-memory-systems). Check that project page
+for the paper and more context.
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. The best strategy for this environment is to have both episodic and semantic
-memory systems. See the paper for more information.
-
-Check out the leaderboard
-[https://paperswithcode.com/sota/roomenv-v0-on-roomenv-v0](https://paperswithcode.com/sota/roomenv-v0-on-roomenv-v0)
+memory systems.
 
 ## Prerequisites
 
-1. A unix or unix-like x86 machine
 1. python 3.10 or higher.
-1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly recommended so that you don't mess up with the system python.
+1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly
+   recommended so that you don't mess up with the system python.
 1. This env is added to the PyPI server. Just run: `pip install room-env`
 
 ## Data collection
@@ -109,36 +108,6 @@ history of them in the memory systems.
 
 Take a look at [this repo](https://github.com/humemai/humemai) for an actual
 interaction with this environment to learn a policy.
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn,
-inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-1. Run `make test && make style && make quality` in the root repo directory,
-   to ensure code quality.
-1. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-1. Push to the Branch (`git push origin feature/AmazingFeature`)
-1. Open a Pull Request
-
-## [Cite our paper](https://arxiv.org/abs/2204.01611)
-
-```bibtex
-@misc{https://doi.org/10.48550/arxiv.2204.01611,
-  doi = {10.48550/ARXIV.2204.01611},
-  url = {https://arxiv.org/abs/2204.01611},
-  author = {Kim, Taewoon and Cochez, Michael and Francois-Lavet, Vincent and Neerincx,
-  Mark and Vossen, Piek},
-  keywords = {Artificial Intelligence (cs.AI), FOS: Computer and information sciences,
-  FOS: Computer and information sciences},
-  title = {A Machine With Human-Like Memory Systems},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {Creative Commons Attribution 4.0 International}
-}
-```
 
 ## Authors
 

@@ -1,19 +1,18 @@
 # The Room environment - v1
 
-[![DOI](https://img.shields.io/badge/Paper-PDF-red.svg)](https://arxiv.org/abs/2212.02098)
+This environment is part of [A Machine with Short-Term, Episodic, and Semantic Memory
+Systems](https://humem.ai/projects/explicit-memory). Check that project page for the
+paper and more context.
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
 environment. The best strategy for this environment is to have both episodic and semantic
-memory systems. See the paper for more information.
-
-Check out the leaderboard
-[https://paperswithcode.com/sota/roomenv-v1-on-roomenv-v1](https://paperswithcode.com/sota/roomenv-v1-on-roomenv-v1)
+memory systems.
 
 ## Prerequisites
 
-1. A unix or unix-like x86 machine
 1. python 3.10 or higher.
-1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly recommended so that you don't mess up with the system python.
+1. Running in a virtual environment (e.g., conda, virtualenv, etc.) is highly
+   recommended so that you don't mess up with the system python.
 1. This env is added to the PyPI server. Just run: `pip install room-env`
 
 ## RoomEnv-v1
@@ -100,35 +99,6 @@ with `debug=True` it'll print events (i.e., state changes) to the console.
                    'Tae': {'current_time': 4,
                            'object_location': {'current': 'desk',
                                                'previous': 'lap'}}}}
-```
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn,
-inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-1. Run `make test && make style && make quality` in the root repo directory,
-   to ensure code quality.
-1. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-1. Push to the Branch (`git push origin feature/AmazingFeature`)
-1. Open a Pull Request
-
-## [Cite our paper](https://arxiv.org/abs/2212.02098)
-
-```bibtex
-@article{Kim_Cochez_Francois-Lavet_Neerincx_Vossen_2023,
-  title={A Machine with Short-Term, Episodic, and Semantic Memory Systems}, volume={37},
-  url={https://ojs.aaai.org/index.php/AAAI/article/view/25075},
-  DOI={10.1609/aaai.v37i1.25075},
-  abstractNote={Inspired by the cognitive science theory of the explicit human memory systems, we have modeled an agent with short-term, episodic, and semantic memory systems, each of which is modeled with a knowledge graph. To evaluate this system and analyze the behavior of this agent, we designed and released our own reinforcement learning agent environment, “the Room”, where an agent has to learn how to encode, store, and retrieve memories to maximize its return by answering questions. We show that our deep Q-learning based agent successfully learns whether a short-term memory should be forgotten, or rather be stored in the episodic or semantic memory systems. Our experiments indicate that an agent with human-like memory systems can outperform an agent without this memory structure in the environment.},
-  number={1},
-  journal={Proceedings of the AAAI Conference on Artificial Intelligence}, author={Kim, Taewoon and Cochez, Michael and Francois-Lavet, Vincent and Neerincx, Mark and Vossen, Piek},
-  year={2023},
-  month={Jun.},
-  pages={48-56}
-}
 ```
 
 ## Authors
