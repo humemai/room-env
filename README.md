@@ -9,8 +9,8 @@ where an agent observes object-location events and answers questions about the
 world state.
 
 <p align="center">
-	<img src="figures/bird-eye-view_step_000.png" alt="Bird's-eye view of the Room Environment" width="40%">
-	<img src="figures/graph-view_step_000.png" alt="Graph view of the Room Environment" width="40%">
+	<img src="figures/bird-eye-view_step_000.png" alt="Bird's-eye view of the Room Environment" width="45%">
+	<img src="figures/graph-view_step_000.png" alt="Graph view of the Room Environment" width="45%">
 </p>
 
 At the moment, there are three maintained versions of the Room environments.
