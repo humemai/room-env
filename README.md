@@ -21,12 +21,6 @@ At the moment, there are three maintained versions of the Room environments.
 - [RoomEnv-v1](./README-v1.md): the Explicit Memory version with a richer configuration and DES-based setup.
 - [RoomEnv-v3](./README-v3.md): the RoomKG benchmark with deterministic object movement, periodic inner walls, and fixed question count.
 
-## Environment versions
-
-- [RoomEnv-v0](./README-v0.md)
-- [RoomEnv-v1](./README-v1.md)
-- [RoomEnv-v3 (also known as the RoomKG benchmark)](./README-v3.md)
-
 ## Project pages for work that uses the Room environments
 
 - ["A Machine With Human-Like Memory Systems"](https://humem.ai/projects/human-like-memory-systems)
