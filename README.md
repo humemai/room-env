@@ -23,7 +23,7 @@ At the moment, there are three maintained versions of the Room environments.
 
 ## Project pages for work that uses the Room environments
 
-- ["A Machine With Human-Like Memory Systems"](https://humem.ai/projects/human-like-memory-systems)
-- ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://humem.ai/projects/explicit-memory)
-- ["A Neurosymbolic Benchmark for Temporal Knowledge-Graph Memory in Partially Observable Environments"](https://humem.ai/projects/roomkg-baselines)
-- ["Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial Observability "](https://humem.ai/projects/kg-memory-transfer)
+- ["A Machine With Human-Like Memory Systems"](https://humem.ai/research/human-like-memory-systems)
+- ["A Machine with Short-Term, Episodic, and Semantic Memory Systems"](https://humem.ai/research/explicit-memory)
+- ["A Neurosymbolic Benchmark for Temporal Knowledge-Graph Memory in Partially Observable Environments"](https://humem.ai/research/roomkg-baselines)
+- ["Short-Term-to-Long-Term Memory Transfer for Knowledge Graphs under Partial Observability "](https://humem.ai/research/kg-memory-transfer)

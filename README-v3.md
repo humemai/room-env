@@ -2,7 +2,7 @@
 
 This environment is also known as the RoomKG benchmark. The project page is [A
 Neurosymbolic Benchmark for Temporal Knowledge-Graph Memory in Partially Observable
-Environments](https://humem.ai/projects/roomkg-baselines).
+Environments](https://humem.ai/research/roomkg-baselines).
 
 <p align="center">
   <img src="figures/bird-eye-view_step_000.png"  alt="layout" width="49%">

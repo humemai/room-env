@@ -1,7 +1,7 @@
 # The Room environment - v0
 
 This environment is part of [A Machine With Human-Like Memory
-Systems](https://humem.ai/projects/human-like-memory-systems). Check that project page
+Systems](https://humem.ai/research/human-like-memory-systems). Check that project page
 for the paper and more context.
 
 We have released a challenging [Gymnasium](https://www.gymlibrary.dev/) compatible
